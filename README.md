@@ -33,7 +33,7 @@ Those shortcomings can be meaningfully reduced, using persistent personalization
 ---
 ### Goals
 
-1) **Personalized, creative recipes:** ingest user profiles (likes, dislikes, allergens) and generate recipes for the active profile, optionally from the ingredients the user has at hand, including creative ingredient combinations and substitutions, each with estimated nutritional information.
+1) **Personalized, creative recipes:** ingest user profiles (likes, dislikes, allergens) and generate recipes for the active profile, optionally from the ingredients the user has at hand, including creative ingredient combinations and substitutions, each with estimated nutritional information. Users can swap any ingredient with one tap if it’s unavailable or disliked; Nibble suggests substitutes and updates quantities, nutrition and allergen checks accordingly.
 
 2) **Grounded answers:** base generated recipes on real recipes retrieved from online sources (RAG), and cite the sources used.
 

@@ -4,18 +4,6 @@
 
 ---
 
-## Team
-
-| Member | Role(s) |
-|---|---|
-| **Roșu Ioan-Luca** | Team Leader, Agent Tools (MCP Server) |
-| **Chelariu Răzvan-Dumitru** | Data Ingestion |
-| **Fazacaș Mihai-Tudor** | RAG |
-| **Ciocîia Marius Andrei** | Fine-Tuning, Toxicity / Hallucination Handling |
-| **Crețu Vlad-Cristian** | Evaluation |
-
----
-
 ## Functional Requirements
 
 The solution should:
@@ -31,7 +19,7 @@ The solution should:
 
 ## 4. Model Choice & Maximum Grade
 
-A fine-tuned SLM will be used ideally.
+A fine-tuned SLM will be used ideally, unless we decide we don't have time for it further down the line.
 
 ---
 
@@ -100,13 +88,13 @@ flowchart TD
 ## 7. Deliverables & Timeline
 
 ### Week 2 — Team Formation
-- [ ] Team finalized
+- [x] Team finalized
 
 ### Week 4 — RFC Submission
-- [ ] 1-page document containing:
-  - [ ] Overview
-  - [ ] Motivation
-  - [ ] Goals
+- [x] 1-page document containing:
+  - [x] Overview
+  - [x] Motivation
+  - [x] Goals
 
 ### Weeks 5–6 — Architecture Presentation *(labs)*
 - [ ] Dataset selection

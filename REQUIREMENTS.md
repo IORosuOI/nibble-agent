@@ -4,6 +4,37 @@
 
 ---
 
+## Deliverables & Timeline
+
+### Week 2 — Team Formation
+- [x] Team finalized
+
+### Week 4 — RFC Submission
+- [x] 1-page document containing:
+  - [x] Overview
+  - [x] Motivation
+  - [x] Goals
+
+### Weeks 5–6 — Architecture Presentation *(labs)*
+- [ ] Dataset selection
+- [ ] Chunking strategy
+- [ ] Vector database choice
+- [ ] Model choices
+- [ ] RAG strategies to try
+- [ ] Timeline proposal covering weeks 5–6 up to weeks 11–12
+
+### Weeks 8–9 — Progress Check *(labs)*
+- [ ] Presentation of updates based on the proposed timeline
+
+### Week 14 — Final Project Presentation
+- [ ] 15-minute demo
+- [ ] Documentation
+- [ ] Source code
+
+> ⚠️ **Late penalty:** each delay results in a **penalty of 2 points**.
+
+---
+
 ## Functional Requirements
 
 The solution should:
@@ -17,13 +48,13 @@ The solution should:
 
 ---
 
-## 4. Model Choice & Maximum Grade
+## Model Choice & Maximum Grade
 
 A fine-tuned SLM will be used ideally, unless we decide we don't have time for it further down the line.
 
 ---
 
-## 5. Reference Architecture (from Powerpoint presentation)
+## Reference Architecture (from Powerpoint presentation)
 
 ```mermaid
 flowchart TD
@@ -75,7 +106,7 @@ flowchart TD
 
 ---
 
-## 6. Evaluation Criteria
+## Evaluation Criteria
 
 | Criterion | Description |
 |---|---|
@@ -84,32 +115,3 @@ flowchart TD
 | **Technical Depth** | Architectural and implementation choices |
 
 ---
-
-## 7. Deliverables & Timeline
-
-### Week 2 — Team Formation
-- [x] Team finalized
-
-### Week 4 — RFC Submission
-- [x] 1-page document containing:
-  - [x] Overview
-  - [x] Motivation
-  - [x] Goals
-
-### Weeks 5–6 — Architecture Presentation *(labs)*
-- [ ] Dataset selection
-- [ ] Chunking strategy
-- [ ] Vector database choice
-- [ ] Model choices
-- [ ] RAG strategies to try
-- [ ] Timeline proposal covering weeks 5–6 up to weeks 11–12
-
-### Weeks 8–9 — Progress Check *(labs)*
-- [ ] Presentation of updates based on the proposed timeline
-
-### Week 14 — Final Project Presentation
-- [ ] 15-minute demo
-- [ ] Documentation
-- [ ] Source code
-
-> ⚠️ **Late penalty:** each delay results in a **penalty of 2 points**.

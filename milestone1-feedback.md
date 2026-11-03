@@ -1,0 +1,1 @@
+The RFC is OK, but for the next steps, show what happens to a recipe between generation and display: where retrieval happens, and exactly where the allergen and nutrition checks can reject or change it.

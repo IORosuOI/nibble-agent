@@ -37,7 +37,148 @@ _TODO_
 <!-- BEGIN 3 (Mihai) -->
 <!-- Chunking strategy, embedding model, vector database, metadata filtering, RAG approaches to compare (e.g. dense vs hybrid, reranking, query rewriting). Explain WHY for each choice. -->
 
-_TODO_
+RAG gives the SLM real recipes to adapt, so that quantities, step order and cited sources come from retrieved text instead of the model's memory. The main design constraint is that **a profile's allergens must never reach the model through retrieval**, so filtering is part of the retrieval design rather than a later cleanup step.
+
+Only recipes go into the vector database. USDA nutrition data and Open Food Facts allergen data need exact lookups, where a semantically close but wrong food would be a bug, so the agent reaches them as structured tools (section 4).
+
+```mermaid
+flowchart TD
+    subgraph Ingestion
+        A["Recipes in the common schema (section 1)"] --> B["Normalize ingredients, tag allergens"]
+        B --> C["One chunk per recipe"]
+        C --> D["Dense embedding"]
+        C --> E["BM25 sparse vector"]
+        D --> F[("Qdrant")]
+        E --> F
+        B -->|"payload"| F
+    end
+    subgraph Retrieval
+        G["Active profile"] --> H["Hard filter: allergens, dislikes, recipes already shown"]
+        I["Request: ingredients and craving"] --> J["Query rewriting"]
+        J --> K["Dense + BM25 search, top 50 each"]
+        H --> K
+        F --> K
+        K --> L["RRF fusion"]
+        L --> M["Cross-encoder reranking"]
+        M --> N["MMR diversification"]
+        N --> O["Top K full recipes with source links"]
+    end
+    O --> P["Agent and SLM (sections 4 and 5)"]
+```
+
+The diagram shows every candidate stage. Hybrid search, query rewriting and reranking stay in the final system only if they win the experiments in 3.4.
+
+### 3.1 Chunking: one chunk per recipe
+
+**Decision:** each recipe is one chunk, built from its structure, and retrieval always returns the full recipe.
+
+| Why | Explanation |
+| --- | --- |
+| **Recipes depend on all their parts** | Steps use the quantities in the ingredient list. A fixed-size window can separate "200 g rice" from the step that cooks it, which invites the model to invent the missing part. This is the hallucination RAG is meant to reduce. |
+| **Constraints apply to whole recipes** | "Contains milk" is a property of the recipe. With one chunk per recipe, a filter can't let through one safe-looking fragment of an unsafe recipe. |
+| **Top K means K distinct recipes** | Several hits can't come from the same recipe, so the small SLM context isn't spent on duplicates. |
+
+The text we index is built from a template:
+
+```text
+{title}
+Ingredients: {ingredient names}
+Directions: {directions}
+```
+
+- **Dense vector:** embeds the full template. It uses ingredient names without quantities, because "200 g" adds noise to a similarity search. Text past the model's 512-token limit is cut from the end of the directions, keeping the title and ingredients, which we expect to carry the most signal. We will measure how many recipes this affects before freezing the choice.
+- **BM25 vector:** indexes only the title and ingredient names, so a pantry search for "chicken" matches recipes built on chicken, not ones that mention it in passing.
+- **Payload:** stores the full ingredient lines and directions (for the model), plus `ingredients_norm[]`, `allergens[]`, `allergen_status`, `source` and `link` (for filters and citations).
+- **New data:** web recipes go through the same schema, which removes page text such as blog stories before chunking. Point IDs are content hashes, so ingesting a new dataset is an idempotent upsert with no full reindex.
+
+### 3.2 Embedding model: `BAAI/bge-small-en-v1.5`
+
+**Decision:** start with `bge-small-en-v1.5`, then confirm it in experiment R2.
+
+| Model | Dimensions | Max tokens | License | Role |
+| --- | --- | --- | --- | --- |
+| `all-MiniLM-L6-v2` | 384 | 256 | Apache 2.0 | Lightweight baseline |
+| **`bge-small-en-v1.5`** | 384 | 512 | MIT | **Default** |
+| `bge-base-en-v1.5` | 768 | 512 | MIT | Tests whether a larger model is worth the cost |
+
+- **Fits one recipe:** the 512-token limit suits our recipe-sized chunks better than MiniLM's 256.
+- **Runs locally:** queries are embedded on CPU next to the SLM, with no API cost and no profile data leaving the machine.
+- **Small vectors:** the full RecipeNLG corpus (2,231,142 recipes) at 384 dimensions is about 3.4 GB of raw vectors, against about 6.9 GB at 768, before index overhead. A 100,000-recipe development sample needs about 150 MB.
+- **Contextual:** a craving like "something comforting" is a phrase, not a word. food2vec gives static word-level vectors, so we keep it for the pairing score from the RFC and don't use it for retrieval.
+
+The corpus and the first version of Nibble are English only.
+
+### 3.3 Vector database: Qdrant
+
+**Decision:** Qdrant, running as a server in Docker. Filtering is the deciding factor.
+
+If a database finds the top K first and filters afterwards, a dairy-free search for "creamy pasta" can lose most of its results. Qdrant applies the filter during the graph search and adds filter-aware links to its HNSW index, so filtered searches keep returning enough results. It also runs dense search, BM25 and RRF fusion in one query, so experiment R3 needs no second search engine.
+
+| Option | Filtering | Why not chosen |
+| --- | --- | --- |
+| **Qdrant** | Payload indexes used during HNSW search | Chosen |
+| FAISS | Restricts search to a list of IDs | It is a library, so we would have to store metadata and compute those ID lists ourselves |
+| pgvector | Filters after the index scan by default; iterative scans can still return fewer rows than requested | Needs tuning to get the behaviour we need by default |
+| Chroma | Array filters such as `$not_contains` | Viable fallback, but it has no equivalent we could confirm for filter-aware HNSW and one-query hybrid search |
+
+Payload indexes on `allergens` and `ingredients_norm` must be created **before** the bulk upload, because Qdrant only builds the filter-aware links for fields already indexed when the graph is built.
+
+**How each constraint is applied:**
+
+| Input | Rule | Type | Reason |
+| --- | --- | --- | --- |
+| Allergens | `must_not` on `allergens`, and `allergen_status` must be `verified` | Hard, never relaxed | Mapped to the 14 EU families, so "lactose" becomes `milk` |
+| Dislikes and "no X" in a craving | `must_not` on `ingredients_norm` | Hard, relaxed only if too few results remain | A preference, not a safety risk; a relaxed result must have the ingredient swapped |
+| Recipes already shown | `must_not` on ID | Hard | Reroll must return a different recipe |
+| Available ingredients, likes | Added to the query text | Soft | Requiring every ingredient would empty the results, and users may want to use only some of them |
+| Meal type, mood | Added to the query text | Soft | RecipeNLG has no reliable labels for these |
+
+**A missing tag looks exactly like a safe recipe.** That is why `allergen_status` exists: a recipe is `verified` only if every normalized ingredient mapped to the allergen taxonomy, using the longest match so "peanut butter" and "coconut milk" don't resolve to plain "butter" and "milk". When a profile has allergens, unverified recipes are excluded. This costs some recall, which we accept and measure. Retrieval only lowers the risk: the final recipe still has to pass the safety checks in section 6, since the model can add an allergen by itself.
+
+### 3.4 RAG approaches to compare
+
+**Baseline:** one chunk per recipe, `bge-small-en-v1.5`, dense search with the hard filters, raw request as the query, top 5.
+
+We change one factor at a time and keep each winner, which avoids testing every combination. Index-changing experiments run first because they are the most expensive to redo.
+
+| ID | Compare | Why it might matter for Nibble |
+| --- | --- | --- |
+| **R1** Chunking | One per recipe vs ingredient and step sections returning the parent recipe vs fixed 256 tokens with overlap (control) | Tests the choice in 3.1 instead of assuming it |
+| **R2** Embedding | The three models in 3.2, with and without the BGE query prefix | Tests whether a larger model improves results enough to justify its size |
+| **R3** Retriever | Dense vs BM25 vs hybrid with RRF | Ingredient names need exact matches and cravings need semantic ones. RRF combines the two by rank, so their scores don't need to be comparable |
+| **R4** Query rewriting | Raw request vs structured rewrite vs HyDE | Cravings are vague and embeddings handle negation poorly, as in the example below |
+| **R5** Reranking | None vs `bge-reranker-base` vs `ms-marco-MiniLM-L6-v2`, reordering the top 50 | Precision may improve, at a CPU latency cost we need to measure |
+| **R6** Context size | K = 3 vs K = 5, and MMR on vs off | The SLM's context is small, and near-duplicate recipes make rerolls feel the same |
+
+Structured rewriting has the SLM turn the craving into a query and explicit exclusions. For example, the craving "something comforting, no mushrooms, not too heavy" with chicken and rice available becomes:
+
+```json
+{"query": "comforting light chicken and rice dinner", "exclude": ["mushrooms"]}
+```
+
+`exclude` becomes a hard filter, because leaving "no mushrooms" in the text would pull the search *towards* mushrooms. HyDE instead embeds a short hypothetical recipe. Filters still apply to its search, so an allergen in the invented text can't let an unsafe recipe through. Both approaches add one SLM call, which counts towards their latency.
+
+**How a winner is chosen,** using the golden dataset (section 2):
+
+| Metric | Use |
+| --- | --- |
+| **Allergen leak rate** in retrieved recipes | Must be 0; any other result fails the configuration outright |
+| **nDCG@5 and Precision@5** | Main quality metrics, labelled by pooling: we judge the union of each configuration's top 10, since we can't label millions of recipes |
+| **Constraint pass rate** | Share of results matching the checkable parts of a request, such as available ingredients |
+| **Reroll diversity** | Ingredient overlap (Jaccard) between consecutive rerolls, where lower is better |
+| **p95 retrieval latency** | Target of 1 s, excluding SLM calls |
+
+We adopt a more complex option only if nDCG@5 improves by at least 0.02, the paired bootstrap 95% interval excludes zero, and latency stays within target. Otherwise the simpler option stays. These thresholds are our proposed starting point and may change once the golden dataset's size is final.
+
+**If time allows,** we will add a corrective RAG step to the agent loop: when the best reranked score falls below a threshold, the agent rewrites the query or searches the web instead of generating from weak context (section 4).
+
+**What this section needs from the others:**
+
+- **Section 1:** normalized ingredient names, allergen tags and the corpus subset to index.
+- **Section 2:** test cases with pooled retrieval labels, in addition to the end-to-end checks.
+- **Section 7:** time for experiments R1 to R6 in the timeline.
+
+**References:** [RecipeNLG](https://github.com/Glorf/recipenlg), [BGE model card](https://huggingface.co/BAAI/bge-small-en-v1.5), [Qdrant indexing](https://qdrant.tech/documentation/manage-data/indexing/), [Qdrant hybrid search](https://qdrant.tech/documentation/search-tuning/hybrid-search/), [Faiss ID filtering](https://github.com/facebookresearch/faiss/wiki/Setting-search-parameters-for-one-query), [pgvector HNSW filtering](https://supabase.com/docs/guides/ai/vector-indexes/hnsw-indexes.md), [Chroma filters](https://docs.trychroma.com/reference/where-filter). HyDE and corrective RAG come from Lecture 5.
 
 <!-- END 3 -->
 

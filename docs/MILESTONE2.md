@@ -62,7 +62,8 @@ _TODO_
 | License | Apache 2.0 | Apache 2.0 | Apache 2.0 |
 | Main Consideration | Best starting candidate | Particularly interesting for agent orchestration | Compact edge deployment |
 | Recomended Hardware and deployment | GPU, 8–12 GB VRAM with more comfortable inference and small-context QLoRA experiments, *maybe more VRAM if we do LoRA tuning* | GPU, 8–12 GB VRAM with more comfortable inference and small-context QLoRA experiments, *maybe more VRAM if we do LoRA tuning* | CPU, 8–16 GB RAM with 4-bit quantization and slower inference **OR** GPU 6–8 VRAM with 4-bit inference |
-| What hardware we could actually use | Powerful Gaming PC or a complex distributed architecture if we're all poor | Powerful Gaming PC or a complex distributed architecture if we're all poor | My old crappy laptop with 8GB RAM we could ruin |
+| What hardware we could actually use | 3070 Ti (8GB) Server and MacBook (16GB) OR a complex distributed architecture if it's not sufficient|3070 Ti (8GB) Server and MacBook (16GB) OR a complex distributed architecture if it's not sufficient| An 8 GB RAM laptop we can dedicate to long CPU tests |
+|Model Link| *https://huggingface.co/Qwen/Qwen3.5-4B* | *https://huggingface.co/ibm-granite/granite-4.2-3b* | *https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512* OR *https://huggingface.co/mistralai/Ministral-3-3B-Reasoning-2512* |
 
 ---
 
@@ -98,8 +99,6 @@ LoRA or QLoRA with Hugging Face's PEFT or TRL libraries:
 | User instructions | Dietary profiles, available ingredients, preferences and dislikes | Learn personalization |
 | Agentic trajectories | User request, tool selection, tool results and final answer | Learn tool calling |
 | Safety examples | Allergens, toxic ingredients, unsafe cooking conditions and conflicting constraints | Learn when to reject or request verification |
-
-**Recipe Corpus suggestion:** *RecipeNLG https://recipenlg.cs.put.poznan.pl/dataset*
 
 **Recommended dataset splitting strategy:** 80/10/10 split (training, validation, testing)
 
@@ -164,20 +163,7 @@ Hugging Face TRL supports this type of training through its SFTTrainer, which su
         "instruction": "Add spinach, garlic and lemon."
       }
     ]
-  },
-  "nutrition": {
-    "calories_kcal": 420,
-    "fat_g": 12,
-    "sugar_g": 3,
-    "salt_g": 1.2,
-    "caffeine_mg": 0
-  },
-  "safety": {
-    "status": "approved",
-    "allergen_checks": [],
-    "warnings": []
-  },
-  "sources": []
+  }
 }
 ```
 

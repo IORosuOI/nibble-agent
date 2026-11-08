@@ -1,0 +1,5950 @@
+{
+"active dry yeast": {
+"id": 175043,
+"unit_g": null
+},
+"agave syrup": {
+"id": 170277,
+"unit_g": null
+},
+"all purpose baking mix": {
+"id": 168894,
+"unit_g": null
+},
+"all purpose flour": {
+"id": 168894,
+"unit_g": null
+},
+"all purpose flour coating": {
+"id": 168894,
+"unit_g": null
+},
+"all purpose flour dusting": {
+"id": 168894,
+"unit_g": null
+},
+"allspice": {
+"id": 171315,
+"unit_g": null
+},
+"allspice berries": {
+"id": 171315,
+"unit_g": null
+},
+"almond butter": {
+"id": 168603,
+"unit_g": null
+},
+"almond milk": {
+"id": 174832,
+"unit_g": null
+},
+"almond paste": {
+"id": 170160,
+"unit_g": null
+},
+"almonds": {
+"id": 170567,
+"unit_g": null
+},
+"american cheese": {
+"id": 170856,
+"unit_g": null
+},
+"anaheim chile peppers": {
+"id": 168578,
+"unit_g": 45
+},
+"ancho chile powder": {
+"id": 169396,
+"unit_g": null
+},
+"anchovy fillet": {
+"id": 174182,
+"unit_g": 2
+},
+"anchovy fillets": {
+"id": 174182,
+"unit_g": null
+},
+"anchovy paste": {
+"id": 174183,
+"unit_g": null
+},
+"andouille sausage": {
+"id": 174577,
+"unit_g": null
+},
+"angel food cake": {
+"id": 172694,
+"unit_g": null
+},
+"angel hair pasta": {
+"id": 169736,
+"unit_g": null
+},
+"anise seed": {
+"id": 171316,
+"unit_g": null
+},
+"any flavor fruit jam": {
+"id": 169641,
+"unit_g": null
+},
+"apple cider": {
+"id": 170959,
+"unit_g": null
+},
+"apple cider vinegar": {
+"id": 173469,
+"unit_g": null
+},
+"apple juice": {
+"id": 170959,
+"unit_g": null
+},
+"apples": {
+"id": 168202,
+"unit_g": 180
+},
+"applesauce": {
+"id": 171696,
+"unit_g": null
+},
+"apricot jam": {
+"id": 170645,
+"unit_g": null
+},
+"apricot preserves": {
+"id": 170645,
+"unit_g": null
+},
+"apricots": {
+"id": 171697,
+"unit_g": 35
+},
+"arborio rice": {
+"id": 168879,
+"unit_g": null
+},
+"arugula": {
+"id": 169387,
+"unit_g": null
+},
+"asian fish sauce": {
+"id": 174531,
+"unit_g": null
+},
+"asian sesame oil": {
+"id": 171016,
+"unit_g": null
+},
+"asparagus": {
+"id": 168389,
+"unit_g": null
+},
+"asparagus spears": {
+"id": 168389,
+"unit_g": null
+},
+"avocado oil": {
+"id": 173573,
+"unit_g": null
+},
+"avocados": {
+"id": 171705,
+"unit_g": 150
+},
+"baby arugula": {
+"id": 169387,
+"unit_g": null
+},
+"baby bella mushrooms": {
+"id": 169255,
+"unit_g": null
+},
+"baby carrots": {
+"id": 168568,
+"unit_g": null
+},
+"baby potatoes": {
+"id": 170032,
+"unit_g": null
+},
+"baby red potatoes": {
+"id": 170029,
+"unit_g": null
+},
+"baby spinach": {
+"id": 168462,
+"unit_g": null
+},
+"bacon": {
+"id": 168277,
+"unit_g": null
+},
+"bacon bits": {
+"id": 169893,
+"unit_g": null
+},
+"bacon cooked crumbled": {
+"id": 168322,
+"unit_g": null
+},
+"bacon grease": {
+"id": 172345,
+"unit_g": null
+},
+"bacon slices": {
+"id": 168277,
+"unit_g": 20
+},
+"bacon strips": {
+"id": 168277,
+"unit_g": null
+},
+"bag baby spinach": {
+"id": 168462,
+"unit_g": null
+},
+"bag semisweet chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"bag spinach": {
+"id": 168462,
+"unit_g": null
+},
+"baked pie crust": {
+"id": 175026,
+"unit_g": null
+},
+"baking potato": {
+"id": 170032,
+"unit_g": 173
+},
+"baking potatoes": {
+"id": 170026,
+"unit_g": 200
+},
+"baking powder": {
+"id": 172804,
+"unit_g": null
+},
+"baking soda": {
+"id": 175040,
+"unit_g": null
+},
+"balsamic vinegar": {
+"id": 172241,
+"unit_g": null
+},
+"banana pepper": {
+"id": 169394,
+"unit_g": 45
+},
+"banana peppers": {
+"id": 168578,
+"unit_g": 40
+},
+"bananas": {
+"id": 173944,
+"unit_g": 118
+},
+"barbecue sauce": {
+"id": 174523,
+"unit_g": null
+},
+"barbeque sauce": {
+"id": 174523,
+"unit_g": null
+},
+"barley": {
+"id": 170284,
+"unit_g": null
+},
+"basil": {
+"id": 172232,
+"unit_g": null
+},
+"basil pesto": {
+"id": 171579,
+"unit_g": null
+},
+"basket cherry tomatoes": {
+"id": 170096,
+"unit_g": 17
+},
+"bay": {
+"id": 170917,
+"unit_g": 0.5
+},
+"bay scallops": {
+"id": 167742,
+"unit_g": null
+},
+"beef bouillon cube": {
+"id": 171560,
+"unit_g": null
+},
+"beef bouillon granules": {
+"id": 171560,
+"unit_g": null
+},
+"beef brisket": {
+"id": 168607,
+"unit_g": null
+},
+"beef broth": {
+"id": 171538,
+"unit_g": null
+},
+"beef chuck": {
+"id": 170810,
+"unit_g": null
+},
+"beef chuck roast": {
+"id": 174023,
+"unit_g": null
+},
+"beef roast": {
+"id": 173126,
+"unit_g": null
+},
+"beef round steak": {
+"id": 172128,
+"unit_g": null
+},
+"beef short ribs": {
+"id": 170828,
+"unit_g": null
+},
+"beef sirloin": {
+"id": 169551,
+"unit_g": null
+},
+"beef sirloin steak": {
+"id": 168728,
+"unit_g": null
+},
+"beef stock": {
+"id": 172883,
+"unit_g": null
+},
+"beef top sirloin": {
+"id": 168633,
+"unit_g": null
+},
+"beef tri tip roast": {
+"id": 174772,
+"unit_g": null
+},
+"beer": {
+"id": 168746,
+"unit_g": null
+},
+"beets": {
+"id": 169145,
+"unit_g": 82
+},
+"bibb lettuce": {
+"id": 168429,
+"unit_g": null
+},
+"biscuit baking mix": {
+"id": 175081,
+"unit_g": null
+},
+"biscuit mix": {
+"id": 175081,
+"unit_g": null
+},
+"bite size broccoli florets": {
+"id": 170379,
+"unit_g": null
+},
+"bittersweet chocolate": {
+"id": 167977,
+"unit_g": null
+},
+"bittersweet chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"black beans": {
+"id": 173734,
+"unit_g": null
+},
+"black olives": {
+"id": 169094,
+"unit_g": null
+},
+"black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"black peppercorns": {
+"id": 170931,
+"unit_g": null
+},
+"black raspberries": {
+"id": 167755,
+"unit_g": null
+},
+"black sesame seeds": {
+"id": 170150,
+"unit_g": null
+},
+"black walnuts": {
+"id": 170186,
+"unit_g": null
+},
+"blackberries": {
+"id": 173946,
+"unit_g": null
+},
+"blanched almond flour": {
+"id": 170568,
+"unit_g": null
+},
+"blanched almonds": {
+"id": 170568,
+"unit_g": null
+},
+"blanched slivered almonds": {
+"id": 170568,
+"unit_g": null
+},
+"blue cheese": {
+"id": 172175,
+"unit_g": null
+},
+"blue cheese salad dressing": {
+"id": 173562,
+"unit_g": null
+},
+"blueberries": {
+"id": 171711,
+"unit_g": null
+},
+"bone in chicken thighs with skin": {
+"id": 172855,
+"unit_g": null
+},
+"bone in pork chops": {
+"id": 167829,
+"unit_g": null
+},
+"bottle barbeque sauce": {
+"id": 174523,
+"unit_g": null
+},
+"bottle beer": {
+"id": 168746,
+"unit_g": 355
+},
+"bottle italian style salad dressing": {
+"id": 171019,
+"unit_g": null
+},
+"bottle lemon lime flavored carbonated beverage": {
+"id": 173205,
+"unit_g": 355
+},
+"bottle ranch dressing": {
+"id": 173592,
+"unit_g": null
+},
+"bottled garlic": {
+"id": 169230,
+"unit_g": null
+},
+"bourbon whiskey": {
+"id": 174819,
+"unit_g": null
+},
+"bow tie pasta": {
+"id": 169736,
+"unit_g": null
+},
+"bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"bread flour": {
+"id": 168896,
+"unit_g": null
+},
+"brewed black tea": {
+"id": 173227,
+"unit_g": null
+},
+"brewed coffee": {
+"id": 171890,
+"unit_g": null
+},
+"brewed espresso": {
+"id": 171891,
+"unit_g": null
+},
+"brie cheese": {
+"id": 172177,
+"unit_g": null
+},
+"broccoli": {
+"id": 170379,
+"unit_g": null
+},
+"broccoli florets": {
+"id": 170379,
+"unit_g": null
+},
+"broccoli rabe": {
+"id": 170381,
+"unit_g": null
+},
+"brown lentils": {
+"id": 172420,
+"unit_g": null
+},
+"brown mustard": {
+"id": 172234,
+"unit_g": null
+},
+"brown rice flour": {
+"id": 168898,
+"unit_g": null
+},
+"brown sugar": {
+"id": 168833,
+"unit_g": null
+},
+"brussels sprouts": {
+"id": 170383,
+"unit_g": null
+},
+"buckwheat flour": {
+"id": 170687,
+"unit_g": null
+},
+"bulb fennel": {
+"id": 169385,
+"unit_g": 230
+},
+"bulb garlic": {
+"id": 169230,
+"unit_g": 50
+},
+"bulgur": {
+"id": 170688,
+"unit_g": null
+},
+"bulk italian sausage": {
+"id": 171631,
+"unit_g": null
+},
+"bulk pork sausage": {
+"id": 172934,
+"unit_g": null
+},
+"bunches cilantro": {
+"id": 169997,
+"unit_g": 85
+},
+"bunches green onions": {
+"id": 170006,
+"unit_g": null
+},
+"bunches kale": {
+"id": 168421,
+"unit_g": null
+},
+"burgundy wine": {
+"id": 173208,
+"unit_g": null
+},
+"butter": {
+"id": 173410,
+"unit_g": null
+},
+"butter at": {
+"id": 173410,
+"unit_g": null
+},
+"butter cake mix": {
+"id": 174947,
+"unit_g": null
+},
+"butter flavored shortening": {
+"id": 173584,
+"unit_g": null
+},
+"butter lettuce": {
+"id": 169249,
+"unit_g": null
+},
+"butter margarine": {
+"id": 173410,
+"unit_g": null
+},
+"buttermilk": {
+"id": 172225,
+"unit_g": null
+},
+"butternut squash": {
+"id": 169295,
+"unit_g": 900
+},
+"butterscotch chips": {
+"id": 167972,
+"unit_g": null
+},
+"buttery round crackers": {
+"id": 174980,
+"unit_g": null
+},
+"buttery spread": {
+"id": 172371,
+"unit_g": null
+},
+"button mushrooms": {
+"id": 169251,
+"unit_g": null
+},
+"cabbage": {
+"id": 169975,
+"unit_g": null
+},
+"caesar salad dressing": {
+"id": 169055,
+"unit_g": null
+},
+"cake flour": {
+"id": 169723,
+"unit_g": null
+},
+"can apple pie filling": {
+"id": 168822,
+"unit_g": null
+},
+"can baked beans with pork": {
+"id": 175185,
+"unit_g": null
+},
+"can beef broth": {
+"id": 171548,
+"unit_g": null
+},
+"can beef consomme": {
+"id": 171548,
+"unit_g": null
+},
+"can beer": {
+"id": 168746,
+"unit_g": null
+},
+"can beets": {
+"id": 169966,
+"unit_g": 225
+},
+"can black beans": {
+"id": 175188,
+"unit_g": null
+},
+"can black beans undrained": {
+"id": 175188,
+"unit_g": 425
+},
+"can black olives": {
+"id": 169094,
+"unit_g": null
+},
+"can bottle beer": {
+"id": 168746,
+"unit_g": null
+},
+"can bottle cola flavored carbonated beverage": {
+"id": 174852,
+"unit_g": 355
+},
+"can campbell s condensed cream chicken soup regular fat free": {
+"id": 171146,
+"unit_g": 305
+},
+"can canned tomatoes": {
+"id": 170051,
+"unit_g": null
+},
+"can carrots": {
+"id": 170396,
+"unit_g": null
+},
+"can cherry pie filling": {
+"id": 168824,
+"unit_g": null
+},
+"can chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"can chicken chunks": {
+"id": 171110,
+"unit_g": 142
+},
+"can chickpeas": {
+"id": 173800,
+"unit_g": null
+},
+"can chickpeas garbanzo beans": {
+"id": 173756,
+"unit_g": null
+},
+"can chili beans": {
+"id": 175207,
+"unit_g": 425
+},
+"can chili without beans": {
+"id": 172098,
+"unit_g": null
+},
+"can coconut milk": {
+"id": 170173,
+"unit_g": 400
+},
+"can condensed beef broth": {
+"id": 171548,
+"unit_g": 305
+},
+"can condensed cheddar cheese soup": {
+"id": 171541,
+"unit_g": null
+},
+"can condensed chicken broth": {
+"id": 171542,
+"unit_g": null
+},
+"can condensed cream celery soup": {
+"id": 171540,
+"unit_g": null
+},
+"can condensed cream chicken soup": {
+"id": 171146,
+"unit_g": null
+},
+"can condensed cream mushroom soup": {
+"id": 171155,
+"unit_g": null
+},
+"can condensed cream potato soup": {
+"id": 171158,
+"unit_g": null
+},
+"can condensed french onion soup": {
+"id": 171551,
+"unit_g": null
+},
+"can condensed golden mushroom soup": {
+"id": 171155,
+"unit_g": null
+},
+"can condensed tomato soup": {
+"id": 172882,
+"unit_g": null
+},
+"can cream chicken soup": {
+"id": 171146,
+"unit_g": null
+},
+"can cream mushroom soup": {
+"id": 171155,
+"unit_g": null
+},
+"can cream style corn": {
+"id": 169215,
+"unit_g": null
+},
+"can dark red kidney beans": {
+"id": 174285,
+"unit_g": null
+},
+"can eagle brand sweetened condensed milk": {
+"id": 171275,
+"unit_g": null
+},
+"can enchilada sauce": {
+"id": 174074,
+"unit_g": null
+},
+"can evaporated milk": {
+"id": 171276,
+"unit_g": null
+},
+"can fat free evaporated milk": {
+"id": 171302,
+"unit_g": null
+},
+"can fire roasted tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"can frozen lemonade concentrate": {
+"id": 173216,
+"unit_g": 340
+},
+"can frozen orange juice concentrate": {
+"id": 169923,
+"unit_g": null
+},
+"can fully cooked luncheon meat such spam": {
+"id": 174571,
+"unit_g": 340
+},
+"can garbanzo beans": {
+"id": 173800,
+"unit_g": null
+},
+"can great northern beans": {
+"id": 175192,
+"unit_g": null
+},
+"can green beans": {
+"id": 169143,
+"unit_g": null
+},
+"can green chile peppers": {
+"id": 168577,
+"unit_g": null
+},
+"can green chiles": {
+"id": 168577,
+"unit_g": null
+},
+"can italian style tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"can italian style tomatoes undrained": {
+"id": 170501,
+"unit_g": null
+},
+"can jalapeno peppers": {
+"id": 170080,
+"unit_g": null
+},
+"can kernel corn": {
+"id": 169214,
+"unit_g": null
+},
+"can kidney beans": {
+"id": 173741,
+"unit_g": null
+},
+"can light coconut milk": {
+"id": 170173,
+"unit_g": null
+},
+"can light red kidney beans": {
+"id": 174285,
+"unit_g": 240
+},
+"can lima beans": {
+"id": 174254,
+"unit_g": null
+},
+"can mandarin oranges": {
+"id": 169924,
+"unit_g": null
+},
+"can mexican style corn": {
+"id": 169215,
+"unit_g": null
+},
+"can mixed vegetables": {
+"id": 170064,
+"unit_g": null
+},
+"can peas": {
+"id": 170419,
+"unit_g": null
+},
+"can petite tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"can pineapple": {
+"id": 167767,
+"unit_g": null
+},
+"can pineapple chunks": {
+"id": 167767,
+"unit_g": null
+},
+"can pineapple chunks juice reserved": {
+"id": 167767,
+"unit_g": null
+},
+"can pineapple juice": {
+"id": 169947,
+"unit_g": null
+},
+"can pineapple with juice": {
+"id": 167767,
+"unit_g": null
+},
+"can pineapple with juice reserved": {
+"id": 167767,
+"unit_g": null
+},
+"can pinto beans": {
+"id": 175201,
+"unit_g": null
+},
+"can pizza sauce": {
+"id": 172880,
+"unit_g": null
+},
+"can potatoes": {
+"id": 170444,
+"unit_g": 240
+},
+"can pumpkin puree": {
+"id": 168450,
+"unit_g": null
+},
+"can ranch style beans": {
+"id": 169065,
+"unit_g": null
+},
+"can red enchilada sauce": {
+"id": 174074,
+"unit_g": 284
+},
+"can red kidney beans": {
+"id": 174285,
+"unit_g": null
+},
+"can refried beans": {
+"id": 172438,
+"unit_g": null
+},
+"can refrigerated biscuit dough": {
+"id": 167921,
+"unit_g": null
+},
+"can salmon": {
+"id": 173690,
+"unit_g": null
+},
+"can salmon flaked": {
+"id": 173690,
+"unit_g": null
+},
+"can sauerkraut": {
+"id": 169279,
+"unit_g": null
+},
+"can shrimp": {
+"id": 175180,
+"unit_g": null
+},
+"can sloppy joe sauce": {
+"id": 170054,
+"unit_g": 425
+},
+"can solid white tuna in water": {
+"id": 175158,
+"unit_g": null
+},
+"can stewed tomatoes": {
+"id": 170052,
+"unit_g": null
+},
+"can sweet corn": {
+"id": 169216,
+"unit_g": null
+},
+"can sweetened condensed milk": {
+"id": 171275,
+"unit_g": null
+},
+"can tomato juice": {
+"id": 170458,
+"unit_g": null
+},
+"can tomato paste": {
+"id": 170459,
+"unit_g": null
+},
+"can tomato puree": {
+"id": 170460,
+"unit_g": null
+},
+"can tomato sauce": {
+"id": 170054,
+"unit_g": null
+},
+"can tomato sauce such hunt s": {
+"id": 170054,
+"unit_g": null
+},
+"can tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"can tomatoes green chiles such ro tel undrained": {
+"id": 170053,
+"unit_g": 410
+},
+"can tomatoes in juice": {
+"id": 170051,
+"unit_g": 410
+},
+"can tomatoes undrained": {
+"id": 170501,
+"unit_g": null
+},
+"can tomatoes with green chile peppers": {
+"id": 170053,
+"unit_g": null
+},
+"can tomatoes with green chile peppers such ro tel": {
+"id": 170053,
+"unit_g": null
+},
+"can tomatoes with liquid": {
+"id": 170137,
+"unit_g": null
+},
+"can tuna": {
+"id": 175158,
+"unit_g": null
+},
+"can tuna flaked": {
+"id": 172005,
+"unit_g": 142
+},
+"can tuna in water": {
+"id": 175158,
+"unit_g": null
+},
+"can unsweetened coconut milk": {
+"id": 170173,
+"unit_g": null
+},
+"can vegetable broth": {
+"id": 171583,
+"unit_g": null
+},
+"can water": {
+"id": 175103,
+"unit_g": null
+},
+"can water tuna flaked": {
+"id": 173709,
+"unit_g": 110
+},
+"can wax beans": {
+"id": 169320,
+"unit_g": null
+},
+"can white beans": {
+"id": 175204,
+"unit_g": 425
+},
+"can white hominy": {
+"id": 169701,
+"unit_g": null
+},
+"candied cherries": {
+"id": 167781,
+"unit_g": null
+},
+"candied orange peel": {
+"id": 167781,
+"unit_g": null
+},
+"candy coated milk chocolate": {
+"id": 167587,
+"unit_g": null
+},
+"canned black beans": {
+"id": 175188,
+"unit_g": null
+},
+"canned chickpeas": {
+"id": 173800,
+"unit_g": null
+},
+"canned coconut milk": {
+"id": 170173,
+"unit_g": null
+},
+"canned corn": {
+"id": 169214,
+"unit_g": null
+},
+"canned garbanzo beans": {
+"id": 175206,
+"unit_g": null
+},
+"canned green chile peppers": {
+"id": 168577,
+"unit_g": null
+},
+"canned kernel corn": {
+"id": 169214,
+"unit_g": null
+},
+"canned peaches": {
+"id": 169112,
+"unit_g": null
+},
+"canned pumpkin": {
+"id": 168450,
+"unit_g": null
+},
+"canned pumpkin puree": {
+"id": 170527,
+"unit_g": null
+},
+"canned tomato sauce": {
+"id": 170054,
+"unit_g": null
+},
+"canola oil": {
+"id": 172336,
+"unit_g": null
+},
+"canola oil frying": {
+"id": 172336,
+"unit_g": null
+},
+"cans black beans": {
+"id": 175188,
+"unit_g": null
+},
+"cans bottles beer": {
+"id": 168746,
+"unit_g": null
+},
+"cans chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"cans chickpeas": {
+"id": 175206,
+"unit_g": 425
+},
+"cans coconut milk": {
+"id": 169409,
+"unit_g": null
+},
+"cans condensed cream chicken soup": {
+"id": 171146,
+"unit_g": null
+},
+"cans condensed cream mushroom soup": {
+"id": 171155,
+"unit_g": null
+},
+"cans condensed tomato soup": {
+"id": 172882,
+"unit_g": 305
+},
+"cans cream chicken soup": {
+"id": 171146,
+"unit_g": null
+},
+"cans cream mushroom soup": {
+"id": 171155,
+"unit_g": null
+},
+"cans evaporated milk": {
+"id": 171276,
+"unit_g": null
+},
+"cans fire roasted tomatoes": {
+"id": 170501,
+"unit_g": 400
+},
+"cans green chile peppers": {
+"id": 168577,
+"unit_g": null
+},
+"cans italian style tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"cans kernel corn": {
+"id": 169214,
+"unit_g": null
+},
+"cans kidney beans": {
+"id": 173741,
+"unit_g": null
+},
+"cans low sodium chicken broth": {
+"id": 171609,
+"unit_g": 411
+},
+"cans mandarin oranges": {
+"id": 169924,
+"unit_g": null
+},
+"cans mixed vegetables": {
+"id": 170064,
+"unit_g": 425
+},
+"cans mushrooms": {
+"id": 169402,
+"unit_g": null
+},
+"cans pinto beans": {
+"id": 175201,
+"unit_g": null
+},
+"cans refried beans": {
+"id": 172438,
+"unit_g": 425
+},
+"cans shrimp": {
+"id": 175180,
+"unit_g": null
+},
+"cans stewed tomatoes": {
+"id": 170052,
+"unit_g": null
+},
+"cans tomato paste": {
+"id": 170459,
+"unit_g": null
+},
+"cans tomato sauce": {
+"id": 170054,
+"unit_g": null
+},
+"cans tomatoes": {
+"id": 170501,
+"unit_g": null
+},
+"cans tomatoes undrained": {
+"id": 170501,
+"unit_g": 411
+},
+"cans tomatoes with green chile peppers": {
+"id": 170053,
+"unit_g": null
+},
+"cans tomatoes with juice": {
+"id": 170137,
+"unit_g": null
+},
+"cans tuna": {
+"id": 172005,
+"unit_g": null
+},
+"cans vegetable broth": {
+"id": 171583,
+"unit_g": null
+},
+"cantaloupe": {
+"id": 169092,
+"unit_g": 900
+},
+"capers": {
+"id": 172238,
+"unit_g": null
+},
+"caramel sauce": {
+"id": 168841,
+"unit_g": null
+},
+"caraway seed": {
+"id": 170918,
+"unit_g": null
+},
+"cardamom seeds": {
+"id": 170919,
+"unit_g": null
+},
+"carrot": {
+"id": 170393,
+"unit_g": 61
+},
+"carrots": {
+"id": 170393,
+"unit_g": 61
+},
+"carton chicken broth": {
+"id": 174536,
+"unit_g": 946
+},
+"cartons chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"cashew": {
+"id": 170162,
+"unit_g": null
+},
+"catalina salad dressing": {
+"id": 171005,
+"unit_g": null
+},
+"catfish fillets": {
+"id": 175165,
+"unit_g": null
+},
+"cauliflower": {
+"id": 169986,
+"unit_g": 600
+},
+"cauliflower florets": {
+"id": 169986,
+"unit_g": null
+},
+"cayenne pepper": {
+"id": 170932,
+"unit_g": null
+},
+"celery": {
+"id": 169988,
+"unit_g": 40
+},
+"celery rib": {
+"id": 169988,
+"unit_g": 40
+},
+"celery ribs": {
+"id": 169988,
+"unit_g": 40
+},
+"celery seed": {
+"id": 170920,
+"unit_g": null
+},
+"celery stalk": {
+"id": 169988,
+"unit_g": 40
+},
+"celery with": {
+"id": 169988,
+"unit_g": null
+},
+"center pork chops": {
+"id": 167829,
+"unit_g": null
+},
+"center slice watermelon": {
+"id": 167765,
+"unit_g": null
+},
+"champagne vinegar": {
+"id": 172240,
+"unit_g": null
+},
+"cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"cheddar monterey jack cheese blend": {
+"id": 171288,
+"unit_g": null
+},
+"cheese tortellini": {
+"id": 172094,
+"unit_g": null
+},
+"cherries": {
+"id": 171719,
+"unit_g": 8
+},
+"chestnuts": {
+"id": 170164,
+"unit_g": null
+},
+"chia seeds": {
+"id": 170554,
+"unit_g": null
+},
+"chicken bouillon cubes": {
+"id": 171563,
+"unit_g": null
+},
+"chicken bouillon granules": {
+"id": 171562,
+"unit_g": null
+},
+"chicken bouillon powder": {
+"id": 171562,
+"unit_g": null
+},
+"chicken breast": {
+"id": 171474,
+"unit_g": 170
+},
+"chicken breast cutlets": {
+"id": 171474,
+"unit_g": null
+},
+"chicken breast tenderloins": {
+"id": 171474,
+"unit_g": 50
+},
+"chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"chicken leg quarters": {
+"id": 172378,
+"unit_g": null
+},
+"chicken soup base": {
+"id": 171563,
+"unit_g": null
+},
+"chicken stock": {
+"id": 172884,
+"unit_g": null
+},
+"chicken tenders": {
+"id": 171515,
+"unit_g": null
+},
+"chicken thighs": {
+"id": 172855,
+"unit_g": 115
+},
+"chicken wing": {
+"id": 172390,
+"unit_g": 40
+},
+"chickpea flour": {
+"id": 174288,
+"unit_g": null
+},
+"chile garlic sauce": {
+"id": 171186,
+"unit_g": null
+},
+"chile paste": {
+"id": 171186,
+"unit_g": null
+},
+"chile pepper": {
+"id": 168576,
+"unit_g": 45
+},
+"chile peppers": {
+"id": 168576,
+"unit_g": 45
+},
+"chile powder": {
+"id": 171319,
+"unit_g": null
+},
+"chile sauce": {
+"id": 171186,
+"unit_g": null
+},
+"chili garlic sauce": {
+"id": 171604,
+"unit_g": null
+},
+"chili powder": {
+"id": 171319,
+"unit_g": null
+},
+"chili sauce": {
+"id": 171595,
+"unit_g": null
+},
+"chili seasoning mix": {
+"id": 173476,
+"unit_g": null
+},
+"chives": {
+"id": 169994,
+"unit_g": null
+},
+"chocolate cake mix": {
+"id": 174935,
+"unit_g": null
+},
+"chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"chocolate hazelnut spread": {
+"id": 168000,
+"unit_g": null
+},
+"chocolate sandwich cookies": {
+"id": 172718,
+"unit_g": 11
+},
+"chocolate sandwich cookies such oreo": {
+"id": 172718,
+"unit_g": 11
+},
+"chocolate sprinkles": {
+"id": 167587,
+"unit_g": null
+},
+"chocolate syrup": {
+"id": 174117,
+"unit_g": null
+},
+"chorizo sausage": {
+"id": 173859,
+"unit_g": null
+},
+"chow mein noodles": {
+"id": 168905,
+"unit_g": null
+},
+"chuck roast": {
+"id": 168672,
+"unit_g": null
+},
+"chunky peanut butter": {
+"id": 174265,
+"unit_g": null
+},
+"chunky salsa": {
+"id": 174524,
+"unit_g": null
+},
+"cider vinegar": {
+"id": 173469,
+"unit_g": null
+},
+"cilantro": {
+"id": 169997,
+"unit_g": null
+},
+"cilantro stems": {
+"id": 169997,
+"unit_g": null
+},
+"cinnamon": {
+"id": 171320,
+"unit_g": null
+},
+"clarified butter": {
+"id": 171314,
+"unit_g": null
+},
+"club soda": {
+"id": 174842,
+"unit_g": null
+},
+"coarse ground black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"coarse kosher salt": {
+"id": 173468,
+"unit_g": null
+},
+"coarse salt": {
+"id": 173468,
+"unit_g": null
+},
+"coarse sea salt": {
+"id": 173468,
+"unit_g": null
+},
+"cocktail sauce": {
+"id": 174067,
+"unit_g": null
+},
+"cocoa powder": {
+"id": 169593,
+"unit_g": null
+},
+"coconut": {
+"id": 170169,
+"unit_g": null
+},
+"coconut flakes": {
+"id": 170169,
+"unit_g": null
+},
+"coconut milk": {
+"id": 170173,
+"unit_g": null
+},
+"coconut oil": {
+"id": 171412,
+"unit_g": null
+},
+"cod": {
+"id": 171955,
+"unit_g": null
+},
+"cod fillets": {
+"id": 171955,
+"unit_g": 113
+},
+"coffee": {
+"id": 171881,
+"unit_g": null
+},
+"coffee flavored liqueur": {
+"id": 175097,
+"unit_g": null
+},
+"cola flavored carbonated beverage": {
+"id": 174852,
+"unit_g": null
+},
+"colby cheese": {
+"id": 173416,
+"unit_g": null
+},
+"colby jack cheese": {
+"id": 173416,
+"unit_g": null
+},
+"colby monterey jack cheese": {
+"id": 173416,
+"unit_g": null
+},
+"container beef broth": {
+"id": 172923,
+"unit_g": null
+},
+"container chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"container chicken stock": {
+"id": 172884,
+"unit_g": null
+},
+"container cottage cheese": {
+"id": 172179,
+"unit_g": null
+},
+"container crumbled feta cheese": {
+"id": 173420,
+"unit_g": null
+},
+"container frozen whipped topping such cool whip thawed": {
+"id": 170868,
+"unit_g": null
+},
+"container frozen whipped topping thawed": {
+"id": 167687,
+"unit_g": 227
+},
+"container greek yogurt": {
+"id": 171304,
+"unit_g": null
+},
+"container plain yogurt": {
+"id": 171284,
+"unit_g": null
+},
+"container ricotta cheese": {
+"id": 170851,
+"unit_g": null
+},
+"container sour cream": {
+"id": 171257,
+"unit_g": 454
+},
+"container whipped cream cheese": {
+"id": 169081,
+"unit_g": null
+},
+"containers chicken broth": {
+"id": 174536,
+"unit_g": null
+},
+"cooked bacon": {
+"id": 167712,
+"unit_g": 8
+},
+"cooked black beans": {
+"id": 173735,
+"unit_g": null
+},
+"cooked brown rice": {
+"id": 169704,
+"unit_g": null
+},
+"cooked chicken": {
+"id": 172403,
+"unit_g": null
+},
+"cooked chicken breast": {
+"id": 171478,
+"unit_g": null
+},
+"cooked chicken breast meat": {
+"id": 171477,
+"unit_g": null
+},
+"cooked chicken meat": {
+"id": 172395,
+"unit_g": null
+},
+"cooked chickpeas": {
+"id": 173799,
+"unit_g": null
+},
+"cooked ham": {
+"id": 168110,
+"unit_g": null
+},
+"cooked jasmine rice": {
+"id": 168930,
+"unit_g": null
+},
+"cooked mashed sweet potatoes": {
+"id": 168484,
+"unit_g": null
+},
+"cooked pulled pork": {
+"id": 173344,
+"unit_g": null
+},
+"cooked quinoa": {
+"id": 168917,
+"unit_g": null
+},
+"cooked rice": {
+"id": 168932,
+"unit_g": null
+},
+"cooked salad shrimp": {
+"id": 175180,
+"unit_g": null
+},
+"cooked shrimp": {
+"id": 175180,
+"unit_g": null
+},
+"cooked white rice": {
+"id": 168880,
+"unit_g": null
+},
+"cooking oil": {
+"id": 171411,
+"unit_g": null
+},
+"cooking sherry": {
+"id": 169070,
+"unit_g": null
+},
+"coriander seeds": {
+"id": 170922,
+"unit_g": null
+},
+"corn": {
+"id": 170288,
+"unit_g": null
+},
+"corn bread mix": {
+"id": 174908,
+"unit_g": null
+},
+"corn chips": {
+"id": 167537,
+"unit_g": null
+},
+"corn flour": {
+"id": 169695,
+"unit_g": null
+},
+"corn kernels": {
+"id": 168544,
+"unit_g": null
+},
+"corn muffin mix": {
+"id": 174908,
+"unit_g": null
+},
+"corn oil": {
+"id": 171029,
+"unit_g": null
+},
+"corn syrup": {
+"id": 168837,
+"unit_g": null
+},
+"corn tortilla chips": {
+"id": 167558,
+"unit_g": null
+},
+"corn tortillas": {
+"id": 175036,
+"unit_g": 25
+},
+"cornmeal": {
+"id": 168867,
+"unit_g": null
+},
+"cornstarch": {
+"id": 169698,
+"unit_g": null
+},
+"cotija cheese": {
+"id": 170898,
+"unit_g": null
+},
+"cottage cheese": {
+"id": 172179,
+"unit_g": null
+},
+"couscous": {
+"id": 169699,
+"unit_g": null
+},
+"cracked black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"cracker crumbs": {
+"id": 172750,
+"unit_g": null
+},
+"cranberries": {
+"id": 171722,
+"unit_g": null
+},
+"cranberry sauce": {
+"id": 173961,
+"unit_g": null
+},
+"cream": {
+"id": 170859,
+"unit_g": null
+},
+"cream cheese": {
+"id": 173418,
+"unit_g": null
+},
+"cream cheese at": {
+"id": 173418,
+"unit_g": null
+},
+"cream cheese cubes": {
+"id": 173418,
+"unit_g": null
+},
+"cream tartar": {
+"id": 175041,
+"unit_g": null
+},
+"creamy peanut butter": {
+"id": 172470,
+"unit_g": null
+},
+"creme de menthe liqueur": {
+"id": 173168,
+"unit_g": null
+},
+"cremini mushrooms": {
+"id": 169251,
+"unit_g": null
+},
+"creole mustard": {
+"id": 172234,
+"unit_g": null
+},
+"crisp rice cereal": {
+"id": 173887,
+"unit_g": null
+},
+"croissants": {
+"id": 174987,
+"unit_g": 57
+},
+"croutons": {
+"id": 172751,
+"unit_g": null
+},
+"crumbled blue cheese": {
+"id": 172175,
+"unit_g": null
+},
+"crumbled cooked bacon": {
+"id": 167712,
+"unit_g": null
+},
+"crumbled cotija cheese": {
+"id": 170898,
+"unit_g": null
+},
+"crumbled feta cheese": {
+"id": 173420,
+"unit_g": null
+},
+"crumbled goat cheese": {
+"id": 173435,
+"unit_g": null
+},
+"crumbled queso fresco": {
+"id": 172223,
+"unit_g": null
+},
+"crunchy peanut butter": {
+"id": 174265,
+"unit_g": null
+},
+"cube beef bouillon": {
+"id": 171560,
+"unit_g": 4
+},
+"cube chicken bouillon": {
+"id": 171562,
+"unit_g": null
+},
+"cubes beef bouillon": {
+"id": 171560,
+"unit_g": null
+},
+"cubes beef bouillon cube": {
+"id": 171560,
+"unit_g": 4
+},
+"cubes chicken bouillon": {
+"id": 171563,
+"unit_g": null
+},
+"cubes vegetable bouillon": {
+"id": 171613,
+"unit_g": 4
+},
+"cucumber": {
+"id": 168409,
+"unit_g": 300
+},
+"cumin": {
+"id": 170923,
+"unit_g": null
+},
+"cumin seed": {
+"id": 170923,
+"unit_g": null
+},
+"cumin seeds": {
+"id": 170923,
+"unit_g": null
+},
+"curd cottage cheese": {
+"id": 172179,
+"unit_g": null
+},
+"currants": {
+"id": 171724,
+"unit_g": null
+},
+"curry": {
+"id": 170924,
+"unit_g": null
+},
+"curry powder": {
+"id": 170924,
+"unit_g": null
+},
+"dark chocolate": {
+"id": 170272,
+"unit_g": null
+},
+"dark chocolate chips": {
+"id": 170272,
+"unit_g": null
+},
+"dark chocolate chunks": {
+"id": 170272,
+"unit_g": null
+},
+"dark corn syrup": {
+"id": 168836,
+"unit_g": null
+},
+"dark molasses": {
+"id": 168820,
+"unit_g": null
+},
+"dark soy sauce": {
+"id": 174277,
+"unit_g": null
+},
+"dashes pepper sauce": {
+"id": 174527,
+"unit_g": null
+},
+"dashes sauce": {
+"id": 171610,
+"unit_g": null
+},
+"dashes worcestershire sauce": {
+"id": 171610,
+"unit_g": null
+},
+"dates": {
+"id": 171726,
+"unit_g": 7
+},
+"deli corned beef": {
+"id": 170200,
+"unit_g": null
+},
+"deli roast beef": {
+"id": 174570,
+"unit_g": null
+},
+"deveined shrimp": {
+"id": 175179,
+"unit_g": 12
+},
+"dijon mustard": {
+"id": 172234,
+"unit_g": null
+},
+"dijon style prepared mustard": {
+"id": 172234,
+"unit_g": null
+},
+"dill": {
+"id": 172233,
+"unit_g": null
+},
+"dill pickle relish": {
+"id": 169386,
+"unit_g": null
+},
+"dill pickle slices": {
+"id": 168558,
+"unit_g": 5
+},
+"dill pickles": {
+"id": 168558,
+"unit_g": 65
+},
+"dill weed": {
+"id": 172233,
+"unit_g": null
+},
+"dinner rolls": {
+"id": 175030,
+"unit_g": 30
+},
+"distilled white vinegar": {
+"id": 172237,
+"unit_g": null
+},
+"ditalini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"dog buns": {
+"id": 174089,
+"unit_g": 43
+},
+"dried ancho chiles": {
+"id": 169396,
+"unit_g": null
+},
+"dried apricots": {
+"id": 173941,
+"unit_g": null
+},
+"dried basil": {
+"id": 171317,
+"unit_g": null
+},
+"dried beef": {
+"id": 170604,
+"unit_g": null
+},
+"dried bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"dried cherries": {
+"id": 171708,
+"unit_g": null
+},
+"dried chives": {
+"id": 170075,
+"unit_g": null
+},
+"dried cranberries": {
+"id": 171723,
+"unit_g": null
+},
+"dried currants": {
+"id": 171724,
+"unit_g": null
+},
+"dried dill": {
+"id": 171322,
+"unit_g": null
+},
+"dried dill weed": {
+"id": 171322,
+"unit_g": null
+},
+"dried figs": {
+"id": 174665,
+"unit_g": null
+},
+"dried lentils": {
+"id": 172420,
+"unit_g": null
+},
+"dried mango": {
+"id": 169091,
+"unit_g": null
+},
+"dried marjoram": {
+"id": 170928,
+"unit_g": null
+},
+"dried mexican oregano": {
+"id": 171328,
+"unit_g": null
+},
+"dried mint": {
+"id": 172239,
+"unit_g": null
+},
+"dried mushrooms": {
+"id": 168436,
+"unit_g": null
+},
+"dried oregano": {
+"id": 171328,
+"unit_g": null
+},
+"dried parsley": {
+"id": 170930,
+"unit_g": null
+},
+"dried parsley flakes": {
+"id": 170930,
+"unit_g": null
+},
+"dried pasilla chiles": {
+"id": 168579,
+"unit_g": null
+},
+"dried red chile pepper": {
+"id": 168570,
+"unit_g": null
+},
+"dried red chile peppers": {
+"id": 168570,
+"unit_g": null
+},
+"dried rice noodles": {
+"id": 169742,
+"unit_g": null
+},
+"dried rosemary": {
+"id": 171333,
+"unit_g": null
+},
+"dried split peas": {
+"id": 172428,
+"unit_g": null
+},
+"dried sweet basil": {
+"id": 171317,
+"unit_g": null
+},
+"dried tarragon": {
+"id": 170937,
+"unit_g": null
+},
+"dried thyme": {
+"id": 170938,
+"unit_g": null
+},
+"drizzle olive oil": {
+"id": 171413,
+"unit_g": null
+},
+"drops pepper sauce": {
+"id": 174527,
+"unit_g": null
+},
+"drops vanilla extract": {
+"id": 173471,
+"unit_g": null
+},
+"dry bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"dry bread stuffing mix": {
+"id": 174930,
+"unit_g": null
+},
+"dry fettuccine pasta": {
+"id": 169736,
+"unit_g": null
+},
+"dry kidney beans": {
+"id": 173744,
+"unit_g": null
+},
+"dry lentils": {
+"id": 172420,
+"unit_g": null
+},
+"dry milk powder": {
+"id": 170877,
+"unit_g": null
+},
+"dry navy beans": {
+"id": 173745,
+"unit_g": null
+},
+"dry onion soup mix": {
+"id": 171165,
+"unit_g": null
+},
+"dry penne pasta": {
+"id": 169736,
+"unit_g": null
+},
+"dry potato flakes": {
+"id": 170445,
+"unit_g": null
+},
+"dry red wine": {
+"id": 173190,
+"unit_g": null
+},
+"dry roasted peanuts": {
+"id": 174262,
+"unit_g": null
+},
+"dry white wine": {
+"id": 174837,
+"unit_g": null
+},
+"each green onions": {
+"id": 170006,
+"unit_g": 15
+},
+"ear corn": {
+"id": 168538,
+"unit_g": 100
+},
+"ears corn on cob": {
+"id": 168400,
+"unit_g": 100
+},
+"ears sweet corn": {
+"id": 169998,
+"unit_g": 90
+},
+"egg noodles": {
+"id": 169731,
+"unit_g": null
+},
+"egg substitute": {
+"id": 173462,
+"unit_g": null
+},
+"egg white": {
+"id": 172183,
+"unit_g": 33
+},
+"egg yolk": {
+"id": 172184,
+"unit_g": 17
+},
+"eggnog": {
+"id": 171258,
+"unit_g": null
+},
+"eggplant": {
+"id": 169228,
+"unit_g": 400
+},
+"elbow macaroni": {
+"id": 168903,
+"unit_g": null
+},
+"english cucumber": {
+"id": 168409,
+"unit_g": 300
+},
+"english muffins": {
+"id": 172761,
+"unit_g": 57
+},
+"envelope active dry yeast": {
+"id": 175043,
+"unit_g": null
+},
+"envelope dry onion soup mix": {
+"id": 171165,
+"unit_g": null
+},
+"envelope onion soup mix": {
+"id": 171165,
+"unit_g": null
+},
+"envelope taco seasoning mix": {
+"id": 172243,
+"unit_g": null
+},
+"envelopes active dry yeast": {
+"id": 175043,
+"unit_g": 7
+},
+"evaporated milk": {
+"id": 171276,
+"unit_g": null
+},
+"farfalle bow tie pasta": {
+"id": 169736,
+"unit_g": null
+},
+"farfalle pasta": {
+"id": 169736,
+"unit_g": null
+},
+"fat free cream cheese": {
+"id": 172207,
+"unit_g": null
+},
+"fat free mayonnaise": {
+"id": 167700,
+"unit_g": null
+},
+"fat free milk": {
+"id": 169868,
+"unit_g": null
+},
+"fennel bulb": {
+"id": 169385,
+"unit_g": 230
+},
+"fennel bulbs": {
+"id": 169385,
+"unit_g": 230
+},
+"fennel seed": {
+"id": 171323,
+"unit_g": null
+},
+"fennel seeds": {
+"id": 171323,
+"unit_g": null
+},
+"feta cheese": {
+"id": 173420,
+"unit_g": null
+},
+"feta cheese crumbled": {
+"id": 173420,
+"unit_g": null
+},
+"fettuccini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"figs": {
+"id": 173021,
+"unit_g": 50
+},
+"fillets catfish": {
+"id": 175165,
+"unit_g": null
+},
+"fillets cod": {
+"id": 171955,
+"unit_g": null
+},
+"fillets halibut": {
+"id": 174200,
+"unit_g": null
+},
+"fillets rainbow trout": {
+"id": 173717,
+"unit_g": null
+},
+"fillets salmon": {
+"id": 173688,
+"unit_g": 150
+},
+"fillets salmon fillets": {
+"id": 173691,
+"unit_g": null
+},
+"fillets sea bass": {
+"id": 175142,
+"unit_g": null
+},
+"fillets tilapia": {
+"id": 175176,
+"unit_g": null
+},
+"fillets tilapia fillets": {
+"id": 175176,
+"unit_g": null
+},
+"fine bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"fine cornmeal": {
+"id": 168867,
+"unit_g": null
+},
+"fine salt": {
+"id": 173468,
+"unit_g": null
+},
+"fine sea salt": {
+"id": 173468,
+"unit_g": null
+},
+"fingerling potatoes": {
+"id": 170032,
+"unit_g": 40
+},
+"firm tofu": {
+"id": 174290,
+"unit_g": null
+},
+"firm tofu cubes": {
+"id": 174290,
+"unit_g": null
+},
+"firmly cilantro": {
+"id": 169997,
+"unit_g": null
+},
+"fish sauce": {
+"id": 174531,
+"unit_g": null
+},
+"flaked coconut": {
+"id": 170577,
+"unit_g": null
+},
+"flaked smoked salmon": {
+"id": 173687,
+"unit_g": null
+},
+"flaky sea salt": {
+"id": 173468,
+"unit_g": null
+},
+"flank steak": {
+"id": 168609,
+"unit_g": null
+},
+"flat italian parsley": {
+"id": 170416,
+"unit_g": null
+},
+"flat parsley": {
+"id": 170416,
+"unit_g": null
+},
+"flax seeds": {
+"id": 169414,
+"unit_g": null
+},
+"flaxseed meal": {
+"id": 169414,
+"unit_g": null
+},
+"flounder fillets": {
+"id": 174196,
+"unit_g": null
+},
+"flour tortillas": {
+"id": 167535,
+"unit_g": 45
+},
+"fontina cheese": {
+"id": 170843,
+"unit_g": null
+},
+"freeze dried dill": {
+"id": 171322,
+"unit_g": null
+},
+"french baguette": {
+"id": 172795,
+"unit_g": null
+},
+"freshly cracked black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"freshly ginger": {
+"id": 169231,
+"unit_g": null
+},
+"freshly ground black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"freshly ground nutmeg": {
+"id": 171326,
+"unit_g": null
+},
+"freshly ground white pepper": {
+"id": 170933,
+"unit_g": null
+},
+"freshly italian parsley": {
+"id": 170416,
+"unit_g": null
+},
+"freshly lemon zest": {
+"id": 167749,
+"unit_g": null
+},
+"freshly nutmeg": {
+"id": 171326,
+"unit_g": null
+},
+"freshly parmesan cheese": {
+"id": 170848,
+"unit_g": null
+},
+"freshly squeezed lemon juice": {
+"id": 167747,
+"unit_g": null
+},
+"freshly squeezed lime juice": {
+"id": 168156,
+"unit_g": null
+},
+"freshly squeezed orange juice": {
+"id": 169099,
+"unit_g": null
+},
+"frozen baby lima beans": {
+"id": 169955,
+"unit_g": null
+},
+"frozen bite size potato nuggets such tater tots": {
+"id": 170047,
+"unit_g": null
+},
+"frozen blueberries": {
+"id": 173950,
+"unit_g": null
+},
+"frozen broccoli": {
+"id": 169968,
+"unit_g": null
+},
+"frozen broccoli florets": {
+"id": 169968,
+"unit_g": null
+},
+"frozen broccoli thawed": {
+"id": 169968,
+"unit_g": null
+},
+"frozen chicken wings": {
+"id": 172390,
+"unit_g": 40
+},
+"frozen corn": {
+"id": 168544,
+"unit_g": null
+},
+"frozen corn kernels": {
+"id": 168544,
+"unit_g": null
+},
+"frozen corn kernels thawed": {
+"id": 168544,
+"unit_g": null
+},
+"frozen french fries": {
+"id": 168444,
+"unit_g": null
+},
+"frozen green beans": {
+"id": 169962,
+"unit_g": null
+},
+"frozen green peas": {
+"id": 170016,
+"unit_g": null
+},
+"frozen green peas thawed": {
+"id": 170016,
+"unit_g": null
+},
+"frozen hash brown potatoes": {
+"id": 170043,
+"unit_g": null
+},
+"frozen hash brown potatoes thawed": {
+"id": 170043,
+"unit_g": null
+},
+"frozen kernel corn": {
+"id": 168400,
+"unit_g": null
+},
+"frozen lima beans": {
+"id": 169953,
+"unit_g": null
+},
+"frozen mixed vegetables": {
+"id": 170471,
+"unit_g": null
+},
+"frozen mixed vegetables thawed": {
+"id": 170471,
+"unit_g": null
+},
+"frozen okra": {
+"id": 169262,
+"unit_g": null
+},
+"frozen peas": {
+"id": 170016,
+"unit_g": null
+},
+"frozen peas thawed": {
+"id": 170017,
+"unit_g": null
+},
+"frozen puff pastry sheets thawed": {
+"id": 172790,
+"unit_g": 250
+},
+"frozen puff pastry thawed": {
+"id": 172790,
+"unit_g": null
+},
+"frozen raspberries": {
+"id": 168209,
+"unit_g": null
+},
+"frozen riced cauliflower": {
+"id": 170398,
+"unit_g": null
+},
+"frozen shelled edamame": {
+"id": 168410,
+"unit_g": null
+},
+"frozen shrimp": {
+"id": 175179,
+"unit_g": null
+},
+"frozen spinach": {
+"id": 169287,
+"unit_g": null
+},
+"frozen spinach thawed": {
+"id": 169287,
+"unit_g": null
+},
+"frozen spinach thawed squeezed dry": {
+"id": 169288,
+"unit_g": null
+},
+"frozen strawberries": {
+"id": 168173,
+"unit_g": null
+},
+"frozen strawberries thawed": {
+"id": 168173,
+"unit_g": null
+},
+"frozen whipped topping": {
+"id": 167687,
+"unit_g": null
+},
+"frozen whipped topping thawed": {
+"id": 167687,
+"unit_g": null
+},
+"fully cooked ham": {
+"id": 174611,
+"unit_g": null
+},
+"fusilli pasta": {
+"id": 169736,
+"unit_g": null
+},
+"gallon water": {
+"id": 175103,
+"unit_g": null
+},
+"garlic": {
+"id": 169230,
+"unit_g": 3
+},
+"garlic granules": {
+"id": 171325,
+"unit_g": null
+},
+"garlic paste": {
+"id": 169230,
+"unit_g": null
+},
+"garlic powder": {
+"id": 171325,
+"unit_g": null
+},
+"genoa salami": {
+"id": 174603,
+"unit_g": null
+},
+"german chocolate cake mix": {
+"id": 174935,
+"unit_g": null
+},
+"ghee": {
+"id": 171314,
+"unit_g": null
+},
+"ginger": {
+"id": 169231,
+"unit_g": null
+},
+"ginger paste": {
+"id": 169231,
+"unit_g": null
+},
+"ginger root": {
+"id": 169231,
+"unit_g": null
+},
+"goat cheese": {
+"id": 173435,
+"unit_g": null
+},
+"golden delicious apples": {
+"id": 168202,
+"unit_g": 180
+},
+"golden raisins": {
+"id": 168164,
+"unit_g": null
+},
+"golden syrup": {
+"id": 167743,
+"unit_g": null
+},
+"gouda cheese": {
+"id": 171241,
+"unit_g": null
+},
+"graham crackers": {
+"id": 174957,
+"unit_g": 14
+},
+"grain mustard": {
+"id": 172234,
+"unit_g": null
+},
+"granny smith apple": {
+"id": 168203,
+"unit_g": 180
+},
+"granny smith apples": {
+"id": 168203,
+"unit_g": 180
+},
+"granular sucralose sweetener": {
+"id": 170257,
+"unit_g": null
+},
+"granulated garlic": {
+"id": 171325,
+"unit_g": null
+},
+"granulated onion": {
+"id": 171327,
+"unit_g": null
+},
+"granulated sugar": {
+"id": 169655,
+"unit_g": null
+},
+"granulated sugar decoration": {
+"id": 169655,
+"unit_g": null
+},
+"grapes": {
+"id": 174683,
+"unit_g": null
+},
+"grapeseed oil": {
+"id": 171028,
+"unit_g": null
+},
+"greek style yogurt": {
+"id": 171304,
+"unit_g": null
+},
+"greek yogurt": {
+"id": 170903,
+"unit_g": null
+},
+"green beans": {
+"id": 169961,
+"unit_g": null
+},
+"green bell peppers": {
+"id": 170427,
+"unit_g": 119
+},
+"green cabbage": {
+"id": 169975,
+"unit_g": null
+},
+"green cardamom pods": {
+"id": 170919,
+"unit_g": null
+},
+"green chile pepper": {
+"id": 170497,
+"unit_g": null
+},
+"green chile peppers": {
+"id": 170497,
+"unit_g": null
+},
+"green lentils": {
+"id": 172420,
+"unit_g": null
+},
+"green olives": {
+"id": 169096,
+"unit_g": null
+},
+"green onion": {
+"id": 170006,
+"unit_g": 15
+},
+"green onion tops": {
+"id": 170006,
+"unit_g": null
+},
+"green onions": {
+"id": 170006,
+"unit_g": 15
+},
+"green peas": {
+"id": 170419,
+"unit_g": null
+},
+"green plantains": {
+"id": 168215,
+"unit_g": null
+},
+"green tomatoes": {
+"id": 170456,
+"unit_g": null
+},
+"ground allspice": {
+"id": 171315,
+"unit_g": null
+},
+"ground almonds": {
+"id": 170567,
+"unit_g": null
+},
+"ground ancho chile powder": {
+"id": 169396,
+"unit_g": null
+},
+"ground beef": {
+"id": 174036,
+"unit_g": null
+},
+"ground black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"ground cardamom": {
+"id": 170919,
+"unit_g": null
+},
+"ground cayenne pepper": {
+"id": 170932,
+"unit_g": null
+},
+"ground chicken": {
+"id": 171116,
+"unit_g": null
+},
+"ground cinnamon": {
+"id": 171320,
+"unit_g": null
+},
+"ground coriander": {
+"id": 170922,
+"unit_g": null
+},
+"ground coriander seed": {
+"id": 170922,
+"unit_g": null
+},
+"ground cumin": {
+"id": 170923,
+"unit_g": null
+},
+"ground dry mustard": {
+"id": 170929,
+"unit_g": null
+},
+"ground flax seeds": {
+"id": 169414,
+"unit_g": null
+},
+"ground ginger": {
+"id": 170926,
+"unit_g": null
+},
+"ground mace": {
+"id": 170927,
+"unit_g": null
+},
+"ground mustard": {
+"id": 170929,
+"unit_g": null
+},
+"ground nutmeg": {
+"id": 171326,
+"unit_g": null
+},
+"ground paprika": {
+"id": 171329,
+"unit_g": null
+},
+"ground pecans": {
+"id": 170182,
+"unit_g": null
+},
+"ground pepper": {
+"id": 170931,
+"unit_g": null
+},
+"ground pork": {
+"id": 167902,
+"unit_g": null
+},
+"ground red chile pepper": {
+"id": 170932,
+"unit_g": null
+},
+"ground red pepper": {
+"id": 170932,
+"unit_g": null
+},
+"ground sage": {
+"id": 170935,
+"unit_g": null
+},
+"ground savory": {
+"id": 170936,
+"unit_g": null
+},
+"ground turkey": {
+"id": 171505,
+"unit_g": null
+},
+"ground turmeric": {
+"id": 172231,
+"unit_g": null
+},
+"ground white pepper": {
+"id": 170933,
+"unit_g": null
+},
+"gruyere cheese": {
+"id": 171242,
+"unit_g": null
+},
+"haddock": {
+"id": 171964,
+"unit_g": null
+},
+"haddock fillets": {
+"id": 171964,
+"unit_g": null
+},
+"halibut": {
+"id": 174200,
+"unit_g": null
+},
+"halibut fillets": {
+"id": 174200,
+"unit_g": null
+},
+"halibut steaks": {
+"id": 174200,
+"unit_g": null
+},
+"ham": {
+"id": 171627,
+"unit_g": null
+},
+"hamburger buns": {
+"id": 172796,
+"unit_g": 50
+},
+"hard boiled egg": {
+"id": 173424,
+"unit_g": 50
+},
+"hard boiled eggs": {
+"id": 173424,
+"unit_g": 50
+},
+"hard cooked egg": {
+"id": 173424,
+"unit_g": 50
+},
+"hard cooked eggs": {
+"id": 173424,
+"unit_g": 50
+},
+"hash brown potatoes": {
+"id": 170043,
+"unit_g": null
+},
+"hawaiian bread rolls": {
+"id": 174107,
+"unit_g": 40
+},
+"hazelnuts": {
+"id": 170581,
+"unit_g": null
+},
+"heavy cream": {
+"id": 170859,
+"unit_g": null
+},
+"heavy whipping cream": {
+"id": 170859,
+"unit_g": null
+},
+"heirloom tomatoes": {
+"id": 170457,
+"unit_g": 123
+},
+"herb seasoned dry bread stuffing mix": {
+"id": 174930,
+"unit_g": null
+},
+"hillshire farm smoked sausage": {
+"id": 174584,
+"unit_g": null
+},
+"hillshire farm smoked sausage diagonally slices": {
+"id": 174584,
+"unit_g": null
+},
+"himalayan pink salt": {
+"id": 173468,
+"unit_g": null
+},
+"hoagie rolls": {
+"id": 172795,
+"unit_g": null
+},
+"hoisin sauce": {
+"id": 172886,
+"unit_g": null
+},
+"honey": {
+"id": 169640,
+"unit_g": null
+},
+"honey mustard": {
+"id": 171043,
+"unit_g": null
+},
+"honey roasted peanuts": {
+"id": 174264,
+"unit_g": null
+},
+"horseradish": {
+"id": 173472,
+"unit_g": null
+},
+"huckleberries": {
+"id": 169808,
+"unit_g": null
+},
+"hulled strawberries": {
+"id": 167762,
+"unit_g": null
+},
+"hungarian paprika": {
+"id": 171329,
+"unit_g": null
+},
+"i can t believe it s not butter spread": {
+"id": 173580,
+"unit_g": null
+},
+"iceberg lettuce": {
+"id": 169248,
+"unit_g": null
+},
+"imitation crab meat": {
+"id": 174203,
+"unit_g": null
+},
+"imitation crabmeat": {
+"id": 174203,
+"unit_g": null
+},
+"individually wrapped caramels": {
+"id": 167974,
+"unit_g": 8
+},
+"individually wrapped caramels unwrapped": {
+"id": 167974,
+"unit_g": 8
+},
+"instant chocolate pudding mix": {
+"id": 168779,
+"unit_g": null
+},
+"instant coffee": {
+"id": 171893,
+"unit_g": null
+},
+"instant coffee granules": {
+"id": 171893,
+"unit_g": null
+},
+"instant coffee powder": {
+"id": 171893,
+"unit_g": null
+},
+"instant espresso powder": {
+"id": 171893,
+"unit_g": null
+},
+"instant lemon pudding mix": {
+"id": 169654,
+"unit_g": null
+},
+"instant mashed potato flakes": {
+"id": 170445,
+"unit_g": null
+},
+"instant rice": {
+"id": 169709,
+"unit_g": null
+},
+"instant vanilla pudding mix": {
+"id": 168784,
+"unit_g": null
+},
+"irish cream liqueur": {
+"id": 175098,
+"unit_g": null
+},
+"irish stout beer": {
+"id": 168746,
+"unit_g": null
+},
+"italian bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"italian dressing": {
+"id": 171019,
+"unit_g": null
+},
+"italian flat parsley": {
+"id": 170416,
+"unit_g": null
+},
+"italian parsley": {
+"id": 170416,
+"unit_g": null
+},
+"italian prune plums": {
+"id": 169949,
+"unit_g": null
+},
+"italian salad dressing": {
+"id": 171019,
+"unit_g": null
+},
+"italian sausage": {
+"id": 171631,
+"unit_g": null
+},
+"italian sausage links": {
+"id": 171631,
+"unit_g": null
+},
+"italian seasoned bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"italian seasoned dry bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"italian style bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"italian style hoagie buns": {
+"id": 174913,
+"unit_g": 90
+},
+"italian style salad dressing": {
+"id": 171019,
+"unit_g": null
+},
+"italian style seasoned bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"jalapeno": {
+"id": 168576,
+"unit_g": 14
+},
+"jalapeno chile": {
+"id": 168576,
+"unit_g": 14
+},
+"jalapeno chile pepper": {
+"id": 168576,
+"unit_g": 14
+},
+"jalapeno chile peppers": {
+"id": 168576,
+"unit_g": 14
+},
+"jalapeno pepper": {
+"id": 168576,
+"unit_g": 14
+},
+"jalapeno peppers": {
+"id": 168576,
+"unit_g": 14
+},
+"jar chocolate hazelnut spread such nutella": {
+"id": 168000,
+"unit_g": null
+},
+"jar cocktail sauce": {
+"id": 174067,
+"unit_g": null
+},
+"jar dill pickle slices": {
+"id": 168558,
+"unit_g": null
+},
+"jar maraschino cherries": {
+"id": 167766,
+"unit_g": 283
+},
+"jar marinara sauce": {
+"id": 171192,
+"unit_g": null
+},
+"jar marshmallow creme": {
+"id": 169664,
+"unit_g": null
+},
+"jar mayonnaise": {
+"id": 171009,
+"unit_g": null
+},
+"jar pasta sauce": {
+"id": 171192,
+"unit_g": null
+},
+"jar pimento peppers": {
+"id": 168559,
+"unit_g": null
+},
+"jar pizza sauce": {
+"id": 172880,
+"unit_g": null
+},
+"jar roasted red bell peppers": {
+"id": 168550,
+"unit_g": null
+},
+"jar roasted red peppers": {
+"id": 168546,
+"unit_g": null
+},
+"jar salsa": {
+"id": 174524,
+"unit_g": null
+},
+"jar sauerkraut": {
+"id": 169279,
+"unit_g": null
+},
+"jar spaghetti sauce": {
+"id": 171192,
+"unit_g": null
+},
+"jars marinara sauce": {
+"id": 171192,
+"unit_g": 680
+},
+"jars spaghetti sauce": {
+"id": 171192,
+"unit_g": 680
+},
+"jicama": {
+"id": 170073,
+"unit_g": null
+},
+"jigger vodka": {
+"id": 174818,
+"unit_g": 44
+},
+"jumbo pasta shells": {
+"id": 169736,
+"unit_g": null
+},
+"jumbo shrimp": {
+"id": 175179,
+"unit_g": 20
+},
+"kalamata olives": {
+"id": 169094,
+"unit_g": null
+},
+"kale": {
+"id": 168421,
+"unit_g": null
+},
+"kernel corn": {
+"id": 169214,
+"unit_g": null
+},
+"key lime juice": {
+"id": 168156,
+"unit_g": null
+},
+"kielbasa sausage": {
+"id": 174577,
+"unit_g": null
+},
+"kimchi": {
+"id": 170392,
+"unit_g": null
+},
+"kosher salt": {
+"id": 173468,
+"unit_g": null
+},
+"kraft parmesan cheese": {
+"id": 171247,
+"unit_g": null
+},
+"lacinato kale": {
+"id": 168421,
+"unit_g": null
+},
+"lard": {
+"id": 171401,
+"unit_g": null
+},
+"lasagna noodles": {
+"id": 169736,
+"unit_g": null
+},
+"lean ground beef": {
+"id": 173110,
+"unit_g": null
+},
+"lean ground pork": {
+"id": 169190,
+"unit_g": null
+},
+"lean ground turkey": {
+"id": 172850,
+"unit_g": null
+},
+"leeks": {
+"id": 169246,
+"unit_g": 100
+},
+"lemon grass": {
+"id": 168573,
+"unit_g": null
+},
+"lemon juice": {
+"id": 167747,
+"unit_g": null
+},
+"lemon lime flavored carbonated beverage": {
+"id": 173205,
+"unit_g": null
+},
+"lemon lime soda": {
+"id": 173205,
+"unit_g": null
+},
+"lemon peel": {
+"id": 167749,
+"unit_g": null
+},
+"lemon thyme": {
+"id": 173470,
+"unit_g": null
+},
+"lemon yogurt": {
+"id": 173445,
+"unit_g": null
+},
+"lemon zest": {
+"id": 167749,
+"unit_g": null
+},
+"lemons": {
+"id": 167746,
+"unit_g": 58
+},
+"lentils": {
+"id": 172420,
+"unit_g": null
+},
+"lettuce": {
+"id": 169248,
+"unit_g": null
+},
+"light coconut milk": {
+"id": 170173,
+"unit_g": null
+},
+"light corn syrup": {
+"id": 168837,
+"unit_g": null
+},
+"light cream": {
+"id": 170857,
+"unit_g": null
+},
+"light cream cheese": {
+"id": 169079,
+"unit_g": null
+},
+"light mayonnaise": {
+"id": 173594,
+"unit_g": null
+},
+"light olive oil": {
+"id": 171413,
+"unit_g": null
+},
+"light sour cream": {
+"id": 173443,
+"unit_g": null
+},
+"light soy sauce": {
+"id": 174277,
+"unit_g": null
+},
+"light whipping cream": {
+"id": 170858,
+"unit_g": null
+},
+"lime juice": {
+"id": 168156,
+"unit_g": null
+},
+"limes": {
+"id": 168155,
+"unit_g": 67
+},
+"linguine pasta": {
+"id": 169736,
+"unit_g": null
+},
+"linguini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"links italian sausage": {
+"id": 171631,
+"unit_g": 80
+},
+"links pork sausage": {
+"id": 174584,
+"unit_g": 40
+},
+"loaf french bread": {
+"id": 172675,
+"unit_g": null
+},
+"loaf italian bread": {
+"id": 174913,
+"unit_g": 450
+},
+"loaf white bread": {
+"id": 167532,
+"unit_g": 680
+},
+"lobster": {
+"id": 174208,
+"unit_g": null
+},
+"lobster tails": {
+"id": 174211,
+"unit_g": null
+},
+"long grain white rice": {
+"id": 168877,
+"unit_g": null
+},
+"loosely cilantro": {
+"id": 169997,
+"unit_g": null
+},
+"low fat mayonnaise": {
+"id": 173594,
+"unit_g": null
+},
+"low fat sour cream": {
+"id": 173442,
+"unit_g": null
+},
+"low sodium beef broth": {
+"id": 172889,
+"unit_g": null
+},
+"low sodium chicken broth": {
+"id": 171609,
+"unit_g": null
+},
+"low sodium chicken stock": {
+"id": 171609,
+"unit_g": null
+},
+"low sodium soy sauce": {
+"id": 172473,
+"unit_g": null
+},
+"macadamia nuts": {
+"id": 170178,
+"unit_g": null
+},
+"macaroni": {
+"id": 168903,
+"unit_g": null
+},
+"mandarin oranges": {
+"id": 169924,
+"unit_g": null
+},
+"mangos": {
+"id": 169910,
+"unit_g": 200
+},
+"maple syrup": {
+"id": 170276,
+"unit_g": null
+},
+"maraschino cherries": {
+"id": 167766,
+"unit_g": null
+},
+"margarine": {
+"id": 172346,
+"unit_g": null
+},
+"margarine butter": {
+"id": 169052,
+"unit_g": null
+},
+"marinara sauce": {
+"id": 171192,
+"unit_g": null
+},
+"marsala wine": {
+"id": 175112,
+"unit_g": null
+},
+"marshmallow creme": {
+"id": 169664,
+"unit_g": null
+},
+"marshmallows": {
+"id": 167995,
+"unit_g": null
+},
+"masa harina": {
+"id": 169694,
+"unit_g": null
+},
+"mashed bananas": {
+"id": 173944,
+"unit_g": null
+},
+"mashed potatoes": {
+"id": 170493,
+"unit_g": null
+},
+"mashed ripe bananas": {
+"id": 173944,
+"unit_g": null
+},
+"mashed strawberries": {
+"id": 167762,
+"unit_g": null
+},
+"mashed sweet potatoes": {
+"id": 169305,
+"unit_g": null
+},
+"matchstick carrots": {
+"id": 170393,
+"unit_g": null
+},
+"mayonnaise": {
+"id": 171009,
+"unit_g": null
+},
+"mazola corn oil": {
+"id": 171029,
+"unit_g": null
+},
+"mccormick pure vanilla extract": {
+"id": 173471,
+"unit_g": null
+},
+"merlot wine": {
+"id": 171925,
+"unit_g": null
+},
+"mexican blend cheese": {
+"id": 171288,
+"unit_g": null
+},
+"mexican cheese blend": {
+"id": 171288,
+"unit_g": null
+},
+"mexican oregano": {
+"id": 171328,
+"unit_g": null
+},
+"mexican style cheese blend": {
+"id": 171288,
+"unit_g": null
+},
+"mild cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"mild curry powder": {
+"id": 170924,
+"unit_g": null
+},
+"mild paprika": {
+"id": 171329,
+"unit_g": null
+},
+"milk chocolate chips": {
+"id": 167587,
+"unit_g": null
+},
+"milk greek yogurt": {
+"id": 171304,
+"unit_g": null
+},
+"milk ricotta cheese": {
+"id": 170851,
+"unit_g": null
+},
+"mini chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"mini marshmallows": {
+"id": 167995,
+"unit_g": null
+},
+"mini pretzels": {
+"id": 167555,
+"unit_g": null
+},
+"mini semi sweet chocolate chips": {
+"id": 167977,
+"unit_g": null
+},
+"miniature chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"miniature marshmallows": {
+"id": 167995,
+"unit_g": null
+},
+"miniature semisweet chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"miso paste": {
+"id": 172442,
+"unit_g": null
+},
+"molasses": {
+"id": 168820,
+"unit_g": null
+},
+"monterey jack cheese": {
+"id": 170844,
+"unit_g": null
+},
+"mostaccioli pasta": {
+"id": 169736,
+"unit_g": null
+},
+"mozzarella cheese": {
+"id": 170845,
+"unit_g": null
+},
+"muenster cheese": {
+"id": 171245,
+"unit_g": null
+},
+"mushrooms": {
+"id": 169251,
+"unit_g": null
+},
+"mustard seed": {
+"id": 170929,
+"unit_g": null
+},
+"natural peanut butter": {
+"id": 172469,
+"unit_g": null
+},
+"nectarines": {
+"id": 169914,
+"unit_g": 140
+},
+"neufchatel cheese": {
+"id": 171246,
+"unit_g": null
+},
+"new potatoes": {
+"id": 170032,
+"unit_g": null
+},
+"non instant chocolate pudding mix": {
+"id": 168779,
+"unit_g": null
+},
+"nonfat dry milk powder": {
+"id": 170877,
+"unit_g": null
+},
+"nonfat greek yogurt": {
+"id": 171312,
+"unit_g": null
+},
+"nonfat plain greek yogurt": {
+"id": 170894,
+"unit_g": null
+},
+"oat bran": {
+"id": 168872,
+"unit_g": null
+},
+"oat flour": {
+"id": 169741,
+"unit_g": null
+},
+"octopus": {
+"id": 174218,
+"unit_g": null
+},
+"oil deep frying": {
+"id": 172358,
+"unit_g": null
+},
+"oil frying": {
+"id": 172336,
+"unit_g": null
+},
+"oil sun dried tomatoes": {
+"id": 169384,
+"unit_g": null
+},
+"okra": {
+"id": 169260,
+"unit_g": null
+},
+"old fashioned oats": {
+"id": 172989,
+"unit_g": null
+},
+"old fashioned rolled oats": {
+"id": 172989,
+"unit_g": null
+},
+"olive oil": {
+"id": 171413,
+"unit_g": null
+},
+"olive oil frying": {
+"id": 171413,
+"unit_g": null
+},
+"olives": {
+"id": 169094,
+"unit_g": null
+},
+"onion": {
+"id": 170000,
+"unit_g": 110
+},
+"onion powder": {
+"id": 171327,
+"unit_g": null
+},
+"onions": {
+"id": 170000,
+"unit_g": 110
+},
+"orange blossom honey": {
+"id": 169640,
+"unit_g": null
+},
+"orange juice": {
+"id": 169099,
+"unit_g": null
+},
+"orange marmalade": {
+"id": 168819,
+"unit_g": null
+},
+"orange peel": {
+"id": 169103,
+"unit_g": null
+},
+"orange zest": {
+"id": 169103,
+"unit_g": null
+},
+"oregano": {
+"id": 171328,
+"unit_g": null
+},
+"orzo pasta": {
+"id": 169736,
+"unit_g": null
+},
+"ounce irish cream liqueur": {
+"id": 175098,
+"unit_g": null
+},
+"ounce vodka": {
+"id": 174818,
+"unit_g": null
+},
+"ounces heavy cream": {
+"id": 170859,
+"unit_g": null
+},
+"ounces vodka": {
+"id": 174818,
+"unit_g": null
+},
+"ounces water": {
+"id": 173647,
+"unit_g": null
+},
+"oyster sauce": {
+"id": 174529,
+"unit_g": null
+},
+"packet dry au jus mix": {
+"id": 171169,
+"unit_g": 28
+},
+"packet dry onion soup mix": {
+"id": 171165,
+"unit_g": 28
+},
+"packet taco seasoning mix": {
+"id": 172243,
+"unit_g": null
+},
+"pancetta bacon": {
+"id": 168277,
+"unit_g": null
+},
+"panko bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"paprika": {
+"id": 171329,
+"unit_g": null
+},
+"parmesan cheese": {
+"id": 171247,
+"unit_g": null
+},
+"parmesan cheese topping": {
+"id": 171247,
+"unit_g": null
+},
+"parsley": {
+"id": 170416,
+"unit_g": null
+},
+"parsley flakes": {
+"id": 170930,
+"unit_g": null
+},
+"parsnips": {
+"id": 170417,
+"unit_g": 120
+},
+"pasta": {
+"id": 169736,
+"unit_g": null
+},
+"pasta sauce": {
+"id": 171192,
+"unit_g": null
+},
+"pastry double crust pie": {
+"id": 172814,
+"unit_g": null
+},
+"peach preserves": {
+"id": 169641,
+"unit_g": null
+},
+"peaches": {
+"id": 169928,
+"unit_g": 150
+},
+"peanut butter": {
+"id": 172470,
+"unit_g": null
+},
+"peanut butter chips": {
+"id": 167570,
+"unit_g": null
+},
+"peanut oil": {
+"id": 171410,
+"unit_g": null
+},
+"peanut oil frying": {
+"id": 171410,
+"unit_g": null
+},
+"peanuts": {
+"id": 172430,
+"unit_g": null
+},
+"pearl barley": {
+"id": 170284,
+"unit_g": null
+},
+"pearl couscous": {
+"id": 169699,
+"unit_g": null
+},
+"pearl onions": {
+"id": 170000,
+"unit_g": null
+},
+"pears": {
+"id": 169118,
+"unit_g": 178
+},
+"peas": {
+"id": 170419,
+"unit_g": null
+},
+"pecans": {
+"id": 170182,
+"unit_g": null
+},
+"pecorino romano cheese": {
+"id": 171249,
+"unit_g": null
+},
+"penne pasta": {
+"id": 169736,
+"unit_g": null
+},
+"pepper": {
+"id": 170931,
+"unit_g": null
+},
+"pepper sauce": {
+"id": 174527,
+"unit_g": null
+},
+"pepperoncini peppers": {
+"id": 169766,
+"unit_g": null
+},
+"pepperoni": {
+"id": 174575,
+"unit_g": null
+},
+"pepperoni sausage": {
+"id": 174575,
+"unit_g": null
+},
+"pesto": {
+"id": 171579,
+"unit_g": null
+},
+"pesto sauce": {
+"id": 171579,
+"unit_g": null
+},
+"philadelphia brick cream cheese": {
+"id": 173418,
+"unit_g": null
+},
+"philadelphia cream cheese": {
+"id": 173418,
+"unit_g": null
+},
+"phyllo dough": {
+"id": 172791,
+"unit_g": null
+},
+"pickled ginger": {
+"id": 169765,
+"unit_g": null
+},
+"pickled jalapeno pepper slices": {
+"id": 169766,
+"unit_g": null
+},
+"pickled jalapeno peppers": {
+"id": 170080,
+"unit_g": null
+},
+"pico de gallo salsa": {
+"id": 174524,
+"unit_g": null
+},
+"pie crust": {
+"id": 167932,
+"unit_g": null
+},
+"piece cinnamon": {
+"id": 171320,
+"unit_g": null
+},
+"piece ginger": {
+"id": 169231,
+"unit_g": 10
+},
+"piece ginger root": {
+"id": 169231,
+"unit_g": 10
+},
+"pimento": {
+"id": 168559,
+"unit_g": null
+},
+"pimento peppers": {
+"id": 168559,
+"unit_g": null
+},
+"pimento stuffed green olives": {
+"id": 169096,
+"unit_g": null
+},
+"pine nuts": {
+"id": 170591,
+"unit_g": null
+},
+"pineapple": {
+"id": 169124,
+"unit_g": null
+},
+"pineapple chunks": {
+"id": 169124,
+"unit_g": null
+},
+"pineapple juice": {
+"id": 168187,
+"unit_g": null
+},
+"pineapple tidbits": {
+"id": 169124,
+"unit_g": null
+},
+"pistachio nuts": {
+"id": 170184,
+"unit_g": null
+},
+"pita bread rounds": {
+"id": 174915,
+"unit_g": null
+},
+"pitted black olives": {
+"id": 169095,
+"unit_g": null
+},
+"pitted dates": {
+"id": 171726,
+"unit_g": null
+},
+"pitted green olives": {
+"id": 169096,
+"unit_g": null
+},
+"pitted kalamata olives": {
+"id": 169094,
+"unit_g": null
+},
+"pitted prunes": {
+"id": 168162,
+"unit_g": 8
+},
+"pizza sauce": {
+"id": 172880,
+"unit_g": null
+},
+"plain bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"plain dried bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"plain dry bread crumbs": {
+"id": 174928,
+"unit_g": null
+},
+"plain fat free greek yogurt": {
+"id": 171312,
+"unit_g": null
+},
+"plain greek yogurt": {
+"id": 171304,
+"unit_g": null
+},
+"plain low fat yogurt": {
+"id": 170886,
+"unit_g": null
+},
+"plain yogurt": {
+"id": 171284,
+"unit_g": null
+},
+"plain yogurt with active cultures": {
+"id": 171284,
+"unit_g": null
+},
+"plums": {
+"id": 169949,
+"unit_g": 66
+},
+"poblano chile peppers": {
+"id": 168578,
+"unit_g": 120
+},
+"pods cardamom": {
+"id": 170919,
+"unit_g": 0.3
+},
+"pods snow peas": {
+"id": 170010,
+"unit_g": null
+},
+"pomegranate juice": {
+"id": 167787,
+"unit_g": null
+},
+"poppy seeds": {
+"id": 171330,
+"unit_g": null
+},
+"pork belly": {
+"id": 167812,
+"unit_g": null
+},
+"pork chops": {
+"id": 168263,
+"unit_g": 120
+},
+"pork loin": {
+"id": 168230,
+"unit_g": null
+},
+"pork loin chops": {
+"id": 168251,
+"unit_g": null
+},
+"pork loin roast": {
+"id": 168230,
+"unit_g": null
+},
+"pork roast": {
+"id": 168371,
+"unit_g": null
+},
+"pork sausage": {
+"id": 171631,
+"unit_g": null
+},
+"pork shoulder": {
+"id": 167843,
+"unit_g": null
+},
+"pork shoulder roast": {
+"id": 167843,
+"unit_g": null
+},
+"pork spareribs": {
+"id": 167853,
+"unit_g": null
+},
+"pork tenderloin": {
+"id": 168249,
+"unit_g": null
+},
+"portobello mushrooms": {
+"id": 169255,
+"unit_g": null
+},
+"potato": {
+"id": 170026,
+"unit_g": 173
+},
+"potato chips": {
+"id": 169677,
+"unit_g": null
+},
+"potatoes": {
+"id": 170026,
+"unit_g": 173
+},
+"poultry seasoning": {
+"id": 171331,
+"unit_g": null
+},
+"powdered chocolate drink mix": {
+"id": 174866,
+"unit_g": null
+},
+"powdered sugar": {
+"id": 169656,
+"unit_g": null
+},
+"prepared basil pesto": {
+"id": 171582,
+"unit_g": null
+},
+"prepared dijon style mustard": {
+"id": 172234,
+"unit_g": null
+},
+"prepared graham cracker crust": {
+"id": 167520,
+"unit_g": null
+},
+"prepared horseradish": {
+"id": 173472,
+"unit_g": null
+},
+"prepared marinara sauce": {
+"id": 171192,
+"unit_g": null
+},
+"prepared mustard": {
+"id": 172234,
+"unit_g": null
+},
+"prepared pesto sauce": {
+"id": 171579,
+"unit_g": null
+},
+"prepared pie crust": {
+"id": 172814,
+"unit_g": null
+},
+"prepared yellow mustard": {
+"id": 172234,
+"unit_g": null
+},
+"pretzels": {
+"id": 167555,
+"unit_g": null
+},
+"processed american cheese": {
+"id": 170856,
+"unit_g": null
+},
+"processed cheese food": {
+"id": 171252,
+"unit_g": null
+},
+"provolone cheese": {
+"id": 170850,
+"unit_g": null
+},
+"puff pastry shells": {
+"id": 172790,
+"unit_g": null
+},
+"pumpkin": {
+"id": 168448,
+"unit_g": null
+},
+"pumpkin pie spice": {
+"id": 171332,
+"unit_g": null
+},
+"pumpkin puree": {
+"id": 168450,
+"unit_g": null
+},
+"pumpkin seeds": {
+"id": 170556,
+"unit_g": null
+},
+"pure maple syrup": {
+"id": 170276,
+"unit_g": null
+},
+"pure vanilla extract": {
+"id": 173471,
+"unit_g": null
+},
+"quail eggs": {
+"id": 172191,
+"unit_g": 9
+},
+"queso fresco": {
+"id": 172223,
+"unit_g": null
+},
+"quick cooking oats": {
+"id": 173904,
+"unit_g": null
+},
+"quick cooking rolled oats": {
+"id": 173904,
+"unit_g": null
+},
+"quick cooking tapioca": {
+"id": 169717,
+"unit_g": null
+},
+"quick oats": {
+"id": 173904,
+"unit_g": null
+},
+"quick rise yeast": {
+"id": 175043,
+"unit_g": null
+},
+"quinoa": {
+"id": 168874,
+"unit_g": null
+},
+"radishes": {
+"id": 169276,
+"unit_g": null
+},
+"raisins": {
+"id": 168166,
+"unit_g": null
+},
+"ramen noodles": {
+"id": 169731,
+"unit_g": null
+},
+"ranch dressing": {
+"id": 173592,
+"unit_g": null
+},
+"ranch salad dressing": {
+"id": 173592,
+"unit_g": null
+},
+"ranch style salad dressing": {
+"id": 173592,
+"unit_g": null
+},
+"rapid rise yeast": {
+"id": 175042,
+"unit_g": null
+},
+"raspberries": {
+"id": 167755,
+"unit_g": null
+},
+"raw honey": {
+"id": 169640,
+"unit_g": null
+},
+"raw shrimp": {
+"id": 175179,
+"unit_g": 12
+},
+"real bacon bits": {
+"id": 168277,
+"unit_g": null
+},
+"real maple syrup": {
+"id": 170276,
+"unit_g": null
+},
+"recipe pastry double crust pie": {
+"id": 172814,
+"unit_g": null
+},
+"recipe pastry single crust pie": {
+"id": 172814,
+"unit_g": null
+},
+"red bell pepper": {
+"id": 170108,
+"unit_g": 119
+},
+"red bell peppers": {
+"id": 170108,
+"unit_g": 119
+},
+"red cabbage": {
+"id": 169977,
+"unit_g": null
+},
+"red chile peppers": {
+"id": 170106,
+"unit_g": null
+},
+"red chile powder": {
+"id": 171319,
+"unit_g": null
+},
+"red cooking wine": {
+"id": 173190,
+"unit_g": null
+},
+"red grapes": {
+"id": 174683,
+"unit_g": null
+},
+"red lettuce": {
+"id": 168431,
+"unit_g": null
+},
+"red onion": {
+"id": 170000,
+"unit_g": 110
+},
+"red pepper": {
+"id": 170932,
+"unit_g": null
+},
+"red pepper flakes": {
+"id": 170932,
+"unit_g": null
+},
+"red pepper sauce": {
+"id": 174527,
+"unit_g": null
+},
+"red potatoes": {
+"id": 170029,
+"unit_g": 150
+},
+"red quinoa": {
+"id": 168874,
+"unit_g": null
+},
+"red seedless grapes": {
+"id": 174683,
+"unit_g": null
+},
+"red wine": {
+"id": 173190,
+"unit_g": null
+},
+"red wine vinegar": {
+"id": 172240,
+"unit_g": null
+},
+"reduced fat cheddar cheese": {
+"id": 171292,
+"unit_g": null
+},
+"reduced fat cream cheese": {
+"id": 169079,
+"unit_g": null
+},
+"reduced fat mayonnaise": {
+"id": 171443,
+"unit_g": null
+},
+"reduced fat sour cream": {
+"id": 173442,
+"unit_g": null
+},
+"reduced sodium chicken broth": {
+"id": 172888,
+"unit_g": null
+},
+"reduced sodium soy sauce": {
+"id": 172473,
+"unit_g": null
+},
+"refried beans": {
+"id": 172438,
+"unit_g": null
+},
+"refrigerated biscuit dough": {
+"id": 172671,
+"unit_g": null
+},
+"refrigerated cheese tortellini": {
+"id": 172094,
+"unit_g": null
+},
+"regular rolled oats": {
+"id": 173904,
+"unit_g": null
+},
+"rhubarb": {
+"id": 167758,
+"unit_g": null
+},
+"rib celery": {
+"id": 169988,
+"unit_g": 40
+},
+"rib eye steaks": {
+"id": 173404,
+"unit_g": null
+},
+"ribs celery": {
+"id": 169988,
+"unit_g": 40
+},
+"rice flour": {
+"id": 169714,
+"unit_g": null
+},
+"rice noodles": {
+"id": 169742,
+"unit_g": null
+},
+"rice vermicelli noodles": {
+"id": 169742,
+"unit_g": null
+},
+"rice wine": {
+"id": 167723,
+"unit_g": null
+},
+"ricotta cheese": {
+"id": 170851,
+"unit_g": null
+},
+"rigatoni pasta": {
+"id": 169736,
+"unit_g": null
+},
+"ripe avocados": {
+"id": 171705,
+"unit_g": 150
+},
+"ripe bananas": {
+"id": 173944,
+"unit_g": 118
+},
+"ripe tomatoes": {
+"id": 170457,
+"unit_g": 123
+},
+"roast beef": {
+"id": 174570,
+"unit_g": null
+},
+"roasted garlic": {
+"id": 169230,
+"unit_g": null
+},
+"roasted peanuts": {
+"id": 174264,
+"unit_g": null
+},
+"roasted red bell peppers": {
+"id": 168550,
+"unit_g": null
+},
+"roasted red pepper": {
+"id": 170108,
+"unit_g": null
+},
+"roasted red peppers": {
+"id": 168546,
+"unit_g": null
+},
+"roasting chicken": {
+"id": 173636,
+"unit_g": 1800
+},
+"rock salt": {
+"id": 173468,
+"unit_g": null
+},
+"rolled oats": {
+"id": 173904,
+"unit_g": null
+},
+"roma tomatoes": {
+"id": 170457,
+"unit_g": 62
+},
+"romaine lettuce": {
+"id": 169247,
+"unit_g": null
+},
+"romano cheese": {
+"id": 171249,
+"unit_g": null
+},
+"rosemary": {
+"id": 173473,
+"unit_g": null
+},
+"rotini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"rotisserie chicken": {
+"id": 171445,
+"unit_g": null
+},
+"round brie cheese": {
+"id": 172177,
+"unit_g": null
+},
+"round steak": {
+"id": 168697,
+"unit_g": null
+},
+"rubbed sage": {
+"id": 170935,
+"unit_g": null
+},
+"rum": {
+"id": 174817,
+"unit_g": null
+},
+"russet potatoes": {
+"id": 170027,
+"unit_g": 173
+},
+"rye flour": {
+"id": 168886,
+"unit_g": null
+},
+"s bay": {
+"id": 170917,
+"unit_g": 1
+},
+"s carrots": {
+"id": 170393,
+"unit_g": null
+},
+"s green onions": {
+"id": 170006,
+"unit_g": 15
+},
+"saffron": {
+"id": 170934,
+"unit_g": null
+},
+"saffron threads": {
+"id": 170934,
+"unit_g": null
+},
+"sage": {
+"id": 170935,
+"unit_g": null
+},
+"sake": {
+"id": 167723,
+"unit_g": null
+},
+"salami": {
+"id": 172936,
+"unit_g": null
+},
+"salmon fillet": {
+"id": 173688,
+"unit_g": 150
+},
+"salmon fillets": {
+"id": 175167,
+"unit_g": null
+},
+"salmon steaks": {
+"id": 173691,
+"unit_g": null
+},
+"salsa": {
+"id": 174524,
+"unit_g": null
+},
+"salt": {
+"id": 173468,
+"unit_g": null
+},
+"salt freshly ground black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"salt ground black pepper": {
+"id": 170931,
+"unit_g": null
+},
+"salt pepper": {
+"id": 173468,
+"unit_g": null
+},
+"salted butter": {
+"id": 173410,
+"unit_g": null
+},
+"salted cod fish": {
+"id": 174190,
+"unit_g": null
+},
+"salted peanuts": {
+"id": 172434,
+"unit_g": null
+},
+"sandwich rolls": {
+"id": 172795,
+"unit_g": 60
+},
+"sauerkraut": {
+"id": 169279,
+"unit_g": null
+},
+"sausage": {
+"id": 174577,
+"unit_g": null
+},
+"sazon seasoning": {
+"id": 172242,
+"unit_g": null
+},
+"scallions": {
+"id": 170005,
+"unit_g": 15
+},
+"scoops vanilla ice cream": {
+"id": 167575,
+"unit_g": 65
+},
+"sea salt": {
+"id": 173468,
+"unit_g": null
+},
+"seafood stock": {
+"id": 172885,
+"unit_g": null
+},
+"seashell pasta": {
+"id": 169736,
+"unit_g": null
+},
+"seasoned bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"seasoned dry bread crumbs": {
+"id": 172806,
+"unit_g": null
+},
+"seedless cucumber": {
+"id": 168409,
+"unit_g": 300
+},
+"seedless grapes": {
+"id": 174683,
+"unit_g": null
+},
+"seedless green grapes": {
+"id": 174683,
+"unit_g": null
+},
+"seedless red grapes": {
+"id": 174683,
+"unit_g": null
+},
+"seedless watermelon": {
+"id": 167765,
+"unit_g": null
+},
+"self rising cornmeal": {
+"id": 168870,
+"unit_g": null
+},
+"self rising flour": {
+"id": 168895,
+"unit_g": null
+},
+"semi sweet chocolate chips": {
+"id": 167977,
+"unit_g": null
+},
+"semisweet chocolate": {
+"id": 167976,
+"unit_g": null
+},
+"semisweet chocolate chips": {
+"id": 167976,
+"unit_g": null
+},
+"semolina": {
+"id": 169715,
+"unit_g": null
+},
+"semolina flour": {
+"id": 169715,
+"unit_g": null
+},
+"serrano chile pepper": {
+"id": 169395,
+"unit_g": 10
+},
+"serrano chile peppers": {
+"id": 169395,
+"unit_g": 6
+},
+"serrano pepper": {
+"id": 169395,
+"unit_g": 6
+},
+"sesame oil": {
+"id": 171016,
+"unit_g": null
+},
+"sesame seeds": {
+"id": 170150,
+"unit_g": null
+},
+"shallots": {
+"id": 170499,
+"unit_g": 25
+},
+"sharp cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"sharp white cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"sheet frozen puff pastry": {
+"id": 172790,
+"unit_g": null
+},
+"sheets frozen puff pastry": {
+"id": 172790,
+"unit_g": 250
+},
+"sheets phyllo dough": {
+"id": 172791,
+"unit_g": null
+},
+"shelled edamame": {
+"id": 168410,
+"unit_g": null
+},
+"sherry vinegar": {
+"id": 172240,
+"unit_g": null
+},
+"shiitake mushrooms": {
+"id": 169242,
+"unit_g": null
+},
+"shortbread cookies": {
+"id": 174967,
+"unit_g": null
+},
+"shortening": {
+"id": 173584,
+"unit_g": null
+},
+"shrimp": {
+"id": 175179,
+"unit_g": null
+},
+"shrimp deveined": {
+"id": 175179,
+"unit_g": 12
+},
+"shrimp in shell": {
+"id": 175179,
+"unit_g": null
+},
+"sifted all purpose flour": {
+"id": 168894,
+"unit_g": null
+},
+"sifted cake flour": {
+"id": 169723,
+"unit_g": null
+},
+"sifted powdered sugar": {
+"id": 169656,
+"unit_g": null
+},
+"sirloin steak": {
+"id": 168728,
+"unit_g": null
+},
+"skim milk": {
+"id": 171269,
+"unit_g": null
+},
+"skin on salmon fillet": {
+"id": 175138,
+"unit_g": null
+},
+"skirt steak": {
+"id": 172139,
+"unit_g": null
+},
+"slice american cheese": {
+"id": 170856,
+"unit_g": 21
+},
+"slice bacon": {
+"id": 168277,
+"unit_g": 8
+},
+"slice bread": {
+"id": 172686,
+"unit_g": 28
+},
+"slice cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"slice ginger": {
+"id": 169231,
+"unit_g": 5
+},
+"slices american cheese": {
+"id": 170856,
+"unit_g": 21
+},
+"slices bacon": {
+"id": 168277,
+"unit_g": 8
+},
+"slices bread": {
+"id": 174924,
+"unit_g": 30
+},
+"slices cheddar cheese": {
+"id": 170899,
+"unit_g": 28
+},
+"slices cooked bacon": {
+"id": 167712,
+"unit_g": 8
+},
+"slices cooked ham": {
+"id": 168110,
+"unit_g": 28
+},
+"slices crusty bread": {
+"id": 174913,
+"unit_g": 30
+},
+"slices deli ham": {
+"id": 173863,
+"unit_g": 28
+},
+"slices french bread": {
+"id": 172675,
+"unit_g": 28
+},
+"slices ginger": {
+"id": 169231,
+"unit_g": null
+},
+"slices ginger root": {
+"id": 169231,
+"unit_g": null
+},
+"slices grain bread": {
+"id": 168013,
+"unit_g": 30
+},
+"slices ham": {
+"id": 171627,
+"unit_g": 28
+},
+"slices italian bread": {
+"id": 174913,
+"unit_g": 30
+},
+"slices monterey jack cheese": {
+"id": 170844,
+"unit_g": 21
+},
+"slices mozzarella cheese": {
+"id": 170845,
+"unit_g": 28
+},
+"slices pepperoni": {
+"id": 174575,
+"unit_g": 3
+},
+"slices provolone cheese": {
+"id": 170850,
+"unit_g": 28
+},
+"slices rye bread": {
+"id": 172684,
+"unit_g": 28
+},
+"slices sharp cheddar cheese": {
+"id": 170899,
+"unit_g": 28
+},
+"slices sourdough bread": {
+"id": 172675,
+"unit_g": 28
+},
+"slices swiss cheese": {
+"id": 171251,
+"unit_g": 21
+},
+"slices turkey bacon": {
+"id": 174592,
+"unit_g": 8
+},
+"slices wheat bread": {
+"id": 172686,
+"unit_g": 28
+},
+"slices white bread": {
+"id": 167532,
+"unit_g": 28
+},
+"slivered almonds": {
+"id": 170567,
+"unit_g": null
+},
+"smoked ham": {
+"id": 174611,
+"unit_g": null
+},
+"smoked paprika": {
+"id": 171329,
+"unit_g": null
+},
+"smoked salmon": {
+"id": 173687,
+"unit_g": null
+},
+"smoked sausage": {
+"id": 174584,
+"unit_g": null
+},
+"smooth peanut butter": {
+"id": 174294,
+"unit_g": null
+},
+"snipped chives": {
+"id": 169994,
+"unit_g": null
+},
+"snow peas": {
+"id": 170010,
+"unit_g": null
+},
+"sofrito": {
+"id": 171174,
+"unit_g": null
+},
+"soft bread crumbs": {
+"id": 174924,
+"unit_g": null
+},
+"soft goat cheese": {
+"id": 173435,
+"unit_g": null
+},
+"solid pack pumpkin": {
+"id": 168448,
+"unit_g": null
+},
+"sour cream": {
+"id": 171257,
+"unit_g": null
+},
+"soy sauce": {
+"id": 174277,
+"unit_g": null
+},
+"soybean oil": {
+"id": 171411,
+"unit_g": null
+},
+"spaghetti": {
+"id": 169736,
+"unit_g": null
+},
+"spaghetti sauce": {
+"id": 171192,
+"unit_g": null
+},
+"spaghetti squash": {
+"id": 169298,
+"unit_g": 1000
+},
+"spears asparagus": {
+"id": 168389,
+"unit_g": 12
+},
+"spice islands pure vanilla extract": {
+"id": 173471,
+"unit_g": null
+},
+"spiced rum": {
+"id": 174817,
+"unit_g": null
+},
+"spicy brown mustard": {
+"id": 172234,
+"unit_g": null
+},
+"spicy italian sausage": {
+"id": 171631,
+"unit_g": null
+},
+"spicy mustard": {
+"id": 172234,
+"unit_g": null
+},
+"spinach": {
+"id": 168462,
+"unit_g": null
+},
+"spring onions": {
+"id": 170005,
+"unit_g": null
+},
+"squares bittersweet chocolate": {
+"id": 167976,
+"unit_g": null
+},
+"squares semisweet baking chocolate": {
+"id": 167976,
+"unit_g": 28
+},
+"squares semisweet chocolate": {
+"id": 167976,
+"unit_g": null
+},
+"squares unsweetened chocolate": {
+"id": 167568,
+"unit_g": 28
+},
+"squares white chocolate": {
+"id": 167571,
+"unit_g": 28
+},
+"squeezed lemon juice": {
+"id": 167747,
+"unit_g": null
+},
+"squid": {
+"id": 174223,
+"unit_g": null
+},
+"sriracha": {
+"id": 171186,
+"unit_g": null
+},
+"sriracha sauce": {
+"id": 171186,
+"unit_g": null
+},
+"stalk celery": {
+"id": 169988,
+"unit_g": 40
+},
+"stalk celery with": {
+"id": 169988,
+"unit_g": 40
+},
+"stalks celery": {
+"id": 169988,
+"unit_g": 40
+},
+"stalks celery with": {
+"id": 169988,
+"unit_g": 40
+},
+"stalks green onions": {
+"id": 170006,
+"unit_g": 15
+},
+"steak sauce": {
+"id": 171825,
+"unit_g": null
+},
+"steel oats": {
+"id": 169705,
+"unit_g": null
+},
+"steelhead trout fillets": {
+"id": 173717,
+"unit_g": null
+},
+"stewed tomatoes": {
+"id": 170052,
+"unit_g": null
+},
+"strawberries": {
+"id": 167762,
+"unit_g": null
+},
+"strawberry flavored jell o mix": {
+"id": 168775,
+"unit_g": null
+},
+"strips cooked bacon": {
+"id": 168322,
+"unit_g": 8
+},
+"strong brewed coffee": {
+"id": 171890,
+"unit_g": null
+},
+"sugar snap peas": {
+"id": 170419,
+"unit_g": null
+},
+"summer squash": {
+"id": 170487,
+"unit_g": null
+},
+"sun dried tomatoes": {
+"id": 168567,
+"unit_g": null
+},
+"sun dried tomatoes in oil": {
+"id": 169384,
+"unit_g": null
+},
+"sunflower oil": {
+"id": 171025,
+"unit_g": null
+},
+"sunflower seed oil": {
+"id": 171025,
+"unit_g": null
+},
+"sunflower seeds": {
+"id": 170562,
+"unit_g": null
+},
+"sushi rice": {
+"id": 168881,
+"unit_g": null
+},
+"swanson chicken broth": {
+"id": 171609,
+"unit_g": null
+},
+"swanson chicken stock": {
+"id": 172884,
+"unit_g": null
+},
+"sweet italian sausage": {
+"id": 172952,
+"unit_g": null
+},
+"sweet mustard": {
+"id": 172234,
+"unit_g": null
+},
+"sweet onion": {
+"id": 170008,
+"unit_g": 110
+},
+"sweet paprika": {
+"id": 171329,
+"unit_g": null
+},
+"sweet pickle relish": {
+"id": 168561,
+"unit_g": null
+},
+"sweet pickles": {
+"id": 169378,
+"unit_g": null
+},
+"sweet rice flour": {
+"id": 169714,
+"unit_g": null
+},
+"sweetened coconut": {
+"id": 168586,
+"unit_g": null
+},
+"sweetened condensed milk": {
+"id": 171275,
+"unit_g": null
+},
+"sweetened dried cranberries": {
+"id": 171723,
+"unit_g": null
+},
+"sweetened flaked coconut": {
+"id": 170578,
+"unit_g": null
+},
+"swiss chard": {
+"id": 169991,
+"unit_g": null
+},
+"swiss cheese": {
+"id": 171251,
+"unit_g": null
+},
+"swordfish steaks": {
+"id": 173703,
+"unit_g": null
+},
+"table salt": {
+"id": 173468,
+"unit_g": null
+},
+"taco seasoning": {
+"id": 172243,
+"unit_g": null
+},
+"taco seasoning mix": {
+"id": 172243,
+"unit_g": null
+},
+"taco shells": {
+"id": 172800,
+"unit_g": 13
+},
+"tahini": {
+"id": 169410,
+"unit_g": null
+},
+"tamari": {
+"id": 174278,
+"unit_g": null
+},
+"tarragon": {
+"id": 170937,
+"unit_g": null
+},
+"tarragon vinegar": {
+"id": 172237,
+"unit_g": null
+},
+"tart apple": {
+"id": 171689,
+"unit_g": 180
+},
+"tart apples": {
+"id": 171689,
+"unit_g": 180
+},
+"teriyaki sauce": {
+"id": 171167,
+"unit_g": null
+},
+"thai basil": {
+"id": 172232,
+"unit_g": null
+},
+"thai sweet chili sauce": {
+"id": 174066,
+"unit_g": null
+},
+"thyme": {
+"id": 170938,
+"unit_g": null
+},
+"tilapia fillets": {
+"id": 175176,
+"unit_g": 113
+},
+"toasted almonds": {
+"id": 170567,
+"unit_g": null
+},
+"toasted pecans": {
+"id": 170182,
+"unit_g": null
+},
+"toasted pine nuts": {
+"id": 170591,
+"unit_g": null
+},
+"toasted sesame oil": {
+"id": 171016,
+"unit_g": null
+},
+"toasted sesame seeds": {
+"id": 170151,
+"unit_g": null
+},
+"toasted slivered almonds": {
+"id": 170567,
+"unit_g": null
+},
+"toasted walnuts": {
+"id": 170187,
+"unit_g": null
+},
+"toffee baking bits": {
+"id": 169671,
+"unit_g": null
+},
+"tofu": {
+"id": 174291,
+"unit_g": null
+},
+"tomatillos": {
+"id": 168566,
+"unit_g": null
+},
+"tomato based chili sauce": {
+"id": 171595,
+"unit_g": null
+},
+"tomato juice": {
+"id": 170458,
+"unit_g": null
+},
+"tomato paste": {
+"id": 170459,
+"unit_g": null
+},
+"tomato puree": {
+"id": 170546,
+"unit_g": null
+},
+"tomato sauce": {
+"id": 170054,
+"unit_g": null
+},
+"tomato vegetable juice cocktail": {
+"id": 170063,
+"unit_g": null
+},
+"tomatoes": {
+"id": 170457,
+"unit_g": 123
+},
+"torn basil": {
+"id": 172232,
+"unit_g": null
+},
+"torn romaine lettuce": {
+"id": 169247,
+"unit_g": null
+},
+"tortilla chips": {
+"id": 173143,
+"unit_g": null
+},
+"tostada shells": {
+"id": 167525,
+"unit_g": null
+},
+"tri color rotini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"tub cool whip whipped topping thawed": {
+"id": 167687,
+"unit_g": null
+},
+"tuna steaks": {
+"id": 175159,
+"unit_g": null
+},
+"turbinado sugar": {
+"id": 170674,
+"unit_g": null
+},
+"turkey breast": {
+"id": 171098,
+"unit_g": null
+},
+"turmeric powder": {
+"id": 172231,
+"unit_g": null
+},
+"turnip greens": {
+"id": 170061,
+"unit_g": null
+},
+"turnips": {
+"id": 170465,
+"unit_g": null
+},
+"unbaked deep dish pie crust": {
+"id": 167523,
+"unit_g": null
+},
+"unbaked pie crust": {
+"id": 167932,
+"unit_g": null
+},
+"unbaked pie shell": {
+"id": 172814,
+"unit_g": 250
+},
+"unbleached all purpose flour": {
+"id": 168936,
+"unit_g": null
+},
+"unbleached flour": {
+"id": 168936,
+"unit_g": null
+},
+"uncooked arborio rice": {
+"id": 168881,
+"unit_g": null
+},
+"uncooked basmati rice": {
+"id": 168881,
+"unit_g": null
+},
+"uncooked egg noodles": {
+"id": 169731,
+"unit_g": null
+},
+"uncooked instant rice": {
+"id": 169709,
+"unit_g": null
+},
+"uncooked long grain rice": {
+"id": 168877,
+"unit_g": null
+},
+"uncooked long grain white rice": {
+"id": 169756,
+"unit_g": null
+},
+"uncooked orzo pasta": {
+"id": 169736,
+"unit_g": null
+},
+"uncooked penne pasta": {
+"id": 169736,
+"unit_g": null
+},
+"uncooked quinoa": {
+"id": 168874,
+"unit_g": null
+},
+"uncooked rice": {
+"id": 168881,
+"unit_g": null
+},
+"uncooked rotini pasta": {
+"id": 169736,
+"unit_g": null
+},
+"uncooked short grain white rice": {
+"id": 168881,
+"unit_g": null
+},
+"uncooked shrimp": {
+"id": 175179,
+"unit_g": null
+},
+"uncooked white rice": {
+"id": 168879,
+"unit_g": null
+},
+"uncooked wild rice": {
+"id": 169726,
+"unit_g": null
+},
+"unpeeled potatoes": {
+"id": 170032,
+"unit_g": null
+},
+"unsalted butter": {
+"id": 173430,
+"unit_g": null
+},
+"unsalted butter at": {
+"id": 173430,
+"unit_g": null
+},
+"unsalted peanuts": {
+"id": 172430,
+"unit_g": null
+},
+"unsalted sunflower seeds": {
+"id": 170562,
+"unit_g": null
+},
+"unsweetened almond milk": {
+"id": 174832,
+"unit_g": null
+},
+"unsweetened applesauce": {
+"id": 171695,
+"unit_g": null
+},
+"unsweetened chocolate": {
+"id": 167568,
+"unit_g": null
+},
+"unsweetened cocoa": {
+"id": 169593,
+"unit_g": null
+},
+"unsweetened cocoa powder": {
+"id": 169593,
+"unit_g": null
+},
+"unsweetened pineapple juice": {
+"id": 168187,
+"unit_g": null
+},
+"unsweetened soy milk": {
+"id": 175223,
+"unit_g": null
+},
+"vanilla": {
+"id": 173471,
+"unit_g": null
+},
+"vanilla extract": {
+"id": 173471,
+"unit_g": null
+},
+"vanilla wafers": {
+"id": 174974,
+"unit_g": null
+},
+"vanilla yogurt": {
+"id": 170888,
+"unit_g": null
+},
+"vegan margarine": {
+"id": 171018,
+"unit_g": null
+},
+"vegan mayonnaise": {
+"id": 167695,
+"unit_g": null
+},
+"vegetable broth": {
+"id": 171583,
+"unit_g": null
+},
+"vegetable oil": {
+"id": 172370,
+"unit_g": null
+},
+"vegetable oil deep frying": {
+"id": 172370,
+"unit_g": null
+},
+"vegetable oil frying": {
+"id": 172370,
+"unit_g": null
+},
+"vegetable shortening": {
+"id": 173584,
+"unit_g": null
+},
+"vegetable stock": {
+"id": 171180,
+"unit_g": null
+},
+"venison stew meat": {
+"id": 173855,
+"unit_g": null
+},
+"very ripe bananas": {
+"id": 173944,
+"unit_g": null
+},
+"vine ripened tomatoes": {
+"id": 170457,
+"unit_g": 123
+},
+"vinegar": {
+"id": 172237,
+"unit_g": null
+},
+"vital wheat gluten": {
+"id": 168147,
+"unit_g": null
+},
+"vodka": {
+"id": 174818,
+"unit_g": null
+},
+"walleye fillets": {
+"id": 175128,
+"unit_g": null
+},
+"walnut oil": {
+"id": 171030,
+"unit_g": null
+},
+"walnuts": {
+"id": 170187,
+"unit_g": null
+},
+"wasabi paste": {
+"id": 171831,
+"unit_g": null
+},
+"wasabi powder": {
+"id": 171831,
+"unit_g": null
+},
+"water": {
+"id": 174158,
+"unit_g": null
+},
+"water cover": {
+"id": 173647,
+"unit_g": null
+},
+"watercress": {
+"id": 170068,
+"unit_g": null
+},
+"watermelon": {
+"id": 167765,
+"unit_g": null
+},
+"wheat bread crumbs": {
+"id": 172686,
+"unit_g": null
+},
+"wheat flour": {
+"id": 168936,
+"unit_g": null
+},
+"wheat germ": {
+"id": 168892,
+"unit_g": null
+},
+"wheat pastry flour": {
+"id": 169723,
+"unit_g": null
+},
+"wheat rotini pasta": {
+"id": 169738,
+"unit_g": null
+},
+"wheat tortillas": {
+"id": 174081,
+"unit_g": 45
+},
+"wheel brie cheese": {
+"id": 172177,
+"unit_g": null
+},
+"whipped cream": {
+"id": 170860,
+"unit_g": null
+},
+"whipped cream cheese": {
+"id": 173418,
+"unit_g": null
+},
+"whiskey": {
+"id": 174819,
+"unit_g": null
+},
+"white balsamic vinegar": {
+"id": 172241,
+"unit_g": null
+},
+"white cake mix": {
+"id": 172708,
+"unit_g": null
+},
+"white cheddar cheese": {
+"id": 170899,
+"unit_g": null
+},
+"white chocolate": {
+"id": 167571,
+"unit_g": null
+},
+"white chocolate chips": {
+"id": 167571,
+"unit_g": null
+},
+"white chocolate kisses with candy cane stripes": {
+"id": 167571,
+"unit_g": 5
+},
+"white cooking wine": {
+"id": 174837,
+"unit_g": null
+},
+"white cornmeal": {
+"id": 168922,
+"unit_g": null
+},
+"white distilled vinegar": {
+"id": 172237,
+"unit_g": null
+},
+"white mushrooms": {
+"id": 169251,
+"unit_g": null
+},
+"white pepper": {
+"id": 170933,
+"unit_g": null
+},
+"white potatoes": {
+"id": 170028,
+"unit_g": 173
+},
+"white rice": {
+"id": 168877,
+"unit_g": null
+},
+"white rice flour": {
+"id": 169714,
+"unit_g": null
+},
+"white sesame seeds": {
+"id": 170150,
+"unit_g": null
+},
+"white vinegar": {
+"id": 172237,
+"unit_g": null
+},
+"white wheat flour": {
+"id": 168894,
+"unit_g": null
+},
+"white wine": {
+"id": 174837,
+"unit_g": null
+},
+"wide egg noodles": {
+"id": 169731,
+"unit_g": null
+},
+"wine vinegar": {
+"id": 172240,
+"unit_g": null
+},
+"won ton wrappers": {
+"id": 172802,
+"unit_g": null
+},
+"wonton wrappers": {
+"id": 172802,
+"unit_g": null
+},
+"worcestershire sauce": {
+"id": 171610,
+"unit_g": null
+},
+"yeast": {
+"id": 175043,
+"unit_g": null
+},
+"yellow bell peppers": {
+"id": 169383,
+"unit_g": null
+},
+"yellow cake mix": {
+"id": 174947,
+"unit_g": null
+},
+"yellow cornmeal": {
+"id": 168867,
+"unit_g": null
+},
+"yellow miso paste": {
+"id": 172442,
+"unit_g": null
+},
+"yellow mustard": {
+"id": 172234,
+"unit_g": null
+},
+"yellow onion": {
+"id": 170000,
+"unit_g": 110
+},
+"yellow potatoes": {
+"id": 170032,
+"unit_g": 173
+},
+"yellow split peas": {
+"id": 172428,
+"unit_g": null
+},
+"yellow summer squash": {
+"id": 170487,
+"unit_g": null
+},
+"yukon gold potatoes": {
+"id": 170026,
+"unit_g": 150
+},
+"zesty italian dressing": {
+"id": 171019,
+"unit_g": null
+},
+"zucchini": {
+"id": 169291,
+"unit_g": 196
+}
+}

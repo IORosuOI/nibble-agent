@@ -405,13 +405,15 @@ _TODO_
 The general principle is the following: SLM proposes; specialized services verify; application decides whether a recipe can be served to the user.
 
 We will have 4 validation outcomes:
- - PASS: The recipe satisfies the relevant checksa
+ - PASS: The recipe satisfies the relevant checks
  - WARN: The recipe is usable, but requires a visible warning
  - BLOCK: The recipe contains an identified safety violation
- - UNKNOWN: THere is insufficient information to establish safety
+ - UNKNOWN: There is insufficient information to establish safety
 
-#### Alergen checking
-Alergen categories defined in Annex II of Regulation (EU) No 1169/2011 (https://eur-lex.europa.eu/eli/reg/2011/1169/eng)
+These map onto the pipeline in section 0: PASS continues, WARN adds a badge, and BLOCK either **changes** the recipe (when a safe fix exists, such as a substitute or a corrected instruction) or **rejects** it so the next retrieved recipe is tried. For allergens, UNKNOWN is always treated as BLOCK, matching the `verified`-only retrieval filter in section 3.
+
+#### Allergen checking
+Allergen categories defined in Annex II of Regulation (EU) No 1169/2011 (https://eur-lex.europa.eu/eli/reg/2011/1169/eng)
 
 |Allergen category|	Examples|
 |:---------------:|:-------:|
@@ -430,7 +432,7 @@ Alergen categories defined in Annex II of Regulation (EU) No 1169/2011 (https://
 |Lupin|	Lupin flour, lupin products|
 |Molluscs|	Mussels, oysters, squid, snails|
 
-Example of potential allergen clasification system:
+Example of potential allergen classification system:
 ```json
 {
   "ingredient": "Whey protein",
@@ -467,7 +469,7 @@ Example of potential user restriction system:
 }
 ```
 
-We should also keep an eye to cross-contamination:
+We also watch for hidden allergens in compound ingredients:
 - Soy sauce can contain soy and wheat.
 - Pesto can contain milk, nuts and sometimes other allergens.
 - Stock cubes can contain celery, milk or other declared allergens.
@@ -510,7 +512,7 @@ Example of potential hazard database structure:
 Sources: 
 - WHO: Natural toxins in food
 - FDA: Foodborne pathogens and natural toxins
-- EFSA: Chemical hazards and food cantaminants
+- EFSA: Chemical hazards and food contaminants
 - National food-safety authorities: Practical Preparation and storage requirements
 
 Useful links:
@@ -636,23 +638,21 @@ Sources:
 | Below 50% | Normal | Display nutritional information |
 | 50–100% | Warning | Highlight significant contribution |
 | 100–150% | High contribution | Display a more prominent warning |
-| Above 150% | Very high contribution | Strong warning and optional recipe modification |
+| Above 150% | Very high contribution | Nibble changes the recipe: reduce quantities, substitute, or switch recipe (section 0) |
 
 Example warning: *One serving provides 123% of the EU adult reference intake for sugars.*
 
 Calculation formula:
 
-\[
-\text{RI percentage} =
-\frac{\text{Nutrient per serving}}
-{\text{Adult reference intake}}\times100
-\]
+$$
+\text{RI percentage} = \frac{\text{Nutrient per serving}}{\text{Adult reference intake}} \times 100
+$$
 
 Example: If one serving contains 86 g of sugars:
 
-\[
-\frac{86}{90}\times100 \approx 95.6\%
-\]
+$$
+\frac{86}{90} \times 100 \approx 95.6\%
+$$
 
 The system should calculate nutritional values using a dedicated nutrition service rather than relying on SLM estimations.
 
@@ -663,7 +663,7 @@ The service should:
 - Divide the totals by the number of servings.
 - Recalculate everything after ingredient substitutions.
 
-**Important:** Exceeding 150% of an adult reference intake does not automatically mean a recipe is unsafe. It represents a very high nutritional contribution and should trigger a warning or optional recipe modification, not an automatic safety block.
+**Important:** Exceeding 150% of an adult reference intake does not mean a recipe is unsafe, so it is never a safety BLOCK. It is a very high nutritional contribution, so Nibble first reduces quantities or substitutes ingredients; if a value is still above 150%, the next retrieved recipe is tried (section 0).
 
 Potential nutritional data sources:
 - USDA FoodData Central (https://fdc.nal.usda.gov/)
@@ -677,7 +677,7 @@ Potential nutritional data sources:
 
 Output moderation examines whether user requests, generated recipes and agent actions are safe and consistent with Nibble's intended functionality.
 
-I would divide it into three components:
+It has three components:
 
 | Component | Responsibility |
 |:---------:|:--------------|

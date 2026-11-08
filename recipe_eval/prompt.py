@@ -8,8 +8,8 @@ import json
 import re
 
 INSTRUCTIONS = (
-    "Write one complete recipe using only these ingredients (salt, pepper, water and cooking oil are always available; "
-    "you do not have to use every ingredient). "
+    "Write one complete recipe that uses at least one of these ingredients (salt, pepper, water and cooking oil are always available; "
+    "you do not have to use every ingredient, and you may add other ingredients if the recipe needs them). "
     'Reply with JSON only, with keys: "title" (string), "servings" (number), '
     '"ingredients" (list of lines with amounts, like "2 cups flour"), "steps" (list of strings).'
 )

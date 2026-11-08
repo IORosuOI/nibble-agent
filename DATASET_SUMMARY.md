@@ -2,7 +2,7 @@
 
 ## 1. Goal
 Evaluate a model that takes (ingredients the user has + a mood such as "spicy" or "high-protein") and returns a full recipe.
-The evaluation checks ingredient compliance, nutritional fit, and culinary feasibility.
+The evaluation checks that the recipe is built around the user's ingredients, nutritional fit, and culinary feasibility.
 
 ## 2. Source datasets
 | Dataset | Used for | Notes |
@@ -51,17 +51,17 @@ Measured accuracy against the labels on 1,500 sampled recipes: 81% reached 80% o
 
 ## 7. How a model is scored on one ground-truth entry
 Input: `request = {ingredients, tags}` from the example. The model returns `{servings, ingredients (with amounts), steps}`. `score_response(request, response, calc)` computes:
-1. **Compliance (hard gate).** Every non-staple ingredient in the answer must match something the user listed (staples allowed: salt, pepper, water, oil, ice, cooking spray). Any extra ingredient gives overall 0. Also reports `usage`, the share of available ingredients used.
+1. **Compliance (hard gate).** The recipe must use at least one of the ingredients the user listed (staples are always allowed and do not count: salt, pepper, water, oil, ice, cooking spray). Extra ingredients the user did not list are allowed. A recipe that uses none of the user's ingredients gives overall 0. Also reports `usage` (share of the available ingredients used), `extras` (the added ingredients) and `pantry_share` (share of the recipe's non-staple ingredients that came from the user). `scoring.EXTRA_PENALTY` (default 0, so extras are free) can be raised to lower the compliance score as the share of extras grows.
 2. **Preference.** For each requested tag: keyword tags are pass/fail on the answer's ingredients; macro tags use the calculator on the answer's own ingredients and are scored on calorie shares (so the servings the model claims cannot change the score), 1 when inside the threshold band (15% tolerance) and falling linearly to 0 outside it. Only `low_calorie` uses per-serving calories; there the model's claimed servings are clamped to 0.67x-1.5x the golden recipe's servings (`reference_servings`). Averaged over tags.
 3. **Feasibility.** Rule checks (at least 2 steps, ingredients actually used in the steps, sane temperatures and times, oven temperature given when baking or roasting, amounts given), optionally blended 50/50 with a 1-5 LLM-judge rating (prompt provided in `scoring.LLM_JUDGE_PROMPT`).
 4. **Overall** = 0 if compliance fails, else 0.3 x compliance + 0.4 x preference + 0.3 x feasibility. Report the three sub-scores too.
-Model performance = the mean of these per-entry scores, broken down by tag, plus the compliance-fail rate.
-The golden recipe is the reference: it supplies the request (ingredients, tags). The answer is judged against the request and rules, not by text match to the golden recipe. Sanity check: golden recipes scored as answers average 0.992 (minimum 0.93); an answer with an invented ingredient scores 0.
+Model performance = the mean of these per-entry scores, broken down by tag, plus the compliance-fail rate (share of answers that use none of the user's ingredients) and the average share of extras.
+The golden recipe is the reference: it supplies the request (ingredients, tags). The answer is judged against the request and rules, not by text match to the golden recipe. Sanity check: golden recipes scored as answers average 0.992 (minimum 0.93); a recipe with no ingredient from the user's list scores 0; adding extra ingredients does not trigger the gate.
 
 ## 8. Limitations
 - Not human-verified. "Verified" means two imperfect methods (label and USDA recompute) agree, and the quality rules passed. No person has reviewed a sample yet.
 - Nutrition for 15,251 Kaggle rows is computed (totals/shares only), not verified; their servings are estimated as total / 750 kcal, not recorded; 4,798 Kaggle rows have no nutrition and no servings. Macro tags for computed rows are consistent with the same calculator that scores model answers, so they are partly self-consistent by construction; the labelled xiaoxl rows are the independent check.
-- Calculator error is about 15% at the median; keyword tags are approximate; compliance matching uses word overlap (with plural handling), so near-miss ingredient names can slip through.
+- Calculator error is about 15% at the median; keyword tags are approximate; compliance matching uses word overlap (with plural handling), so near-miss ingredient names can count as a match (or a miss). Because extras are allowed, the model can add anything it likes, so only the 'uses at least one' gate is hard; check `extras` and `pantry_share` to see how far answers drift from the pantry. Training targets still use only the listed ingredients (1:1 with the source recipe), so a fine-tuned model will mostly stay inside the list.
 - Feasibility is rule-based and lenient (an absurd bake time still scored 0.85 overall); an LLM judge or human check is recommended before trusting it.
 - The scorer has only been tested on golden recipes and hand-made bad answers, not on real model output.
 - xiaoxl license is labeled MIT, but its recipe text appears scraped from a recipe site; check before redistributing.

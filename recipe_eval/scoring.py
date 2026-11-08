@@ -4,11 +4,11 @@ Request  : {"ingredients": [str], "tags": [str]}               (tags from recipe
 Response : {"title": str, "servings": number, "ingredients": [str lines with amounts], "steps": [str]}
 
 Three scores in [0, 1]:
-  compliance  - hard gate: every non-staple ingredient used must come from the available list
+  compliance  - hard gate: the recipe must use at least one of the available ingredients (extras are allowed)
   preference  - how well the recipe satisfies each requested tag (macro tags use computed nutrition)
   feasibility - rule checks: steps present, ingredients used in steps, sane temperatures/times, amounts given
 
-overall = 0 if compliance hard-fails, else 0.3*compliance + 0.4*preference + 0.3*feasibility.
+overall = 0 if compliance hard-fails (no available ingredient used), else 0.3*compliance + 0.4*preference + 0.3*feasibility.
 
 Nutrition for a response is computed with recipe_eval.nutrition (USDA); it is only accurate to roughly
 +/-15-20% (median), so macro thresholds get a tolerance band (TOL) instead of exact cutoffs.
@@ -18,6 +18,9 @@ import re
 from . import core as M
 from . import labels as L
 
+# Ingredients that are not in the user's list are allowed. EXTRA_PENALTY is how much compliance drops when ALL the
+# non-staple ingredients are extras-only share (0 = extras are free). Using no available ingredient at all always fails.
+EXTRA_PENALTY = 0.0
 WEIGHTS = {"compliance": 0.3, "preference": 0.4, "feasibility": 0.3}
 TOL = 0.15  # leniency on macro thresholds, matches the calculator's typical error
 
@@ -79,7 +82,10 @@ def _matches(out_toks, avail_list):
 
 
 def compliance(available, response_ingredients):
-    """-> dict(score, hard_fail, extras, usage). `available` are ingredient names/lines the user has."""
+    """-> dict(score, hard_fail, extras, usage, pantry_share). `available` are ingredient names/lines the user has.
+
+    Extra ingredients (not in `available`) are allowed. The only hard failure is a recipe that uses none of the
+    user's ingredients. `extras` and `pantry_share` are reported; they only change the score if EXTRA_PENALTY > 0."""
     avail = [name_tokens(a) for a in available]
     extras = []
     used = set()
@@ -94,9 +100,10 @@ def compliance(available, response_ingredients):
             used.update(hit)
         else:
             extras.append(line)
-    score = 1.0 if non_staple == 0 else 1.0 - len(extras) / non_staple
     usage = len(used) / max(len(avail), 1)
-    return {"score": score, "hard_fail": bool(extras), "extras": extras, "usage": usage}
+    pantry_share = 1.0 - len(extras) / non_staple if non_staple else 0.0
+    score = max(0.0, 1.0 - EXTRA_PENALTY * (1.0 - pantry_share)) if used else 0.0
+    return {"score": score, "hard_fail": not used, "extras": extras, "usage": usage, "pantry_share": pantry_share}
 
 
 def _ramp_up(x, target):

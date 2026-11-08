@@ -320,7 +320,73 @@ We adopt a more complex option only if nDCG@5 improves by at least 0.02, the pai
 <!-- BEGIN 4 (Luca) -->
 <!-- Which decisions the agent makes vs fixed pipeline steps, the list of tools (inputs/outputs), how they are exposed through the MCP server, agent framework. -->
 
-_TODO_
+The pipeline in section 0 is **code, not the model's choice**: the backend always runs retrieval and the three checks in a fixed order. The SLM acts as an agent only *inside* generation, where it may call optional tools. Small models are unreliable at deciding when to call a tool, so nothing safety-related depends on the model choosing to call it.
+
+### What the code decides vs what the agent decides
+
+| Fixed steps (always run, in this order) | Agent decisions (the SLM chooses) |
+| --- | --- |
+| Load the profile | Which of the top K retrieved recipes to adapt |
+| Query rewriting (one SLM call with a fixed prompt) | Whether to substitute an ingredient the user lacks or dislikes |
+| Filtered retrieval | Whether to look for a creative pairing |
+| Allergen, safety and nutrition checks | How to apply a refinement ("make it spicier") |
+| Retries: next recipe, at most 2 attempts | When the recipe is finished (at most 4 tool calls per generation) |
+| Output check | Whether to search the web when retrieval is weak *(stretch goal)* |
+
+### Tools
+
+All tools live in one MCP server. "Pipeline" tools are called by the backend directly; "agent" tools are offered to the SLM.
+
+| Tool | Input | Output | Called by | Backed by |
+| --- | --- | --- | --- | --- |
+| `get_profile` | `profile_id` | allergens (EU families), dislikes, likes | Pipeline | SQLite profile store |
+| `search_recipes` | `query`, `exclude[]`, `profile_id`, `shown_ids[]`, `k` | top K full recipes with source links | Pipeline | Qdrant (section 3) |
+| `check_allergens` | recipe JSON, `profile_id` | pass, or violations `[{ingredient, allergen}]` | Pipeline | Allergen taxonomy (section 6) |
+| `check_safety` | recipe JSON | blocked ingredients, unsafe steps with a corrected instruction | Pipeline | Blocklist and temperature rules (section 6) |
+| `estimate_nutrition` | recipe JSON, `servings` | per-serving kcal, fat, sugar, salt, % of daily values, `ok` / `warn` / `over` | Pipeline | `recipe_eval/nutrition.py`, USDA (section 1) |
+| `suggest_substitutes` | `ingredient`, `profile_id`, recipe context | ranked substitutes that are safe for the profile | Agent, and the UI swap button | Substitution table + food2vec similarity |
+| `score_pairing` | ingredient list | pairing score, creative pairs | Agent | FlavorDB + food2vec (RFC) |
+| `web_search_recipes` | `query` | recipes in the common schema | Agent *(stretch, cuttable)* | Web search + section 1 adapter |
+
+Inputs and outputs are typed with Pydantic, so each tool publishes a JSON schema and every result is validated before it is used.
+
+### How the tools are exposed through MCP
+
+- **Server:** a Python MCP server built with the official MCP Python SDK (`FastMCP`), one decorated function per tool.
+- **Transport:** stdio during development and in notebooks; streamable HTTP when the backend and the server run as separate processes.
+- **Client:** the FastAPI backend is the MCP client. It calls pipeline tools directly, and passes the agent tools' schemas to the SLM, which requests them through native tool calling (an OpenAI-compatible endpoint from the model server, section 5).
+- **Testing:** each tool can be called on its own with MCP Inspector, so tools are tested independently of the model.
+
+```mermaid
+sequenceDiagram
+    participant UI
+    participant Backend as FastAPI backend (MCP client)
+    participant MCP as MCP server (tools)
+    participant SLM
+    UI->>Backend: profile, pantry, craving, servings
+    Backend->>MCP: get_profile, search_recipes
+    MCP-->>Backend: profile, top K recipes
+    Backend->>SLM: adapt a recipe (agent tools offered)
+    SLM->>Backend: tool call: suggest_substitutes
+    Backend->>MCP: suggest_substitutes
+    MCP-->>Backend: safe substitutes
+    Backend-->>SLM: tool result
+    SLM-->>Backend: recipe JSON
+    Backend->>MCP: check_allergens, check_safety, estimate_nutrition
+    MCP-->>Backend: pass / change / warn
+    Backend-->>UI: recipe card
+```
+
+### Agent framework: a plain Python loop
+
+The agent loop is about 100 lines of Python: send the messages and the tool schemas, run any requested tool, append the result, and repeat until the model returns recipe JSON or hits 4 tool calls. Invalid JSON gets one repair attempt; after that the recipe is rejected and the next one is tried (section 0).
+
+| Option | Why not chosen for now |
+| --- | --- |
+| LangGraph | Its graph and state model suit long multi-agent flows. Ours is one short loop plus fixed checks, so it would add a dependency without new capability. We will reconsider it if the retry logic grows. |
+| Letting the model orchestrate everything | Safety checks would depend on the model choosing to call them, which section 6 rules out. |
+
+Tool-calling traces from this loop (request, tool calls, results, final recipe) are logged, so they can become training examples for fine-tuning (section 5).
 
 <!-- END 4 -->
 

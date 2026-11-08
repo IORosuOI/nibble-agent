@@ -887,6 +887,52 @@ We should distinguish three types of grounding:
 <!-- BEGIN 7 (Luca) -->
 <!-- Week-by-week timeline from week 6 to week 14, per member, including the experiments planned. This is a commitment, reviewed in week 12 via commit history. -->
 
-_TODO_
+The plan runs from week 7 (Nov 9) to the final presentation in week 14 (Jan 11–17). Core features are built in weeks 7–12, before the winter break. The break is used only for unattended model training, and weeks 13–14 (presession) are for evaluation, documentation and the presentation. Every member opens at least one PR in every working week.
+
+### Milestones
+
+| Week | Milestone | What we show |
+| --- | --- | --- |
+| 8–9 | Progress check | Notebook demo of the full pipeline from section 0: retrieval with hard filters, generation, and the points where a recipe is rejected, changed or warned about |
+| 12 | GitHub review | All core features merged: UI wired to the backend, MCP tools, filtered RAG, safety checks, evaluation report v1, pilot fine-tuning run |
+| 14 | Final presentation | Live demo with the fine-tuned SLM, documentation, base vs fine-tuned comparison |
+
+### Week by week
+
+| Week | Luca | Răzvan | Mihai | Marius | Vlad |
+| --- | --- | --- | --- | --- | --- |
+| **7** (Nov 9–15) | Repo structure, HTML UI prototype committed, base SLM served locally, MCP server skeleton with `get_profile` | Ingredient normalization (`ingredients_norm[]`) on the pool; large data files moved to Git LFS or a download script | Qdrant in Docker, payload indexes, baseline dense index of the 23,395-recipe pool | Allergen taxonomy (14 EU families, derivatives, compound ingredients) and poisonous blocklist | Golden set v2: allergen and dislike profiles and free-text cravings added to cases |
+| **8** (Nov 16–22) | Agent loop v1 in a notebook: request → query rewriting → `search_recipes` → recipe JSON | Allergen tags and `allergen_status` on the pool, using Marius's taxonomy; re-index with Mihai | Hard filters and the `search_recipes` MCP tool; baseline retrieval metrics | `check_allergens` and `check_safety` tools (reject and change) | Adversarial cases; allergen leak rate added to the evaluation |
+| **9** (Nov 23–29) | FastAPI backend serving the UI and its endpoints; `estimate_nutrition` tool (reuses `recipe_eval/nutrition.py`) | HTML prototype wired to the backend: profiles, request form, recipe card | Experiments R1 (chunking) and R3 (dense vs BM25 vs hybrid) | Nutrition thresholds, cooking temperature rules, output moderation | First baseline run of the base SLM on the golden set |
+| **10** (Nov 30–Dec 6) | `suggest_substitutes` tool; tool-calling training examples from logged traces | Web recipe scraper into the common schema (new-data ingestion) | Experiment R4 (query rewriting); choose the winning setup | PR reviews | Pooled retrieval labels with Mihai; nDCG@5 and Precision@5 |
+| **11** (Dec 7–13) | QLoRA training script (TRL + PEFT); swap, refine and reroll in the backend | UI: swaps, refinement chips, reroll, warning badges | Final retrieval setup; FlavorDB and food2vec data loaded for pairing | PR reviews | Full evaluation of the base SLMs (Qwen3.5-4B vs Granite 4.2-3B) |
+| **12** (Dec 14–20) | Pilot QLoRA run with Marius; integration fixes | Saved recipes with versions (SQLite) *(cuttable)* | `score_pairing` tool; latency measurements | Pilot QLoRA run; safety evaluation on the adversarial cases | Creativity metric; evaluation report v1; everything merged before the review |
+| **Break** (Dec 21–Jan 3) | Full QLoRA training on the RTX 3070 Ti server, unattended; start and check only | – | – | – | – |
+| **13** (Jan 4–10) | Integrate the fine-tuned model | Data documentation | RAG documentation | Safety and fine-tuning documentation | Base vs fine-tuned comparison |
+| **14** (Jan 11–17) | Demo rehearsal and final presentation | Same | Same | Same | Same |
+
+### Experiments
+
+| Experiment | Owner | Week |
+| --- | --- | --- |
+| R1 chunking, R3 retriever type | Mihai | 9 |
+| R4 query rewriting | Mihai | 10 |
+| R2 embedding model, R5 reranking, R6 context size | Mihai | Only if time allows *(cuttable)* |
+| Base SLM comparison on the golden set | Vlad, Luca | 11 |
+| Pilot QLoRA run | Luca, Marius | 12 |
+| Full QLoRA training | Luca | Break |
+| Base vs fine-tuned SLM | Vlad | 13 |
+
+### If we fall behind
+
+These are cut first, in this order: R2, R5 and R6; saved recipes with versions; `web_search_recipes` and corrective RAG; the creativity metric. The core pipeline, safety checks, evaluation and fine-tuning are never cut.
+
+### Plan changes
+
+Changes to this plan are recorded here through PRs, with the reason for each change.
+
+| Date | Change | Reason |
+| --- | --- | --- |
+| – | – | – |
 
 <!-- END 7 -->

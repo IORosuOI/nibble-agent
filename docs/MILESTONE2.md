@@ -13,7 +13,78 @@
 ## 0. Architecture overview
 <!-- BEGIN 0 (Luca) -->
 
-_TODO: system diagram (Mermaid) and a short walkthrough of one request, from profile to recipe card._
+Nibble's request pipeline has fixed steps that always run, plus optional tools the agent may call (section 4). Retrieval happens **once, before generation**, and every recipe passes three checks **after generation** and before it reaches the screen. Each check can **reject**, **change** or **warn**, as marked below.
+
+```mermaid
+flowchart TD
+    U["UI: profile, pantry, craving, servings"] --> API["FastAPI backend"]
+    API --> P["Load profile: allergens mapped to EU families, dislikes"]
+    P --> QR["Query rewriting by the SLM: search query, exclusions, mood tags"]
+    QR --> R["Retrieval in Qdrant (section 3): hard filters on allergens, dislikes, recipes already shown"]
+    R -->|"no safe recipe found"| X1["REJECT: tell the user, suggest changing the request"]
+    R --> G["Generation by the SLM (section 5): adapt the top recipe to pantry and servings, as JSON"]
+    G --> A{"Allergen and dislike check"}
+    A -->|"violation"| S["CHANGE: substitute the ingredient, re-check"]
+    S --> A
+    A -->|"still failing"| N["REJECT: try the next retrieved recipe"]
+    N -->|"attempt 2 of 2"| G
+    N -->|"2 attempts used"| X2["REJECT: explain why, ask the user to adjust"]
+    A -->|"pass"| B{"Safety check (section 6): blocklist, cooking temperatures and times"}
+    B -->|"inedible or poisonous"| N
+    B -->|"unsafe temperature or time"| F["CHANGE: correct the instruction"]
+    F --> C
+    B -->|"pass"| C{"Nutrition check (USDA): share of adult daily values per serving"}
+    C -->|"over 150%"| Q["CHANGE: reduce quantities, re-check"]
+    Q -->|"still over 150%"| N
+    Q -->|"now under 150%"| C
+    C -->|"50 to 150%"| W["WARN: badge with the exact share"]
+    C -->|"under 50%"| O["Output check (section 6): tone, grounding, source links"]
+    W --> O
+    O --> CARD["Recipe card in the UI"]
+
+    classDef reject fill:#f8dcd8,stroke:#a52a21,color:#1b2620
+    classDef change fill:#fbe9be,stroke:#8a5300,color:#1b2620
+    classDef warn fill:#ece2f7,stroke:#5b2f8f,color:#1b2620
+    class X1,N,X2 reject
+    class S,F,Q change
+    class W warn
+```
+
+### Where a recipe can be rejected, changed or warned about
+
+| Check | When it runs | Reject | Change | Warn |
+| --- | --- | --- | --- | --- |
+| Retrieval filters (section 3) | Before generation | No recipe matches the hard filters | – | – |
+| Allergen and dislike check | After generation | Still failing after a substitution | Substitute the ingredient | – |
+| Inedible or poisonous ingredients (section 6) | After the allergen check | Always, then the next recipe is tried | – | – |
+| Cooking temperatures and times (section 6) | After the allergen check | – | Correct the instruction (e.g. poultry to 75 °C) | – |
+| Nutrition (USDA, per serving) | Last, before output | Still over 150% after reducing quantities | Reduce quantities when over 150% | 50–150% of a daily value |
+| Output check (section 6) | Before display | – | Rewrite unsupported or rude text | – |
+
+A rejected recipe is replaced by the next retrieved one, up to **2 attempts**. After that, Nibble tells the user why and asks them to adjust the request. The allergen filter in retrieval lowers the risk, but the check after generation is still required, because the model can add an ingredient by itself.
+
+### Walkthrough of one request
+
+Request: *"I'm lactose intolerant, hate mushrooms, and have chicken, rice and spinach; make me dinner."* 2 servings.
+
+1. **Profile:** "lactose" maps to the `milk` allergen family; "mushrooms" is a dislike.
+2. **Query rewriting:** `{"query": "chicken rice spinach dinner", "exclude": ["mushrooms"], "tags": []}`.
+3. **Retrieval:** Qdrant searches the recipe pool (section 1) with `must_not` on `milk` and `mushrooms`, keeping only recipes with verified allergen tags, and returns the top 5.
+4. **Generation:** the SLM adapts the best match, a one-pot lemon garlic chicken with rice, to 2 servings. The pantry is a soft constraint: the recipe uses all 3 pantry items and lists the rest (lemon, garlic, onion) as "you'll need".
+5. **Allergen check:** the model added butter, so it is **changed** to olive oil, and the re-check passes.
+6. **Safety check:** the chicken step had no target temperature, so it is **changed** to "until it reaches 75 °C inside".
+7. **Nutrition check:** salt is 71% of the daily value per serving, so the card shows a **warning**.
+8. **Output:** the recipe card with the warning badge and source links.
+
+### Swaps, refinements and rerolls
+
+| Action | Where it re-enters the pipeline |
+| --- | --- |
+| Swap one ingredient | The SLM rescales the recipe, then all checks run again from the allergen check |
+| Refinement ("make it spicier") | Generation, with the current recipe as context, then all checks |
+| Reroll | Retrieval, with the recipes already shown excluded |
+
+Strict pantry mode ("only use what I have") is available as an option. It matches the compliance gate used in evaluation (section 2).
 
 <!-- END 0 -->
 

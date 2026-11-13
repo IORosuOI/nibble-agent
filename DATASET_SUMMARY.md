@@ -161,3 +161,44 @@ wc -l data/eval_examples.jsonl data/train_examples.jsonl data/val_examples.jsonl
 - `scripts/verify_xiaoxl.py` reads `data/xiaoxl_nutrition_new.csv`: the xiaoxl rows with nutrition after removing any recipe that matches the Kaggle set by title, directions or ingredient list. That dedup was run by hand and is not in a script or in the notebook.
 - The notebook's merge cell reads `data/xiaoxl_nutrition_checked.csv` (22 MB), the output of `verify_xiaoxl.py`. It is not committed.
 - Fastest way to reproduce exactly: obtain `data/xiaoxl_nutrition_checked.csv` from the person who built it (it is on their disk), put it in `data/`, and start at step 2. Rebuilding it from the raw shards needs the missing dedup step to be written first.
+
+## 12. Allergens: how they are found and how to get them
+Every recipe in the pool is mapped to the allergens it contains. This is separate from the older keyword tags (`dairy_free`, `gluten_free`, `vegan`, `vegetarian`), which are still used for the mood tags.
+
+### Files
+| File | What it is |
+|---|---|
+| `data/allergen_map.json` | The hand-written list: which ingredient word brings which allergen. |
+| `recipe_eval/allergens.py` | The matcher. `allergens_in_line("2 tbsp soy sauce")` gives `{soy, wheat, gluten}`; `recipe_allergens(ingredient_lines, step_lines)` gives the recipe result. |
+| `scripts/add_allergens.py` | Runs the matcher over `data/recipes_merged.jsonl` and writes `data/recipe_allergens.json`. |
+| `data/recipe_allergens.json` | Result: `{recipe_id: {"allergens": [...], "steps_only": [...]}}` for all 23,395 recipes (1.4 MB). Join to the pool by `recipe_id`. |
+
+### The allergens (10)
+`milk`, `egg`, `fish`, `shellfish` (crustaceans and molluscs), `tree_nut` (coconut not counted), `peanut`, `soy`, `sesame`, `wheat`, `gluten` (wheat always implies gluten; barley, rye, malt, beer, spelt and farro also add gluten).
+
+### How `allergen_map.json` works
+1. `keywords`: words that bring an allergen (`butter`, `cheese`, `yogurt` give milk; `shrimp`, `crab` give shellfish; `flour`, `bread`, `pasta` give wheat). Whole words only, plural allowed.
+2. `compound_ingredients`: foods that carry several allergens (`soy sauce` gives soy and wheat; `mayonnaise` gives egg; `caesar dressing` gives fish, egg and milk; `pesto` gives milk and tree nut).
+3. `not_allergen`: phrases where a keyword does not apply (`peanut butter` is not milk, `coconut milk` is not milk, `almond flour` is not wheat, `water chestnut` is not a tree nut, `oyster mushroom` is not shellfish). `eggplant` and `buckwheat` never match because only whole words count.
+4. `free_from_phrases`: a line that says `gluten free`, `dairy free`, `non dairy`, `vegan`, `egg free`, `nut free` or `soy free` loses the matching allergens for that line.
+5. Matching is case-insensitive; hyphens are treated as spaces.
+
+### How a recipe is mapped
+- Every ingredient line is checked, and every sentence of the steps is checked.
+- `allergens` = everything found in the ingredient list or the steps (the wide, safe answer).
+- `steps_only` = found only in the steps, not in the ingredient list. That is a sign the ingredient list is incomplete (some Kaggle lists are cut short), so treat those recipes with care.
+
+### Result on the pool (23,395 recipes)
+19,537 recipes have at least one allergen; 3,858 have none. Counts: milk 13,983; gluten 13,448; wheat 13,242; egg 7,948; tree_nut 2,513; fish 1,888; soy 1,753; shellfish 990; sesame 886; peanut 566. 2,494 recipes have an allergen found only in the steps. Against the older keyword tags, dairy agrees 99.1% and gluten 94.2%; in the cases checked by hand, the new mapping was the correct one (for example pizza dough and pie dough were wrongly tagged gluten free before).
+
+### How to rebuild
+```
+python scripts/add_allergens.py        # run from the project root, needs data/recipes_merged.jsonl (about 1 minute)
+```
+It prints the counts above. Rebuild whenever the pool changes (for example after `add_computed_nutrition.py`). Unit-check the matcher by calling `allergens_in_line` on a few lines, as in the examples above.
+
+### Limits
+- The list is hand-written and approximate. It errs on the side of flagging, because a missed allergen is worse than a false one.
+- It cannot see hidden ingredients (lecithin, a store-bought sauce or stock) or cross-contact.
+- Oats are not flagged as gluten on purpose. Peanut oil counts as peanut (cautious). Bread-like words such as `roll` and `crust` count as wheat, so a rice or gluten-free version only passes if the line says so.
+- Not human-reviewed. The scorer does not use allergens yet; there is no `avoid` field in the request and no allergen test cases.

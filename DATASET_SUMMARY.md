@@ -117,3 +117,47 @@ Run order: `pull_xiaoxl.py`, `verify_xiaoxl.py`, the cleaning and merge cells of
 - Big generated files: `data/recipes_merged.jsonl`, `data/train_examples.jsonl`, `data/val_examples.jsonl` (47, 74 and 4 MB); the scripts regenerate them. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
 - Raw downloads: Kaggle, xiaoxl and the USDA folders.
 - `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; a download step is not automated yet.
+
+## 11. How to get the ~20k training entries (rebuild from scratch)
+Short answer: the five scripts alone do not give you the data. Two steps live outside them: the cleaning/dedup/merge cells of `recipes.ipynb`, and a dedup of xiaoxl against Kaggle that was done by hand and has no script (see the note at the end).
+
+### Where the numbers come from
+| Step | Input -> output | Rows after the step |
+|---|---|---|
+| Notebook: clean, dedup, merge | Kaggle (62,126 raw) + `data/xiaoxl_nutrition_checked.csv` -> `data/recipes_merged.jsonl` | 28,254 |
+| `add_computed_nutrition.py` | drops recipes over 4,000 kcal in total (4,859), adds computed totals, estimates Kaggle servings | **23,395** (the pool) |
+| `build_examples.py 120 7` | picks 120 recipes per tag -> `data/eval_examples.jsonl` | 1,200 test recipes |
+| `build_train.py` | removes the 1,200 test recipes, then keeps recipes with at least 3 non-staple ingredients and at least 1 mood tag | 22,195 -> **20,728 usable** |
+| split inside `build_train.py` | 5% validation (`val_fraction` 0.05, seed 11) | **19,692 train + 1,036 val** |
+
+So "20k entries" means train plus validation, 20,728. About 1,467 recipes are lost in the last filter: their ingredient list has fewer than 3 non-staple ingredients after cleaning, or none of the mood tags applies. The total of train, validation and test is 21,928.
+
+### Commands (run from the project root)
+Needs Python with `pandas` and `pyarrow`, the USDA tables in `usda_sr/` (not in git), and `data/ingredient_map.json` (in git).
+```
+# 1. only if you need to rebuild the xiaoxl input (slow; downloads about 20 shards)
+python scripts/pull_xiaoxl.py
+python scripts/verify_xiaoxl.py        # needs data/xiaoxl_nutrition_new.csv, see the note below
+
+# 2. run the cleaning, dedup, xiaoxl-merge and "save merged" cells of recipes.ipynb
+#    (this writes data/recipes_merged.jsonl, 28,254 rows)
+
+# 3. nutrition, cap and servings (rewrites recipes_merged.jsonl in place; takes a few minutes)
+python scripts/add_computed_nutrition.py     # -> 23,395 rows
+
+# 4. test set, then training files (order matters: training excludes the test recipes)
+python scripts/build_examples.py 120 7       # -> data/eval_examples.jsonl (1,200)
+python scripts/build_train.py                # -> data/train_examples.jsonl (19,692), data/val_examples.jsonl (1,036)
+```
+Seeds are fixed (7 for the test set, 11 for the training split), so the same pool gives the same files. If you change the pool, the cap (`MAX_TOTAL_KCAL`), the tag thresholds or the prompt wording, re-run steps 3 and 4 in order, because the test set decides which recipes the training set may use.
+
+### Check the result
+```
+python -c "import pandas as pd; print(len(pd.read_json('data/recipes_merged.jsonl', lines=True)))"   # 23395
+wc -l data/eval_examples.jsonl data/train_examples.jsonl data/val_examples.jsonl                      # 1200, 19692, 1036
+```
+
+### Known gap: the rebuild is not fully scripted
+- `scripts/verify_xiaoxl.py` reads `data/xiaoxl_nutrition_new.csv`: the xiaoxl rows with nutrition after removing any recipe that matches the Kaggle set by title, directions or ingredient list. That dedup was run by hand and is not in a script or in the notebook.
+- The notebook's merge cell reads `data/xiaoxl_nutrition_checked.csv` (22 MB), the output of `verify_xiaoxl.py`. It is not committed.
+- Fastest way to reproduce exactly: obtain `data/xiaoxl_nutrition_checked.csv` from the person who built it (it is on their disk), put it in `data/`, and start at step 2. Rebuilding it from the raw shards needs the missing dedup step to be written first.

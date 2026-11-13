@@ -1,0 +1,10 @@
+model:
+  name: qwen3.5-4b        # placeholder until the week 9 model comparison
+  base_url: http://localhost:11434/v1   # OpenAI-compatible local server
+
+qdrant:
+  url: http://localhost:6333
+  collection: recipes
+
+backend:
+  port: 8080

@@ -2,7 +2,7 @@
 
 ## 1. Goal
 Evaluate a model that takes (ingredients the user has + a mood such as "spicy" or "high-protein") and returns a full recipe.
-The evaluation checks ingredient compliance, nutritional fit, and culinary feasibility.
+The evaluation checks that the recipe is built around the user's ingredients, nutritional fit, and culinary feasibility.
 
 ## 2. Source datasets
 | Dataset | Used for | Notes |
@@ -51,17 +51,17 @@ Measured accuracy against the labels on 1,500 sampled recipes: 81% reached 80% o
 
 ## 7. How a model is scored on one ground-truth entry
 Input: `request = {ingredients, tags}` from the example. The model returns `{servings, ingredients (with amounts), steps}`. `score_response(request, response, calc)` computes:
-1. **Compliance (hard gate).** Every non-staple ingredient in the answer must match something the user listed (staples allowed: salt, pepper, water, oil, ice, cooking spray). Any extra ingredient gives overall 0. Also reports `usage`, the share of available ingredients used.
+1. **Compliance (hard gate).** The recipe must use at least one of the ingredients the user listed (staples are always allowed and do not count: salt, pepper, water, oil, ice, cooking spray). Extra ingredients the user did not list are allowed. A recipe that uses none of the user's ingredients gives overall 0. Also reports `usage` (share of the available ingredients used), `extras` (the added ingredients) and `pantry_share` (share of the recipe's non-staple ingredients that came from the user). `scoring.EXTRA_PENALTY` (default 0, so extras are free) can be raised to lower the compliance score as the share of extras grows.
 2. **Preference.** For each requested tag: keyword tags are pass/fail on the answer's ingredients; macro tags use the calculator on the answer's own ingredients and are scored on calorie shares (so the servings the model claims cannot change the score), 1 when inside the threshold band (15% tolerance) and falling linearly to 0 outside it. Only `low_calorie` uses per-serving calories; there the model's claimed servings are clamped to 0.67x-1.5x the golden recipe's servings (`reference_servings`). Averaged over tags.
 3. **Feasibility.** Rule checks (at least 2 steps, ingredients actually used in the steps, sane temperatures and times, oven temperature given when baking or roasting, amounts given), optionally blended 50/50 with a 1-5 LLM-judge rating (prompt provided in `scoring.LLM_JUDGE_PROMPT`).
 4. **Overall** = 0 if compliance fails, else 0.3 x compliance + 0.4 x preference + 0.3 x feasibility. Report the three sub-scores too.
-Model performance = the mean of these per-entry scores, broken down by tag, plus the compliance-fail rate.
-The golden recipe is the reference: it supplies the request (ingredients, tags). The answer is judged against the request and rules, not by text match to the golden recipe. Sanity check: golden recipes scored as answers average 0.992 (minimum 0.93); an answer with an invented ingredient scores 0.
+Model performance = the mean of these per-entry scores, broken down by tag, plus the compliance-fail rate (share of answers that use none of the user's ingredients) and the average share of extras.
+The golden recipe is the reference: it supplies the request (ingredients, tags). The answer is judged against the request and rules, not by text match to the golden recipe. Sanity check: golden recipes scored as answers average 0.992 (minimum 0.93); a recipe with no ingredient from the user's list scores 0; adding extra ingredients does not trigger the gate.
 
 ## 8. Limitations
 - Not human-verified. "Verified" means two imperfect methods (label and USDA recompute) agree, and the quality rules passed. No person has reviewed a sample yet.
 - Nutrition for 15,251 Kaggle rows is computed (totals/shares only), not verified; their servings are estimated as total / 750 kcal, not recorded; 4,798 Kaggle rows have no nutrition and no servings. Macro tags for computed rows are consistent with the same calculator that scores model answers, so they are partly self-consistent by construction; the labelled xiaoxl rows are the independent check.
-- Calculator error is about 15% at the median; keyword tags are approximate; compliance matching uses word overlap (with plural handling), so near-miss ingredient names can slip through.
+- Calculator error is about 15% at the median; keyword tags are approximate; compliance matching uses word overlap (with plural handling), so near-miss ingredient names can count as a match (or a miss). Because extras are allowed, the model can add anything it likes, so only the 'uses at least one' gate is hard; check `extras` and `pantry_share` to see how far answers drift from the pantry. Training targets still use only the listed ingredients (1:1 with the source recipe), so a fine-tuned model will mostly stay inside the list.
 - Feasibility is rule-based and lenient (an absurd bake time still scored 0.85 overall); an LLM judge or human check is recommended before trusting it.
 - The scorer has only been tested on golden recipes and hand-made bad answers, not on real model output.
 - xiaoxl license is labeled MIT, but its recipe text appears scraped from a recipe site; check before redistributing.
@@ -117,3 +117,88 @@ Run order: `pull_xiaoxl.py`, `verify_xiaoxl.py`, the cleaning and merge cells of
 - Big generated files: `data/recipes_merged.jsonl`, `data/train_examples.jsonl`, `data/val_examples.jsonl` (47, 74 and 4 MB); the scripts regenerate them. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
 - Raw downloads: Kaggle, xiaoxl and the USDA folders.
 - `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; a download step is not automated yet.
+
+## 11. How to get the ~20k training entries (rebuild from scratch)
+Short answer: the five scripts alone do not give you the data. Two steps live outside them: the cleaning/dedup/merge cells of `recipes.ipynb`, and a dedup of xiaoxl against Kaggle that was done by hand and has no script (see the note at the end).
+
+### Where the numbers come from
+| Step | Input -> output | Rows after the step |
+|---|---|---|
+| Notebook: clean, dedup, merge | Kaggle (62,126 raw) + `data/xiaoxl_nutrition_checked.csv` -> `data/recipes_merged.jsonl` | 28,254 |
+| `add_computed_nutrition.py` | drops recipes over 4,000 kcal in total (4,859), adds computed totals, estimates Kaggle servings | **23,395** (the pool) |
+| `build_examples.py 120 7` | picks 120 recipes per tag -> `data/eval_examples.jsonl` | 1,200 test recipes |
+| `build_train.py` | removes the 1,200 test recipes, then keeps recipes with at least 3 non-staple ingredients and at least 1 mood tag | 22,195 -> **20,728 usable** |
+| split inside `build_train.py` | 5% validation (`val_fraction` 0.05, seed 11) | **19,692 train + 1,036 val** |
+
+So "20k entries" means train plus validation, 20,728. About 1,467 recipes are lost in the last filter: their ingredient list has fewer than 3 non-staple ingredients after cleaning, or none of the mood tags applies. The total of train, validation and test is 21,928.
+
+### Commands (run from the project root)
+Needs Python with `pandas` and `pyarrow`, the USDA tables in `usda_sr/` (not in git), and `data/ingredient_map.json` (in git).
+```
+# 1. only if you need to rebuild the xiaoxl input (slow; downloads about 20 shards)
+python scripts/pull_xiaoxl.py
+python scripts/verify_xiaoxl.py        # needs data/xiaoxl_nutrition_new.csv, see the note below
+
+# 2. run the cleaning, dedup, xiaoxl-merge and "save merged" cells of recipes.ipynb
+#    (this writes data/recipes_merged.jsonl, 28,254 rows)
+
+# 3. nutrition, cap and servings (rewrites recipes_merged.jsonl in place; takes a few minutes)
+python scripts/add_computed_nutrition.py     # -> 23,395 rows
+
+# 4. test set, then training files (order matters: training excludes the test recipes)
+python scripts/build_examples.py 120 7       # -> data/eval_examples.jsonl (1,200)
+python scripts/build_train.py                # -> data/train_examples.jsonl (19,692), data/val_examples.jsonl (1,036)
+```
+Seeds are fixed (7 for the test set, 11 for the training split), so the same pool gives the same files. If you change the pool, the cap (`MAX_TOTAL_KCAL`), the tag thresholds or the prompt wording, re-run steps 3 and 4 in order, because the test set decides which recipes the training set may use.
+
+### Check the result
+```
+python -c "import pandas as pd; print(len(pd.read_json('data/recipes_merged.jsonl', lines=True)))"   # 23395
+wc -l data/eval_examples.jsonl data/train_examples.jsonl data/val_examples.jsonl                      # 1200, 19692, 1036
+```
+
+### Known gap: the rebuild is not fully scripted
+- `scripts/verify_xiaoxl.py` reads `data/xiaoxl_nutrition_new.csv`: the xiaoxl rows with nutrition after removing any recipe that matches the Kaggle set by title, directions or ingredient list. That dedup was run by hand and is not in a script or in the notebook.
+- The notebook's merge cell reads `data/xiaoxl_nutrition_checked.csv` (22 MB), the output of `verify_xiaoxl.py`. It is not committed.
+- Fastest way to reproduce exactly: obtain `data/xiaoxl_nutrition_checked.csv` from the person who built it (it is on their disk), put it in `data/`, and start at step 2. Rebuilding it from the raw shards needs the missing dedup step to be written first.
+
+## 12. Allergens: how they are found and how to get them
+Every recipe in the pool is mapped to the allergens it contains. This is separate from the older keyword tags (`dairy_free`, `gluten_free`, `vegan`, `vegetarian`), which are still used for the mood tags.
+
+### Files
+| File | What it is |
+|---|---|
+| `data/allergen_map.json` | The hand-written list: which ingredient word brings which allergen. |
+| `recipe_eval/allergens.py` | The matcher. `allergens_in_line("2 tbsp soy sauce")` gives `{soy, wheat, gluten}`; `recipe_allergens(ingredient_lines, step_lines)` gives the recipe result. |
+| `scripts/add_allergens.py` | Runs the matcher over `data/recipes_merged.jsonl` and writes `data/recipe_allergens.json`. |
+| `data/recipe_allergens.json` | Result: `{recipe_id: {"allergens": [...], "steps_only": [...]}}` for all 23,395 recipes (1.4 MB). Join to the pool by `recipe_id`. |
+
+### The allergens (10)
+`milk`, `egg`, `fish`, `shellfish` (crustaceans and molluscs), `tree_nut` (coconut not counted), `peanut`, `soy`, `sesame`, `wheat`, `gluten` (wheat always implies gluten; barley, rye, malt, beer, spelt and farro also add gluten).
+
+### How `allergen_map.json` works
+1. `keywords`: words that bring an allergen (`butter`, `cheese`, `yogurt` give milk; `shrimp`, `crab` give shellfish; `flour`, `bread`, `pasta` give wheat). Whole words only, plural allowed.
+2. `compound_ingredients`: foods that carry several allergens (`soy sauce` gives soy and wheat; `mayonnaise` gives egg; `caesar dressing` gives fish, egg and milk; `pesto` gives milk and tree nut).
+3. `not_allergen`: phrases where a keyword does not apply (`peanut butter` is not milk, `coconut milk` is not milk, `almond flour` is not wheat, `water chestnut` is not a tree nut, `oyster mushroom` is not shellfish). `eggplant` and `buckwheat` never match because only whole words count.
+4. `free_from_phrases`: a line that says `gluten free`, `dairy free`, `non dairy`, `vegan`, `egg free`, `nut free` or `soy free` loses the matching allergens for that line.
+5. Matching is case-insensitive; hyphens are treated as spaces.
+
+### How a recipe is mapped
+- Every ingredient line is checked, and every sentence of the steps is checked.
+- `allergens` = everything found in the ingredient list or the steps (the wide, safe answer).
+- `steps_only` = found only in the steps, not in the ingredient list. That is a sign the ingredient list is incomplete (some Kaggle lists are cut short), so treat those recipes with care.
+
+### Result on the pool (23,395 recipes)
+19,537 recipes have at least one allergen; 3,858 have none. Counts: milk 13,983; gluten 13,448; wheat 13,242; egg 7,948; tree_nut 2,513; fish 1,888; soy 1,753; shellfish 990; sesame 886; peanut 566. 2,494 recipes have an allergen found only in the steps. Against the older keyword tags, dairy agrees 99.1% and gluten 94.2%; in the cases checked by hand, the new mapping was the correct one (for example pizza dough and pie dough were wrongly tagged gluten free before).
+
+### How to rebuild
+```
+python scripts/add_allergens.py        # run from the project root, needs data/recipes_merged.jsonl (about 1 minute)
+```
+It prints the counts above. Rebuild whenever the pool changes (for example after `add_computed_nutrition.py`). Unit-check the matcher by calling `allergens_in_line` on a few lines, as in the examples above.
+
+### Limits
+- The list is hand-written and approximate. It errs on the side of flagging, because a missed allergen is worse than a false one.
+- It cannot see hidden ingredients (lecithin, a store-bought sauce or stock) or cross-contact.
+- Oats are not flagged as gluten on purpose. Peanut oil counts as peanut (cautious). Bread-like words such as `roll` and `crust` count as wheat, so a rice or gluten-free version only passes if the line says so.
+- Not human-reviewed. The scorer does not use allergens yet; there is no `avoid` field in the request and no allergen test cases.

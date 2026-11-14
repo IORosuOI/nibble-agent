@@ -1,0 +1,487 @@
+{
+  "_about": "Which ingredient words bring which allergens. Used by recipe_eval/allergens.py. Matching is on whole words (plural allowed), case-insensitive. Hand-written and approximate: it errs on the side of flagging (a missed allergen is worse than a false one). It cannot see hidden ingredients (for example lecithin, or oil used in a store-bought sauce) or cross-contact.",
+  "allergens": {
+    "milk": "cow's milk and dairy products",
+    "egg": "eggs and egg products",
+    "fish": "finned fish and fish-based sauces",
+    "shellfish": "crustaceans and molluscs (shrimp, crab, lobster, clams, oysters, scallops, squid...)",
+    "tree_nut": "almond, walnut, pecan, cashew, pistachio, hazelnut, macadamia, pine nut, chestnut... (coconut is not counted)",
+    "peanut": "peanuts (a legume, listed separately from tree nuts)",
+    "soy": "soybeans and soy products",
+    "sesame": "sesame seeds, tahini and sesame oil",
+    "wheat": "wheat and wheat flour products",
+    "gluten": "wheat, barley, rye and their products (wheat always implies gluten)"
+  },
+  "implied": {
+    "wheat": [
+      "gluten"
+    ]
+  },
+  "compound_ingredients": {
+    "soy sauce": [
+      "soy",
+      "wheat"
+    ],
+    "tamari": [
+      "soy"
+    ],
+    "teriyaki": [
+      "soy",
+      "wheat"
+    ],
+    "hoisin": [
+      "soy",
+      "wheat"
+    ],
+    "oyster sauce": [
+      "shellfish",
+      "soy",
+      "wheat"
+    ],
+    "worcestershire": [
+      "fish"
+    ],
+    "fish sauce": [
+      "fish"
+    ],
+    "mayonnaise": [
+      "egg"
+    ],
+    "mayo": [
+      "egg"
+    ],
+    "aioli": [
+      "egg"
+    ],
+    "egg noodles": [
+      "egg",
+      "wheat"
+    ],
+    "caesar dressing": [
+      "fish",
+      "egg",
+      "milk"
+    ],
+    "pesto": [
+      "milk",
+      "tree_nut"
+    ],
+    "hummus": [
+      "sesame"
+    ],
+    "tahini": [
+      "sesame"
+    ],
+    "nutella": [
+      "tree_nut",
+      "milk",
+      "soy"
+    ],
+    "marzipan": [
+      "tree_nut"
+    ],
+    "amaretto": [
+      "tree_nut"
+    ],
+    "praline": [
+      "tree_nut"
+    ],
+    "satay": [
+      "peanut"
+    ],
+    "miso": [
+      "soy"
+    ],
+    "ramen": [
+      "wheat"
+    ],
+    "udon": [
+      "wheat"
+    ],
+    "meringue": [
+      "egg"
+    ],
+    "custard": [
+      "milk",
+      "egg"
+    ],
+    "eggnog": [
+      "milk",
+      "egg"
+    ],
+    "hollandaise": [
+      "milk",
+      "egg"
+    ],
+    "milk chocolate": [
+      "milk"
+    ],
+    "white chocolate": [
+      "milk"
+    ],
+    "malt vinegar": [
+      "gluten"
+    ],
+    "cream of wheat": [
+      "wheat"
+    ]
+  },
+  "keywords": {
+    "milk": [
+      "milk",
+      "butter",
+      "buttermilk",
+      "cream",
+      "half and half",
+      "cheese",
+      "cheddar",
+      "mozzarella",
+      "parmesan",
+      "parmigiano",
+      "feta",
+      "ricotta",
+      "mascarpone",
+      "brie",
+      "gouda",
+      "swiss",
+      "provolone",
+      "gruyere",
+      "havarti",
+      "monterey jack",
+      "colby",
+      "pecorino",
+      "romano",
+      "gorgonzola",
+      "paneer",
+      "queso",
+      "yogurt",
+      "yoghurt",
+      "kefir",
+      "whey",
+      "casein",
+      "ghee",
+      "lactose",
+      "creme fraiche",
+      "whipped topping",
+      "condensed milk",
+      "evaporated milk",
+      "ice cream"
+    ],
+    "egg": [
+      "egg",
+      "egg white",
+      "egg yolk",
+      "albumen"
+    ],
+    "fish": [
+      "fish",
+      "salmon",
+      "tuna",
+      "cod",
+      "tilapia",
+      "halibut",
+      "trout",
+      "anchovy",
+      "anchovie",
+      "sardine",
+      "mackerel",
+      "haddock",
+      "snapper",
+      "sea bass",
+      "catfish",
+      "mahi mahi",
+      "swordfish",
+      "herring",
+      "flounder",
+      "pollock",
+      "perch",
+      "grouper",
+      "eel",
+      "caviar",
+      "roe",
+      "surimi"
+    ],
+    "shellfish": [
+      "shrimp",
+      "prawn",
+      "crab",
+      "lobster",
+      "crayfish",
+      "crawfish",
+      "langoustine",
+      "clam",
+      "mussel",
+      "oyster",
+      "scallop",
+      "squid",
+      "calamari",
+      "octopus",
+      "abalone",
+      "escargot",
+      "shellfish"
+    ],
+    "tree_nut": [
+      "almond",
+      "walnut",
+      "pecan",
+      "cashew",
+      "pistachio",
+      "hazelnut",
+      "filbert",
+      "macadamia",
+      "brazil nut",
+      "pine nut",
+      "chestnut",
+      "nuts",
+      "nut"
+    ],
+    "peanut": [
+      "peanut",
+      "groundnut"
+    ],
+    "soy": [
+      "soy",
+      "soya",
+      "soybean",
+      "edamame",
+      "tofu",
+      "tempeh",
+      "natto",
+      "shoyu"
+    ],
+    "sesame": [
+      "sesame",
+      "benne",
+      "gomasio"
+    ],
+    "wheat": [
+      "wheat",
+      "flour",
+      "bread",
+      "breadcrumb",
+      "bread crumb",
+      "panko",
+      "crouton",
+      "pasta",
+      "spaghetti",
+      "macaroni",
+      "penne",
+      "lasagna",
+      "linguine",
+      "fettuccine",
+      "noodle",
+      "orzo",
+      "couscous",
+      "bulgur",
+      "semolina",
+      "farina",
+      "seitan",
+      "tortilla",
+      "pita",
+      "bagel",
+      "cracker",
+      "graham",
+      "biscuit",
+      "bun",
+      "pie crust",
+      "pastry",
+      "puff pastry",
+      "phyllo",
+      "filo",
+      "dough",
+      "cake mix",
+      "baking mix",
+      "bisquick",
+      "pretzel",
+      "cookie",
+      "wonton wrapper",
+      "egg roll wrapper",
+      "baguette",
+      "ciabatta",
+      "focaccia",
+      "brioche",
+      "croissant",
+      "sourdough",
+      "naan",
+      "roll",
+      "loaf",
+      "muffin",
+      "waffle",
+      "pancake",
+      "crust",
+      "gnocchi",
+      "stuffing",
+      "dumpling",
+      "crepe",
+      "wrapper"
+    ],
+    "gluten": [
+      "gluten",
+      "barley",
+      "rye",
+      "malt",
+      "beer",
+      "ale",
+      "stout",
+      "lager",
+      "spelt",
+      "kamut",
+      "farro",
+      "triticale"
+    ]
+  },
+  "not_allergen": {
+    "coconut milk": [
+      "milk"
+    ],
+    "coconut cream": [
+      "milk"
+    ],
+    "cream of coconut": [
+      "milk"
+    ],
+    "cream of tartar": [
+      "milk"
+    ],
+    "cream of wheat": [
+      "milk"
+    ],
+    "cream soda": [
+      "milk"
+    ],
+    "cream sherry": [
+      "milk"
+    ],
+    "cocoa butter": [
+      "milk"
+    ],
+    "peanut butter": [
+      "milk"
+    ],
+    "almond butter": [
+      "milk"
+    ],
+    "cashew butter": [
+      "milk"
+    ],
+    "nut butter": [
+      "milk"
+    ],
+    "apple butter": [
+      "milk"
+    ],
+    "swiss chard": [
+      "milk"
+    ],
+    "butter bean": [
+      "milk"
+    ],
+    "butter lettuce": [
+      "milk"
+    ],
+    "almond milk": [
+      "milk"
+    ],
+    "soy milk": [
+      "milk"
+    ],
+    "oat milk": [
+      "milk"
+    ],
+    "rice milk": [
+      "milk"
+    ],
+    "cashew milk": [
+      "milk"
+    ],
+    "water chestnut": [
+      "tree_nut"
+    ],
+    "oyster mushroom": [
+      "shellfish"
+    ],
+    "crab apple": [
+      "shellfish"
+    ],
+    "rice flour": [
+      "wheat"
+    ],
+    "almond flour": [
+      "wheat"
+    ],
+    "coconut flour": [
+      "wheat"
+    ],
+    "corn flour": [
+      "wheat"
+    ],
+    "chickpea flour": [
+      "wheat"
+    ],
+    "tapioca flour": [
+      "wheat"
+    ],
+    "potato flour": [
+      "wheat"
+    ],
+    "oat flour": [
+      "wheat"
+    ],
+    "corn tortilla": [
+      "wheat"
+    ],
+    "rice noodle": [
+      "wheat"
+    ],
+    "glass noodle": [
+      "wheat"
+    ],
+    "rice paper": [
+      "wheat"
+    ],
+    "root beer": [
+      "gluten"
+    ],
+    "ginger beer": [
+      "gluten"
+    ],
+    "rice wrapper": [
+      "wheat"
+    ],
+    "rice paper wrapper": [
+      "wheat"
+    ]
+  },
+  "free_from_phrases": {
+    "gluten free": [
+      "wheat",
+      "gluten"
+    ],
+    "dairy free": [
+      "milk"
+    ],
+    "lactose free": [
+      "milk"
+    ],
+    "non dairy": [
+      "milk"
+    ],
+    "vegan": [
+      "milk",
+      "egg"
+    ],
+    "egg free": [
+      "egg"
+    ],
+    "eggless": [
+      "egg"
+    ],
+    "nut free": [
+      "tree_nut",
+      "peanut"
+    ],
+    "soy free": [
+      "soy"
+    ]
+  }
+}

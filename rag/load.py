@@ -8,6 +8,9 @@ Every recipe comes out as a dict:
   recipe_id, title, ingredients (lines with amounts), steps, ingredient_names (staples removed),
   source, category, nutrition_basis, servings, servings_estimated, nutrition_per_serving, nutrition_totals,
   single_step, tags, allergens, allergens_steps_only, allergens_known, eval_holdout
+
+Allergens are computed from each recipe's own text with recipe_eval.allergens; data/recipe_allergens.json is
+only used to cross-check them (see _finish).
 """
 import json
 import math
@@ -57,21 +60,47 @@ def _tags(ingredients, basis, per_serving, totals):
     return L.all_tags(ingredients)
 
 
-def _finish(recipes, holdout):
-    """Add tags, allergens and the eval-holdout flag to every recipe."""
+class AllergenMismatch(ValueError):
+    """The allergen file disagrees with what the recipes' own text gives: the index must not be built."""
+
+
+def _same(a, b):
+    return sorted(a["allergens"]) == sorted(b["allergens"]) and sorted(a["steps_only"]) == sorted(b["steps_only"])
+
+
+def _finish(recipes, holdout, allergens_path=None):
+    """Add tags, allergens and the eval-holdout flag to every recipe.
+
+    Allergens are always computed from the recipe's own ingredient lines and steps, never looked up by recipe_id
+    alone: recipe_ids are assigned by row order, so a regenerated pool paired with an old data/recipe_allergens.json
+    would silently give recipes another recipe's allergens. The file is only a cross-check, and any disagreement
+    stops the build (AllergenMismatch)."""
+    path = allergens_path or ALLERGENS_PATH
     try:
-        known = json.loads(ALLERGENS_PATH.read_text(encoding="utf8"))
+        known = json.loads(path.read_text(encoding="utf8"))
     except OSError:
         known = {}
+    checked, mismatches = 0, []
     for r in recipes:
         r["ingredient_names"] = ingredient_names(r["ingredients"])
         r["tags"] = _tags(r["ingredients"], r["nutrition_basis"], r["nutrition_per_serving"], r["nutrition_totals"])
-        # Allergens: the dataset file if it has this recipe, otherwise the same matcher run here.
-        a = known.get(r["recipe_id"]) or A.recipe_allergens(r["ingredients"], r["steps"])
+        a = A.recipe_allergens(r["ingredients"], r["steps"])
+        if r["recipe_id"] in known:
+            checked += 1
+            if not _same(a, known[r["recipe_id"]]):
+                mismatches.append(r["recipe_id"])
         r["allergens"] = a["allergens"]
         r["allergens_steps_only"] = a["steps_only"]
         r["allergens_known"] = True
         r["eval_holdout"] = r["recipe_id"] in holdout
+    if mismatches:
+        raise AllergenMismatch(
+            f"{len(mismatches)} of {checked} recipes have different allergens in {path.name} than their own text "
+            f"gives (first: {', '.join(mismatches[:5])}). The pool and the allergen file are out of sync, or "
+            f"allergen_map.json changed since the file was made. Rerun scripts/add_allergens.py, then index again.")
+    print(f"allergens computed from recipe text for {len(recipes)} recipes; "
+          f"{checked} cross-checked against {path.name}, all agree" if known else
+          f"allergens computed from recipe text for {len(recipes)} recipes ({path.name} not found, no cross-check)")
     return recipes
 
 

@@ -6,7 +6,7 @@ From code (this is what the MCP search_recipes tool will call):
 
 From the command line (project root, Qdrant running):
     python -m rag.search "spicy chicken dinner" --no milk peanut -k 5
-    python -m rag.search --check        # allergen filter test: no excluded allergen may ever come back
+    python -m rag.search --check        # allergen filter test over every recipe in the index, then sample queries
 """
 import argparse
 import sys
@@ -98,6 +98,60 @@ def check_allergen_filter(k=20, client=None, collection=None):
     return ok
 
 
+# Typical multi-allergen profiles, checked on top of every single allergen.
+CHECK_COMBOS = (("milk", "egg"), ("milk", "egg", "peanut", "tree_nut"), ("gluten", "milk"), ("fish", "shellfish", "sesame", "soy"))
+
+
+def _scroll_ids(client, collection, flt=None):
+    """IDs of every point that passes a filter (the whole collection, not just a top k)."""
+    ids, offset = set(), None
+    while True:
+        points, offset = client.scroll(collection, scroll_filter=flt, limit=2000, offset=offset,
+                                       with_payload=False, with_vectors=False)
+        ids.update(str(p.id) for p in points)
+        if offset is None:
+            return ids
+
+
+def check_allergen_filter_exhaustive(client=None, collection=None, combos=CHECK_COMBOS):
+    """Proof over the whole index, not a sample of top-k results. Two checks:
+      1. Every point's stored allergens equal the allergens recomputed from its own stored ingredients and steps.
+      2. For each allergen (and each combo), the set of points that pass the filter is exactly the set of
+         recipes whose recomputed allergens do not include it: no leaks, and nothing safe wrongly removed.
+    Returns True if both pass."""
+    from recipe_eval import allergens as A
+    client = client or get_client()
+    collection = collection or settings()["collection"]
+
+    truth, rid, wrong, offset = {}, {}, [], None
+    while True:
+        points, offset = client.scroll(collection, limit=1000, offset=offset, with_vectors=False,
+                                       with_payload=["recipe_id", "ingredients", "steps", "allergens", "allergens_known"])
+        for p in points:
+            pid = str(p.id)
+            computed = A.recipe_allergens(p.payload["ingredients"], p.payload["steps"])["allergens"]
+            truth[pid], rid[pid] = set(computed), p.payload["recipe_id"]
+            if sorted(p.payload["allergens"]) != computed or not p.payload.get("allergens_known"):
+                wrong.append(p.payload["recipe_id"])
+        if offset is None:
+            break
+    n = len(truth)
+    print(f"1. stored allergens vs recomputed from each recipe's own text: {n - len(wrong)}/{n} agree"
+          + (f"  <-- WRONG: {', '.join(wrong[:5])}" if wrong else ""))
+
+    print(f"2. {'excluded':<36} {'pass filter':>12} {'expected':>9} {'leaks':>6} {'wrongly removed':>16}")
+    ok = not wrong
+    for group in [(a,) for a in ALLERGENS] + list(combos):
+        got = _scroll_ids(client, collection, build_filter(exclude_allergens=group))
+        expected = {pid for pid, al in truth.items() if not al & set(group)}
+        leaks, removed = got - expected, expected - got
+        ok &= not leaks and not removed
+        flag = "" if not (leaks or removed) else f"  <-- e.g. {', '.join(rid[p] for p in list(leaks or removed)[:3])}"
+        print(f"   {', '.join(group):<36} {len(got):>12} {len(expected):>9} {len(leaks):>6} {len(removed):>16}{flag}")
+    print(f"PASS: the filter is exact on all {n} recipes" if ok else "FAIL: see the rows marked above")
+    return ok
+
+
 def _print_hits(hits):
     for i, h in enumerate(hits, 1):
         print(f"{i}. {h['title']}  [{h['recipe_id']}, {h['source']}, score {h['score']:.3f}]")
@@ -111,10 +165,13 @@ def main():
     ap.add_argument("-k", type=int, default=5)
     ap.add_argument("--no", nargs="+", default=[], metavar="ALLERGEN", help="allergens to exclude, e.g. --no milk peanut")
     ap.add_argument("--exclude-eval", action="store_true", help="leave out the 1,200 test-set recipes")
-    ap.add_argument("--check", action="store_true", help="run the allergen filter test")
+    ap.add_argument("--check", action="store_true", help="run the allergen filter tests (whole index, then sample queries)")
     args = ap.parse_args()
     if args.check:
-        sys.exit(0 if check_allergen_filter() else 1)
+        exact = check_allergen_filter_exhaustive()
+        print()
+        sample = check_allergen_filter()
+        sys.exit(0 if exact and sample else 1)
     if not args.query:
         ap.error("give a query, or --check")
     _print_hits(search(args.query, k=args.k, exclude_allergens=args.no, exclude_eval_set=args.exclude_eval))

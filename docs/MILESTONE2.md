@@ -133,7 +133,7 @@ A record has the common schema plus `calc_kcal_total`, `calc_protein_total`, `ca
 <!-- BEGIN 2 (Vlad) -->
 <!-- How are representative test cases and expected answers created? Size, format, categories (normal, edge, adversarial), how expected answers are checked (constraints, not exact text), who reviews them. Which metrics run on it? -->
 
-**Purpose.** A test set for the recipe generator: given ingredients and a mood, does the model return a usable recipe that stays inside the ingredients and fits the mood? Expected answers are constraints, not exact text.
+**Purpose.** A test set for the recipe generator: given ingredients and a mood, does the model return a usable recipe built around the user's ingredients that fits the mood? Expected answers are constraints, not exact text.
 
 **How test cases are created** (`scripts/build_examples.py`). Each case is built from one recipe in the pool:
 - **Request:** the recipe's ingredient names (staples removed) plus 0-2 random *distractor* ingredients taken from other recipes, shuffled, plus 1-2 mood tags the recipe really has.
@@ -151,13 +151,13 @@ A record has the common schema plus `calc_kcal_total`, `calc_protein_total`, `ca
 | Adversarial | **Not built yet.** Planned: allergen conflicts, inedible or unsafe ingredient combinations, contradictory moods, requests that cannot be satisfied from the given ingredients |
 
 **How answers are checked.** Not by matching the reference text. `recipe_eval/scoring.py: score_response(request, response)` returns three scores in [0, 1]:
-1. **Compliance (hard gate).** Every non-staple ingredient in the answer must come from the user's list (salt, pepper, water and cooking oil are always allowed). Any extra ingredient makes the overall score 0.
+1. **Compliance (hard gate).** The recipe must use at least one of the user's ingredients (salt, pepper, water and cooking oil are always allowed and do not count). Extra ingredients that are not on the user's list are allowed and reported (`extras`, `pantry_share`); an optional `EXTRA_PENALTY` can make them cost points. A recipe that uses none of the user's ingredients scores 0.
 2. **Preference.** How well the answer fits each requested tag. Keyword tags are pass/fail. Macro tags compute the answer's own nutrition from its ingredient lines (USDA) and score calorie shares with a 15% tolerance band, because the calculator is about 15% off at the median. Calorie shares do not depend on servings, so the model cannot game this score by claiming a different serving count.
 3. **Feasibility.** Rule checks: at least 2 steps, ingredients used in the steps, sane temperatures (100-600 F / 40-320 C) and times, an oven temperature when baking, amounts given. Optionally blended 50/50 with a 1-5 LLM-judge rating.
 
 `overall = 0.3 x compliance + 0.4 x preference + 0.3 x feasibility`.
 
-**Metrics reported.** Mean overall score; mean of each sub-score; compliance-failure rate (share of answers with an invented ingredient); all broken down by tag and by nutrition source (labelled vs computed). Sanity checks done: the reference recipes scored as if they were model answers average 0.992 (minimum 0.93); an answer with an invented ingredient scores 0.
+**Metrics reported.** Mean overall score; mean of each sub-score; compliance-failure rate (share of answers that use none of the user's ingredients) and the average share of extra ingredients; all broken down by tag and by nutrition source (labelled vs computed). Sanity checks done: the reference recipes scored as if they were model answers average 0.992 (minimum 0.93); an answer with none of the user's ingredients scores 0, and extras alone do not fail it.
 
 **Who reviews.** Right now verification is automatic only (label-versus-USDA agreement and the sanity checks above); no person has reviewed the cases yet. Proposed: a hand review of 50-100 sampled cases by the evaluation owner and a second team member, recorded in a `reviewed_by` field.
 

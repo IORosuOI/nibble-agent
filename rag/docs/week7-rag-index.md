@@ -1,6 +1,6 @@
-git # Week 7 report: recipe index in Qdrant
+# Week 7 report: recipe index in Qdrant
 
-15 Nov 2026 · Mihai · [living version (Claude Doc)](https://claude.ai/artifact/DmtBxFS5yQWsxmzfSwmx7M)
+15 Nov 2026 · Mihai 
 
 ## Summary
 

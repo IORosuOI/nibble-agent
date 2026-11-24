@@ -939,14 +939,14 @@ Changes to this plan are recorded here through PRs, with the reason for each cha
 
 | Date | Change | Reason |
 | --- | --- | --- |
-| 2026-11-15 | R1 and R3 save their top 10 in week 9 and are scored together with R4 in week 10 (#N) | The pooled retrieval labels are ready only in week 10 |
-| 2026-11-15 | Latency is timed on every experiment query from week 9 (#N) | The 1 s target is used to choose the setup in week 10 |
-| 2026-11-15 | The `search_recipes` interface is agreed at the start of week 8; the week 7 index uses raw ingredient names (#N) | Removes same-week dependencies between Răzvan, Mihai and Luca |
-| 2026-11-15 | Scraped recipes are upserted into Qdrant in week 11 (#N) | New-data ingestion must reach retrieval |
-| 2026-11-15 | The base SLM comparison moves from week 11 to week 9; models and owner to be confirmed (#N) | The agent, prompts and training setup depend on the chosen model |
-| 2026-11-15 | Substitution and dietary training examples: Răzvan, week 10. Safety training examples: Marius, week 12 (#N) | These parts of the section 5 training mix had no owner |
-| 2026-11-15 | `score_pairing` is left out of the training tool set (#N) | The tool is built after the training traces are logged |
-| 2026-11-15 | The week 12 pilot must produce a working adapter and test sequence length and memory; the full run is checked before Jan 4 (#N) | The full run is the only path to the fine-tuned model, on 8 GB of VRAM |
-| 2026-11-15 | The weeks 8–9 progress check shows the work done so far (#N) | The nutrition warning step is built in week 9 |
+| 2026-11-15 | R1 and R3 save their top 10 in week 9 and are scored together with R4 in week 10 (#22) | The pooled retrieval labels are ready only in week 10 |
+| 2026-11-15 | Latency is timed on every experiment query from week 9 (#22) | The 1 s target is used to choose the setup in week 10 |
+| 2026-11-15 | The `search_recipes` interface is agreed at the start of week 8; the week 7 index uses raw ingredient names (#22) | Removes same-week dependencies between Răzvan, Mihai and Luca |
+| 2026-11-15 | Scraped recipes are upserted into Qdrant in week 11 (#22) | New-data ingestion must reach retrieval |
+| 2026-11-15 | The base SLM comparison moves from week 11 to week 9; models and owner to be confirmed (#22) | The agent, prompts and training setup depend on the chosen model |
+| 2026-11-15 | Substitution and dietary training examples: Răzvan, week 10. Safety training examples: Marius, week 12 (#22) | These parts of the section 5 training mix had no owner |
+| 2026-11-15 | `score_pairing` is left out of the training tool set (#22) | The tool is built after the training traces are logged |
+| 2026-11-15 | The week 12 pilot must produce a working adapter and test sequence length and memory; the full run is checked before Jan 4 (#22) | The full run is the only path to the fine-tuned model, on 8 GB of VRAM |
+| 2026-11-15 | The weeks 8–9 progress check shows the work done so far (#22) | The nutrition warning step is built in week 9 |
 
 <!-- END 7 -->

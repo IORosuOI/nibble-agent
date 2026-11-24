@@ -1,4 +1,29 @@
 .DS_Store
-.venv/
+
+# Python
 __pycache__/
-.idea
+*.pyc
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Qdrant data from Docker
+qdrant_storage/
+
+# Large generated data (see DATASET_SUMMARY.md, "Not committed, on purpose")
+data/recipes_merged.jsonl
+data/train_examples.jsonl
+data/val_examples.jsonl
+data/xiaoxl_nutrition_checked.csv
+data/xiaoxl_nutrition_new.csv
+
+# Raw downloads
+usda_sr/
+xiaoxl_raw/
+xiaoxl_nutrition/
+recipes-dataset-64k-dishes/
+
+# Embedding model download (fastembed)
+.cache/

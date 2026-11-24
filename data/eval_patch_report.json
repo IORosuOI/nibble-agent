@@ -1,0 +1,618 @@
+{
+ "kept": 1124,
+ "second_tag_dropped": [
+  {
+   "example_id": "e0026",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0183",
+   "dropped": "vegetarian"
+  },
+  {
+   "example_id": "e0319",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0323",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0330",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0354",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0421",
+   "dropped": "dairy_free"
+  },
+  {
+   "example_id": "e0441",
+   "dropped": "dairy_free"
+  },
+  {
+   "example_id": "e0466",
+   "dropped": "vegetarian"
+  },
+  {
+   "example_id": "e0538",
+   "dropped": "vegetarian"
+  },
+  {
+   "example_id": "e0683",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0845",
+   "dropped": "vegetarian"
+  },
+  {
+   "example_id": "e0850",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e0888",
+   "dropped": "vegetarian"
+  },
+  {
+   "example_id": "e0934",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e1092",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e1099",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e1109",
+   "dropped": "vegan"
+  },
+  {
+   "example_id": "e1169",
+   "dropped": "gluten_free"
+  },
+  {
+   "example_id": "e1193",
+   "dropped": "vegetarian"
+  }
+ ],
+ "replaced": [
+  {
+   "example_id": "e0601",
+   "old_recipe_id": "r06502",
+   "new_recipe_id": "r09888",
+   "primary_tag": "vegetarian",
+   "old_tags": [
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0650",
+   "old_recipe_id": "r16972",
+   "new_recipe_id": "r14174",
+   "primary_tag": "vegetarian",
+   "old_tags": [
+    "vegetarian",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0653",
+   "old_recipe_id": "r18568",
+   "new_recipe_id": "r17054",
+   "primary_tag": "vegetarian",
+   "old_tags": [
+    "vegetarian",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0716",
+   "old_recipe_id": "r17955",
+   "new_recipe_id": "r03783",
+   "primary_tag": "vegetarian",
+   "old_tags": [
+    "vegetarian",
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e0727",
+   "old_recipe_id": "r14860",
+   "new_recipe_id": "r04880",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0734",
+   "old_recipe_id": "r11216",
+   "new_recipe_id": "r19865",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0736",
+   "old_recipe_id": "r02330",
+   "new_recipe_id": "r04866",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0743",
+   "old_recipe_id": "r23396",
+   "new_recipe_id": "r04505",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "high_carb"
+   ]
+  },
+  {
+   "example_id": "e0749",
+   "old_recipe_id": "r12093",
+   "new_recipe_id": "r14311",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "high_carb"
+   ]
+  },
+  {
+   "example_id": "e0754",
+   "old_recipe_id": "r01346",
+   "new_recipe_id": "r17703",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0757",
+   "old_recipe_id": "r11268",
+   "new_recipe_id": "r19783",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "low_carb"
+   ]
+  },
+  {
+   "example_id": "e0758",
+   "old_recipe_id": "r04749",
+   "new_recipe_id": "r00604",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0762",
+   "old_recipe_id": "r13051",
+   "new_recipe_id": "r13019",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0769",
+   "old_recipe_id": "r03782",
+   "new_recipe_id": "r03500",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0771",
+   "old_recipe_id": "r11892",
+   "new_recipe_id": "r09901",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0773",
+   "old_recipe_id": "r12551",
+   "new_recipe_id": "r05359",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0794",
+   "old_recipe_id": "r20829",
+   "new_recipe_id": "r06308",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0799",
+   "old_recipe_id": "r11893",
+   "new_recipe_id": "r20972",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "low_carb"
+   ]
+  },
+  {
+   "example_id": "e0803",
+   "old_recipe_id": "r04659",
+   "new_recipe_id": "r07436",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0825",
+   "old_recipe_id": "r13672",
+   "new_recipe_id": "r23603",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0829",
+   "old_recipe_id": "r20913",
+   "new_recipe_id": "r06178",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0838",
+   "old_recipe_id": "r01350",
+   "new_recipe_id": "r03491",
+   "primary_tag": "vegan",
+   "old_tags": [
+    "vegan",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0868",
+   "old_recipe_id": "r16172",
+   "new_recipe_id": "r00491",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free",
+    "high_protein"
+   ]
+  },
+  {
+   "example_id": "e0874",
+   "old_recipe_id": "r01895",
+   "new_recipe_id": "r02841",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0889",
+   "old_recipe_id": "r04907",
+   "new_recipe_id": "r11255",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0892",
+   "old_recipe_id": "r05451",
+   "new_recipe_id": "r12963",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0894",
+   "old_recipe_id": "r18161",
+   "new_recipe_id": "r05258",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free",
+    "low_carb"
+   ]
+  },
+  {
+   "example_id": "e0909",
+   "old_recipe_id": "r03413",
+   "new_recipe_id": "r08000",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0917",
+   "old_recipe_id": "r13275",
+   "new_recipe_id": "r16065",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free",
+    "vegan"
+   ]
+  },
+  {
+   "example_id": "e0921",
+   "old_recipe_id": "r04940",
+   "new_recipe_id": "r13635",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0927",
+   "old_recipe_id": "r03853",
+   "new_recipe_id": "r02441",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e0947",
+   "old_recipe_id": "r04732",
+   "new_recipe_id": "r23650",
+   "primary_tag": "dairy_free",
+   "old_tags": [
+    "dairy_free",
+    "vegetarian"
+   ]
+  },
+  {
+   "example_id": "e0968",
+   "old_recipe_id": "r01770",
+   "new_recipe_id": "r17057",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e0975",
+   "old_recipe_id": "r07260",
+   "new_recipe_id": "r12208",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "high_carb"
+   ]
+  },
+  {
+   "example_id": "e0976",
+   "old_recipe_id": "r13308",
+   "new_recipe_id": "r16004",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e0983",
+   "old_recipe_id": "r19175",
+   "new_recipe_id": "r09063",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "high_protein"
+   ]
+  },
+  {
+   "example_id": "e0988",
+   "old_recipe_id": "r04050",
+   "new_recipe_id": "r00815",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1000",
+   "old_recipe_id": "r03547",
+   "new_recipe_id": "r12007",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1001",
+   "old_recipe_id": "r12716",
+   "new_recipe_id": "r19495",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1003",
+   "old_recipe_id": "r07162",
+   "new_recipe_id": "r04661",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1009",
+   "old_recipe_id": "r01164",
+   "new_recipe_id": "r14737",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1021",
+   "old_recipe_id": "r14484",
+   "new_recipe_id": "r12655",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1025",
+   "old_recipe_id": "r17672",
+   "new_recipe_id": "r01942",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1035",
+   "old_recipe_id": "r22496",
+   "new_recipe_id": "r11343",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "low_carb"
+   ]
+  },
+  {
+   "example_id": "e1037",
+   "old_recipe_id": "r00977",
+   "new_recipe_id": "r17536",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1039",
+   "old_recipe_id": "r24475",
+   "new_recipe_id": "r23817",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "low_calorie"
+   ]
+  },
+  {
+   "example_id": "e1041",
+   "old_recipe_id": "r21792",
+   "new_recipe_id": "r10951",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1049",
+   "old_recipe_id": "r03302",
+   "new_recipe_id": "r04448",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e1054",
+   "old_recipe_id": "r03929",
+   "new_recipe_id": "r02721",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1059",
+   "old_recipe_id": "r11326",
+   "new_recipe_id": "r12009",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e1060",
+   "old_recipe_id": "r04033",
+   "new_recipe_id": "r04292",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1063",
+   "old_recipe_id": "r01612",
+   "new_recipe_id": "r14898",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1064",
+   "old_recipe_id": "r15719",
+   "new_recipe_id": "r07299",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free",
+    "dairy_free"
+   ]
+  },
+  {
+   "example_id": "e1071",
+   "old_recipe_id": "r02329",
+   "new_recipe_id": "r06250",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1073",
+   "old_recipe_id": "r04841",
+   "new_recipe_id": "r22691",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  },
+  {
+   "example_id": "e1078",
+   "old_recipe_id": "r28099",
+   "new_recipe_id": "r24262",
+   "primary_tag": "gluten_free",
+   "old_tags": [
+    "gluten_free"
+   ]
+  }
+ ]
+}

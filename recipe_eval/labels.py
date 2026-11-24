@@ -8,6 +8,8 @@ All thresholds live in THRESHOLDS so you can change them in one place.
 """
 import re
 
+from . import allergens as _A
+
 THRESHOLDS = {
     # Macro tags use shares of calories, so they need no servings and work for computed-only recipes too.
     "high_protein_share": 0.25,    # protein >= 25% of calories
@@ -65,9 +67,18 @@ def _has(rx, text):
     return re.search(rx, text) is not None
 
 
-def keyword_tags(ingredients):
-    """Return dict tag -> bool from the ingredient lines (list of strings)."""
-    t = _text(ingredients)
+# "vegetarian sausage", "veggie burger", "meatless crumbles" are not meat
+_PLANT_MOD = re.compile(r"\b(vegan|vegetarian|veggie|meatless|plant[- ]based|meat[- ]free|imitation|faux|mock)\s+(?:\w+\s+){0,2}")
+
+
+def keyword_tags(ingredients, steps=None):
+    """Return dict tag -> bool from the ingredient lines (list of strings) and, when given, the recipe steps.
+
+    Steps are read too because some source ingredient lists are cut short: a recipe whose steps say "brown the beef"
+    is not vegetarian even if the list has no beef. Allergen-based tags (dairy_free, gluten_free, vegan) use the same
+    matcher as data/recipe_allergens.json."""
+    t = _PLANT_MOD.sub(" ", _text(ingredients))
+    step_text = _PLANT_MOD.sub(" ", " ; ".join(str(s) for s in steps).lower()) if steps else ""
     meat = _has(r"\b(" + _MEAT + r")\b", t)
     fish = _has(r"\b(" + _FISH + r")\b", t)
     dairy_text = _DAIRY_FREE_OK.sub(" ", t)
@@ -76,6 +87,17 @@ def keyword_tags(ingredients):
     other_animal = _has(r"(" + _OTHER_ANIMAL + r")", t)
     gluten_text = _GLUTEN_OK.sub(" ", t)
     gluten = _has(_GLUTEN, gluten_text)
+    if step_text:
+        meat = meat or _has(r"\b(" + _MEAT + r")\b", step_text)
+        fish = fish or _has(r"\b(" + _FISH + r")\b", step_text)
+        other_animal = other_animal or _has(r"(" + _OTHER_ANIMAL + r")", step_text)
+        in_steps = set()
+        for s in steps:
+            for sentence in re.split(r"(?<=[.!?])\s+", str(s)):
+                in_steps |= _A.allergens_in_line(sentence)
+        dairy = dairy or "milk" in in_steps
+        egg = egg or "egg" in in_steps
+        gluten = gluten or "gluten" in in_steps
     return {
         "vegetarian": not (meat or fish or _has(r"gelatin|gelatine|lard|fish sauce|anchov|worcestershire|oyster sauce", t)),
         "vegan": not (meat or fish or dairy or egg or other_animal),
@@ -114,19 +136,22 @@ def macro_tags(kcal, protein_g, carb_g, fat_g, fiber_g=None, per_serving=True, m
     return out
 
 
-def all_tags(ingredients, kcal=None, protein_g=None, carb_g=None, fat_g=None, fiber_g=None, per_serving=True, margin=0.0):
+def all_tags(ingredients, kcal=None, protein_g=None, carb_g=None, fat_g=None, fiber_g=None, per_serving=True, margin=0.0,
+             steps=None):
     """Union of macro tags (when nutrition is present) and keyword tags -> list of tag names that are True."""
-    d = keyword_tags(ingredients)
+    d = keyword_tags(ingredients, steps)
     d.update(macro_tags(kcal, protein_g, carb_g, fat_g, fiber_g, per_serving=per_serving, margin=margin))
     return [t for t in ALL_TAGS if d.get(t)]
 
 
 def row_tags(r):
     """Tags for one row of data/recipes_merged.jsonl (a namedtuple from DataFrame.itertuples()).
-    The nutrition source decides how macro tags are derived (see `nutrition_basis`)."""
+    The nutrition source decides how macro tags are derived (see `nutrition_basis`).
+    Keyword tags also read the steps (`directions`) when the row has them."""
+    steps = getattr(r, "directions", None)
     if r.nutrition_basis.startswith("label"):          # real per-serving label values (xiaoxl)
-        return all_tags(r.ingredients, r.kcal, r.protein_g, r.carb_g, r.fat_g, r.fiber_g)
+        return all_tags(r.ingredients, r.kcal, r.protein_g, r.carb_g, r.fat_g, r.fiber_g, steps=steps)
     if r.nutrition_basis == "computed, no servings":   # USDA totals only: calorie shares, with a safety margin
         return all_tags(r.ingredients, r.calc_kcal_total, r.calc_protein_total, r.calc_carb_total, r.calc_fat_total,
-                        None, per_serving=False, margin=COMPUTED_MARGIN)
-    return all_tags(r.ingredients)                     # keyword tags only
+                        None, per_serving=False, margin=COMPUTED_MARGIN, steps=steps)
+    return all_tags(r.ingredients, steps=steps)         # keyword tags only

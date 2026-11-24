@@ -85,3 +85,44 @@ def recipe_allergens(ingredient_lines, step_lines=()):
         for sentence in re.split(r"(?<=[.!?])\s+", str(s)):
             in_steps |= allergens_in_line(sentence)
     return {"allergens": sorted(listed | in_steps), "steps_only": sorted(in_steps - listed)}
+
+
+FAMILIES_PATH = MAP_PATH.with_name("allergen_families.json")
+
+
+@lru_cache(maxsize=1)
+def _aliases():
+    fam = json.load(open(FAMILIES_PATH, encoding="utf8"))["families"]
+    out = {}
+    for code, info in fam.items():
+        out[code] = code
+        for a in info["aliases"]:
+            out.setdefault(a.lower(), code)
+    out.setdefault("shellfish", "shellfish")
+    out.setdefault("wheat", "wheat")
+    return out
+
+
+def normalize_allergen(name):
+    """'Peanuts' / 'dairy' / 'tree nuts' -> the code used in the data ('peanut', 'milk', 'tree_nut'). Unknown -> None."""
+    return _aliases().get(str(name).strip().lower().replace("_", " ")) or _aliases().get(str(name).strip().lower())
+
+
+def normalize_allergens(names):
+    """List of profile allergens -> sorted list of codes. Raises ValueError for a name we do not know."""
+    out = set()
+    for n in names:
+        code = normalize_allergen(n)
+        if code is None:
+            raise ValueError(f"unknown allergen {n!r}; see data/allergen_families.json")
+        out.add(code)
+    return sorted(out)
+
+
+def leaks(profile_allergens, ingredient_lines, step_lines=()):
+    """Allergens from the profile that appear in the recipe's ingredients or steps (sorted list; [] means safe)."""
+    wanted = set(normalize_allergens(profile_allergens))
+    found = set(recipe_allergens(ingredient_lines, step_lines)["allergens"])
+    if "shellfish" in wanted:
+        wanted |= {"crustaceans", "molluscs"}
+    return sorted(wanted & found)

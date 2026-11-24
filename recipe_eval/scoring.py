@@ -8,6 +8,9 @@ Three scores in [0, 1]:
   preference  - how well the recipe satisfies each requested tag (macro tags use computed nutrition)
   feasibility - rule checks: steps present, ingredients used in steps, sane temperatures/times, amounts given
 
+Optional request["profile"] = {"allergens": [...], "dislikes": [...]}: an answer that contains a profile allergen (ingredients or steps)
+also scores 0 (see check_safety); disliked ingredients are only reported.
+
 overall = 0 if compliance hard-fails (no available ingredient used), else 0.3*compliance + 0.4*preference + 0.3*feasibility.
 
 Nutrition for a response is computed with recipe_eval.nutrition (USDA); it is only accurate to roughly
@@ -118,11 +121,11 @@ def _ramp_down(x, limit, slack):
     return 1.0 if x <= t else max(0.0, 1 - (x - t) / slack)
 
 
-def tag_score(tag, response_ingredients, macros):
+def tag_score(tag, response_ingredients, macros, steps=None):
     """Return (score in [0,1], detail). macros = per-serving dict(kcal, protein, carb, fat, fiber) or None."""
     th = L.THRESHOLDS
     if tag in L.KEYWORD_TAGS:
-        ok = L.keyword_tags(response_ingredients)[tag]
+        ok = L.keyword_tags(response_ingredients, steps)[tag]
         return (1.0 if ok else 0.0), "ingredient check"
     if macros is None or macros["kcal"] <= 0:
         return 0.0, "no nutrition computed"
@@ -143,12 +146,12 @@ def tag_score(tag, response_ingredients, macros):
     return 0.0, "unknown tag"
 
 
-def preference(tags, response_ingredients, macros):
+def preference(tags, response_ingredients, macros, steps=None):
     if not tags:
         return {"score": 1.0, "per_tag": {}}
     per = {}
     for t in tags:
-        s, d = tag_score(t, response_ingredients, macros)
+        s, d = tag_score(t, response_ingredients, macros, steps)
         per[t] = {"score": round(s, 3), "detail": d}
     return {"score": sum(v["score"] for v in per.values()) / len(per), "per_tag": per}
 
@@ -210,6 +213,22 @@ Recipe:
 Answer with one integer 1-5 and one sentence of reasoning."""
 
 
+def check_safety(profile, response):
+    """Profile = {"allergens": [...], "dislikes": [...]} (or None). Returns {"leak": [...], "dislike_hits": [...]}.
+    leak: profile allergens found in the answer's ingredients or steps; must be empty (hard gate in score_response).
+    dislike_hits: disliked ingredients the answer uses (reported, not a hard gate: dislikes are a preference)."""
+    if not profile:
+        return {"leak": [], "dislike_hits": []}
+    from . import allergens as A
+    from .normalize import ingredients_norm
+    ings, steps = response.get("ingredients", []), response.get("steps", [])
+    leak = A.leaks(profile.get("allergens", []), ings, steps) if profile.get("allergens") else []
+    used = ingredients_norm(ings)
+    hits = sorted({d for d in profile.get("dislikes", [])
+                   for n in used if _singular(d.lower().strip()) in {_singular(w) for w in n.split()}})
+    return {"leak": leak, "dislike_hits": hits}
+
+
 def score_response(request, response, calc=None, llm_feasibility=None, reference_servings=None):
     """Full score. `calc` = recipe_eval.nutrition.Calculator (needed for macro tags).
     `llm_feasibility` optional 1-5 rating from a judge model; averaged into the feasibility score if given.
@@ -227,12 +246,13 @@ def score_response(request, response, calc=None, llm_feasibility=None, reference
         ps["fiber"] = 0.0
         macros = ps
         macros["coverage"] = cov
-    pref = preference(request.get("tags", []), response.get("ingredients", []), macros)
+    pref = preference(request.get("tags", []), response.get("ingredients", []), macros, response.get("steps", []))
     feas = feasibility(response)
     feas_score = feas["score"]
     if llm_feasibility is not None:
         feas_score = 0.5 * feas_score + 0.5 * (llm_feasibility - 1) / 4
-    overall = 0.0 if comp["hard_fail"] else (
+    safety = check_safety(request.get("profile"), response)
+    overall = 0.0 if (comp["hard_fail"] or safety["leak"]) else (
         WEIGHTS["compliance"] * comp["score"] + WEIGHTS["preference"] * pref["score"] + WEIGHTS["feasibility"] * feas_score)
     return {"overall": round(overall, 4), "compliance": comp, "preference": pref,
-            "feasibility": {**feas, "score": feas_score}, "macros": macros}
+            "feasibility": {**feas, "score": feas_score}, "macros": macros, "safety": safety}

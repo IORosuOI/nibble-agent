@@ -1,0 +1,149 @@
+{
+  "_about": "The 14 EU allergen families (Regulation (EU) No 1169/2011, Annex II) and the code each one has in data/allergen_map.json and in the pool fields. `aliases` are other spellings a profile may use; recipe_eval.allergens.normalize_allergen() maps any of them to the code. Marius owns the final names; change them here once agreed.",
+  "families": {
+    "gluten": {
+      "eu_name": "Cereals containing gluten",
+      "aliases": [
+        "cereals containing gluten",
+        "cereals",
+        "gluten",
+        "wheat",
+        "rye",
+        "barley",
+        "oats",
+        "spelt",
+        "celiac",
+        "coeliac"
+      ],
+      "also_tagged": [
+        "wheat"
+      ]
+    },
+    "crustaceans": {
+      "eu_name": "Crustaceans",
+      "aliases": [
+        "crustaceans",
+        "crustacean",
+        "shrimp",
+        "prawn",
+        "prawns",
+        "crab",
+        "lobster"
+      ],
+      "also_tagged": [
+        "shellfish"
+      ]
+    },
+    "egg": {
+      "eu_name": "Eggs",
+      "aliases": [
+        "egg",
+        "eggs"
+      ]
+    },
+    "fish": {
+      "eu_name": "Fish",
+      "aliases": [
+        "fish"
+      ]
+    },
+    "peanut": {
+      "eu_name": "Peanuts",
+      "aliases": [
+        "peanut",
+        "peanuts",
+        "groundnut",
+        "groundnuts"
+      ]
+    },
+    "soy": {
+      "eu_name": "Soybeans",
+      "aliases": [
+        "soy",
+        "soya",
+        "soybean",
+        "soybeans"
+      ]
+    },
+    "milk": {
+      "eu_name": "Milk",
+      "aliases": [
+        "milk",
+        "dairy",
+        "lactose",
+        "cow's milk"
+      ]
+    },
+    "tree_nut": {
+      "eu_name": "Nuts",
+      "aliases": [
+        "tree_nut",
+        "tree nut",
+        "tree nuts",
+        "nut",
+        "nuts",
+        "treenuts"
+      ]
+    },
+    "celery": {
+      "eu_name": "Celery",
+      "aliases": [
+        "celery",
+        "celeriac"
+      ]
+    },
+    "mustard": {
+      "eu_name": "Mustard",
+      "aliases": [
+        "mustard"
+      ]
+    },
+    "sesame": {
+      "eu_name": "Sesame seeds",
+      "aliases": [
+        "sesame",
+        "sesame seeds",
+        "tahini"
+      ]
+    },
+    "sulphites": {
+      "eu_name": "Sulphur dioxide and sulphites",
+      "aliases": [
+        "sulphites",
+        "sulfites",
+        "sulphite",
+        "sulfite",
+        "sulphur dioxide",
+        "sulfur dioxide"
+      ]
+    },
+    "lupin": {
+      "eu_name": "Lupin",
+      "aliases": [
+        "lupin",
+        "lupine"
+      ]
+    },
+    "molluscs": {
+      "eu_name": "Molluscs",
+      "aliases": [
+        "molluscs",
+        "mollusks",
+        "mollusc",
+        "mollusk",
+        "clam",
+        "clams",
+        "mussels",
+        "oysters",
+        "squid"
+      ],
+      "also_tagged": [
+        "shellfish"
+      ]
+    }
+  },
+  "extra_tags": {
+    "wheat": "convenience tag: wheat products (always also gluten)",
+    "shellfish": "convenience tag: crustaceans or molluscs; a profile that says 'shellfish' means both families"
+  }
+}

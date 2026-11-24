@@ -1,20 +1,32 @@
 {
-  "_about": "Which ingredient words bring which allergens. Used by recipe_eval/allergens.py. Matching is on whole words (plural allowed), case-insensitive. Hand-written and approximate: it errs on the side of flagging (a missed allergen is worse than a false one). It cannot see hidden ingredients (for example lecithin, or oil used in a store-bought sauce) or cross-contact.",
+  "_about": "Which ingredient words bring which allergens. Used by recipe_eval/allergens.py. Matching is on whole words (plural allowed), case-insensitive. Hand-written and approximate: it errs on the side of flagging (a missed allergen is worse than a false one). It cannot see hidden ingredients (for example lecithin, or oil used in a store-bought sauce) or cross-contact. Covers the 14 EU allergen families (gluten, crustaceans, egg, fish, peanut, soy, milk, tree_nut, celery, mustard, sesame, sulphites, lupin, molluscs); wheat and shellfish are extra convenience tags.",
   "allergens": {
     "milk": "cow's milk and dairy products",
     "egg": "eggs and egg products",
     "fish": "finned fish and fish-based sauces",
-    "shellfish": "crustaceans and molluscs (shrimp, crab, lobster, clams, oysters, scallops, squid...)",
+    "shellfish": "union of crustaceans and molluscs (kept so older filters keep working)",
     "tree_nut": "almond, walnut, pecan, cashew, pistachio, hazelnut, macadamia, pine nut, chestnut... (coconut is not counted)",
     "peanut": "peanuts (a legume, listed separately from tree nuts)",
     "soy": "soybeans and soy products",
     "sesame": "sesame seeds, tahini and sesame oil",
     "wheat": "wheat and wheat flour products",
-    "gluten": "wheat, barley, rye and their products (wheat always implies gluten)"
+    "gluten": "wheat, barley, rye and their products (wheat always implies gluten)",
+    "crustaceans": "shrimp, prawn, crab, lobster, crayfish, langoustine, krill",
+    "molluscs": "clams, mussels, oysters, scallops, squid, octopus, snails, abalone",
+    "celery": "celery, celeriac, celery seed and celery salt",
+    "mustard": "mustard seed, mustard powder, prepared mustard, dijon",
+    "lupin": "lupin / lupine flour and seeds",
+    "sulphites": "sulphur dioxide and sulphites; wine, sherry, vermouth and dried apricots are counted because they usually contain them"
   },
   "implied": {
     "wheat": [
       "gluten"
+    ],
+    "crustaceans": [
+      "shellfish"
+    ],
+    "molluscs": [
+      "shellfish"
     ]
   },
   "compound_ingredients": {
@@ -34,7 +46,7 @@
       "wheat"
     ],
     "oyster sauce": [
-      "shellfish",
+      "molluscs",
       "soy",
       "wheat"
     ],
@@ -124,6 +136,22 @@
     ],
     "cream of wheat": [
       "wheat"
+    ],
+    "shellfish": [
+      "crustaceans",
+      "molluscs"
+    ],
+    "stock cube": [
+      "celery"
+    ],
+    "bouillon cube": [
+      "celery"
+    ],
+    "bouillon": [
+      "celery"
+    ],
+    "curry powder": [
+      "mustard"
     ]
   },
   "keywords": {
@@ -201,25 +229,7 @@
       "roe",
       "surimi"
     ],
-    "shellfish": [
-      "shrimp",
-      "prawn",
-      "crab",
-      "lobster",
-      "crayfish",
-      "crawfish",
-      "langoustine",
-      "clam",
-      "mussel",
-      "oyster",
-      "scallop",
-      "squid",
-      "calamari",
-      "octopus",
-      "abalone",
-      "escargot",
-      "shellfish"
-    ],
+    "shellfish": [],
     "tree_nut": [
       "almond",
       "walnut",
@@ -328,6 +338,59 @@
       "kamut",
       "farro",
       "triticale"
+    ],
+    "crustaceans": [
+      "shrimp",
+      "prawn",
+      "crab",
+      "lobster",
+      "crayfish",
+      "crawfish",
+      "langoustine",
+      "krill"
+    ],
+    "molluscs": [
+      "clam",
+      "mussel",
+      "oyster",
+      "scallop",
+      "squid",
+      "calamari",
+      "octopus",
+      "abalone",
+      "escargot",
+      "snail",
+      "cockle",
+      "whelk"
+    ],
+    "celery": [
+      "celery",
+      "celeriac",
+      "celery seed",
+      "celery salt"
+    ],
+    "mustard": [
+      "mustard",
+      "mustard seed",
+      "dijon"
+    ],
+    "lupin": [
+      "lupin",
+      "lupine",
+      "lupini"
+    ],
+    "sulphites": [
+      "sulphite",
+      "sulfite",
+      "sulphur dioxide",
+      "sulfur dioxide",
+      "wine",
+      "sherry",
+      "vermouth",
+      "marsala",
+      "dried apricot",
+      "dried fruit",
+      "golden raisin"
     ]
   },
   "not_allergen": {
@@ -398,9 +461,11 @@
       "tree_nut"
     ],
     "oyster mushroom": [
+      "molluscs",
       "shellfish"
     ],
     "crab apple": [
+      "crustaceans",
       "shellfish"
     ],
     "rice flour": [
@@ -450,6 +515,162 @@
     ],
     "rice paper wrapper": [
       "wheat"
+    ],
+    "cookie sheet": [
+      "wheat",
+      "gluten"
+    ],
+    "cookie scoop": [
+      "wheat",
+      "gluten"
+    ],
+    "cookie cutter": [
+      "wheat",
+      "gluten"
+    ],
+    "cookie press": [
+      "wheat",
+      "gluten"
+    ],
+    "cookie jar": [
+      "wheat",
+      "gluten"
+    ],
+    "muffin cup": [
+      "wheat",
+      "gluten"
+    ],
+    "muffin liner": [
+      "wheat",
+      "gluten"
+    ],
+    "muffin tin": [
+      "wheat",
+      "gluten"
+    ],
+    "muffin pan": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry blender": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry brush": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry bag": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry cutter": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry wheel": [
+      "wheat",
+      "gluten"
+    ],
+    "pastry tip": [
+      "wheat",
+      "gluten"
+    ],
+    "loaf pan": [
+      "wheat",
+      "gluten"
+    ],
+    "bread pan": [
+      "wheat",
+      "gluten"
+    ],
+    "bread knife": [
+      "wheat",
+      "gluten"
+    ],
+    "pie plate": [
+      "wheat",
+      "gluten"
+    ],
+    "pie pan": [
+      "wheat",
+      "gluten"
+    ],
+    "rolling pin": [
+      "wheat",
+      "gluten"
+    ],
+    "roll out": [
+      "wheat",
+      "gluten"
+    ],
+    "roll up": [
+      "wheat",
+      "gluten"
+    ],
+    "roll each": [
+      "wheat",
+      "gluten"
+    ],
+    "roll the": [
+      "wheat",
+      "gluten"
+    ],
+    "roll into": [
+      "wheat",
+      "gluten"
+    ],
+    "roll over": [
+      "wheat",
+      "gluten"
+    ],
+    "roll around": [
+      "wheat",
+      "gluten"
+    ],
+    "roll to": [
+      "wheat",
+      "gluten"
+    ],
+    "roll gently": [
+      "wheat",
+      "gluten"
+    ],
+    "roll tightly": [
+      "wheat",
+      "gluten"
+    ],
+    "roll it": [
+      "wheat",
+      "gluten"
+    ],
+    "roll them": [
+      "wheat",
+      "gluten"
+    ],
+    "stuffing side": [
+      "wheat",
+      "gluten"
+    ],
+    "stuffing from": [
+      "wheat",
+      "gluten"
+    ],
+    "stuffing the": [
+      "wheat",
+      "gluten"
+    ],
+    "wine glass": [
+      "sulphites"
+    ],
+    "wine rack": [
+      "sulphites"
+    ],
+    "lupin flour": [
+      "wheat"
+    ],
+    "lupini flour": [
+      "wheat"
     ]
   },
   "free_from_phrases": {
@@ -482,6 +703,12 @@
     ],
     "soy free": [
       "soy"
+    ],
+    "sulphite free": [
+      "sulphites"
+    ],
+    "sulfite free": [
+      "sulphites"
     ]
   }
 }

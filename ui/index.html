@@ -1,0 +1,1291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nibble prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F4EC; --surface:#FFFFFF; --sunk:#E6EBE1; --ink:#1B2620; --muted:#56645B; --line:#D4DCCF;
+  --saffron:#F2B632; --saffron-ink:#2A1E00; --saffron-soft:#FBEBC4;
+  --leaf:#2D6A4A; --leaf-soft:#DCEDE2;
+  --amber:#8A5300; --amber-soft:#FBE7C2;
+  --danger:#A52A21; --danger-soft:#F8DDDA;
+  --focus:#2D6A4A;
+  --display:"Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r-lg:22px; --r-md:14px; --r-sm:10px; --r-pill:999px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121815; --surface:#1A221E; --sunk:#232D28; --ink:#E6ECE5; --muted:#9BA9A0; --line:#2F3B34;
+    --saffron:#F2B632; --saffron-ink:#2A1E00; --saffron-soft:#3A2F12;
+    --leaf:#86CFA5; --leaf-soft:#1E3529;
+    --amber:#F2BA62; --amber-soft:#3B2C12;
+    --danger:#F2A39C; --danger-soft:#3E1C19;
+    --focus:#86CFA5; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121815; --surface:#1A221E; --sunk:#232D28; --ink:#E6ECE5; --muted:#9BA9A0; --line:#2F3B34;
+  --saffron:#F2B632; --saffron-ink:#2A1E00; --saffron-soft:#3A2F12;
+  --leaf:#86CFA5; --leaf-soft:#1E3529;
+  --amber:#F2BA62; --amber-soft:#3B2C12;
+  --danger:#F2A39C; --danger-soft:#3E1C19;
+  --focus:#86CFA5; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--body)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ic{display:inline-flex;flex:none}
+.ic svg{display:block}
+
+.app{max-width:760px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;margin:0;font:800 25px/1 var(--display);letter-spacing:-.03em}
+.tabs{margin-left:auto;display:flex;gap:2px;padding:3px;background:var(--sunk);border-radius:var(--r-pill)}
+.tab{border:0;background:none;padding:6px 14px;border-radius:var(--r-pill);font-weight:700;font-size:14px;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.count{display:inline-block;min-width:18px;margin-left:5px;padding:0 5px;border-radius:9px;background:var(--saffron);color:var(--saffron-ink);font-size:12px;line-height:18px;text-align:center}
+.iconbtn{display:inline-grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+
+.banner{margin:12px 16px 0;padding:10px 8px 10px 14px;border-radius:var(--r-md);background:var(--leaf-soft);font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.banner p{margin:0;flex:1}
+
+main{flex:1;padding:20px 16px 8px}
+#chat-log{display:flex;flex-direction:column;gap:18px}
+.msg{animation:in .18s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.msg.user{align-self:flex-end;max-width:85%;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:18px 18px 4px 18px}
+.bot-row{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.bot-body{min-width:0;display:flex;flex-direction:column;gap:10px}
+.bot-text{margin:3px 0 0;font-size:17px}
+.bot-help{margin:0;color:var(--muted);font-size:15px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);padding:8px 15px;border-radius:var(--r-pill);font-weight:700;font-size:15px}
+.btn:hover{border-color:color-mix(in srgb,var(--ink) 35%,transparent)}
+.btn.primary{background:var(--saffron);border-color:var(--saffron);color:var(--saffron-ink)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted);padding-inline:6px;text-decoration:underline;text-underline-offset:3px}
+.btn:disabled{opacity:.5;cursor:default}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:16px}
+.panel.is-done{opacity:.6}
+.field{display:flex;flex-direction:column;gap:6px}
+.field-label{font-weight:700;font-size:15px}
+.chip-box{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:46px;padding:6px 8px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);cursor:text}
+.chip-box:focus-within{border-color:var(--focus)}
+.chips{display:contents}
+.chip-input{flex:1;min-width:150px;border:0;background:transparent;padding:6px 4px;outline:none}
+.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 3px 3px 11px;border-radius:var(--r-pill);background:var(--sunk);font-size:15px;line-height:1.3}
+.chip.static{padding-right:11px}
+.chip-like{background:var(--leaf-soft)}
+.chip-allergen{background:var(--danger-soft)}
+.chip-pantry{background:var(--saffron-soft)}
+.chip-x{display:inline-grid;place-items:center;width:24px;height:24px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--muted)}
+.chip-x:hover{background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink)}
+.suggestions{display:flex;flex-wrap:wrap;gap:6px}
+.sugg{display:inline-flex;align-items:center;gap:4px;padding:4px 11px 4px 7px;border-radius:var(--r-pill);border:1px dashed color-mix(in srgb,var(--ink) 32%,transparent);background:transparent;font-size:14px}
+.sugg:hover{background:var(--sunk)}
+.why{font-size:12px;color:var(--muted);margin-left:3px}
+.select,.input,.textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
+.textarea{resize:vertical;min-height:76px}
+.counter{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:var(--r-pill);padding:3px;background:var(--paper)}
+.counter button{width:32px;height:32px;border-radius:50%;border:0;background:var(--surface);display:grid;place-items:center}
+.counter button:disabled{opacity:.4;cursor:default}
+.counter output{min-width:30px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.counter.sm{background:var(--surface)}
+.counter.sm button{width:26px;height:26px;background:var(--paper)}
+.counter.sm output{min-width:22px}
+.preview{display:flex;flex-direction:column;gap:8px}
+.pgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pgroup-label{font-size:13px;color:var(--muted);min-width:76px}
+.detected{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.error{color:var(--danger);font-size:14px;margin:0}
+.error:empty{display:none}
+
+.dots{display:inline-flex;gap:5px;padding:9px 0}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}
+.dots i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+
+.trace{border-left:3px solid var(--line);padding-left:12px;color:var(--muted);font-size:14px}
+.trace summary{cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:700;list-style:none}
+.trace summary::-webkit-details-marker{display:none}
+.trace summary .chev{transition:transform .15s}
+.trace[open] summary .chev{transform:rotate(90deg)}
+.sim{font-weight:400;font-size:12px;padding:1px 8px;border-radius:9px;background:var(--sunk)}
+.trace-list{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.trace-list li{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);gap:8px;align-items:baseline}
+.trace-list code{font:12.5px/1.5 var(--mono);color:var(--ink);background:var(--sunk);padding:1px 6px;border-radius:6px;white-space:nowrap}
+
+/* Recipe card */
+.recipe{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;scroll-margin-top:76px}
+.recipe-head{padding:18px 18px 16px;background:var(--saffron-soft);display:flex;flex-direction:column;gap:12px}
+.head-top{display:flex;align-items:flex-start;gap:12px}
+.recipe-title{margin:0;flex:1;font:700 clamp(24px,5.2vw,32px)/1.08 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.vpill{align-self:flex-start;flex:none;font-size:13px;font-weight:700;padding:3px 10px;border-radius:9px;background:var(--surface)}
+.collapse-toggle{display:none;flex:none;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-pill);padding:3px 12px;font-size:13px;font-weight:700}
+.recipe.collapsible .collapse-toggle{display:inline-flex}
+.recipe .show-l{display:none}
+.recipe.is-collapsed .show-l{display:inline}
+.recipe.is-collapsed .hide-l{display:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:15px}
+.meta-i{display:inline-flex;align-items:center;gap:6px}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{display:inline-flex;align-items:flex-start;gap:6px;padding:5px 10px;border-radius:var(--r-sm);font-size:14px;line-height:1.35;background:var(--surface)}
+.badge .ic{margin-top:1px}
+.badge.safe .ic{color:var(--leaf)}
+.badge.warn{background:var(--amber-soft);color:var(--amber)}
+.badge.pantry .ic{color:var(--amber)}
+.notes{margin:0;padding:10px 12px;border-radius:var(--r-md);background:var(--surface);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.notes strong{font-size:13px}
+.notes ul{margin:0;padding-left:18px}
+.recipe.is-collapsed .meta,.recipe.is-collapsed .badges,.recipe.is-collapsed .notes,.recipe.is-collapsed .recipe-body,.recipe.is-collapsed .recipe-foot{display:none}
+.recipe.is-collapsed .recipe-head{background:var(--surface);padding-block:12px}
+.recipe.is-collapsed .recipe-title{font-size:19px}
+
+.recipe-body{padding:0 18px 18px}
+.rsec{padding-top:18px}
+.rsec + .rsec{border-top:1px solid var(--line);margin-top:18px}
+.rsec h3{display:flex;align-items:center;gap:8px;margin:0 0 8px;font:700 19px/1.2 var(--display)}
+.rsec h3 .ic{color:var(--leaf)}
+.rsec h3 .sub{font:400 14px var(--body);color:var(--muted);margin-left:auto}
+.ing-list{list-style:none;margin:0;padding:0}
+.ing{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 0}
+.ing + .ing{border-top:1px dashed var(--line)}
+.ing input{width:20px;height:20px;accent-color:var(--leaf);margin:0}
+.ing label{cursor:pointer}
+.ing input:checked + label{text-decoration:line-through;color:var(--muted)}
+.swap{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:transparent;border-radius:var(--r-pill);padding:3px 10px 3px 8px;font-size:13px;color:var(--muted)}
+.swap:hover,.swap[aria-expanded="true"]{background:var(--sunk);color:var(--ink)}
+.swap-panel{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 10px;border-radius:var(--r-md);background:var(--paper);font-size:14px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-pill);padding:4px 12px;font-size:14px;display:inline-flex;gap:6px;align-items:baseline}
+.opt:hover:not(:disabled){border-color:var(--leaf)}
+.opt small{color:var(--danger);font-size:12px}
+.opt:disabled{cursor:not-allowed;color:var(--muted)}
+.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px}
+.steps li::before{content:counter(s);font:700 22px/1.1 var(--display);color:var(--leaf)}
+.nut{display:flex;flex-direction:column;gap:11px}
+.nut-row{display:grid;grid-template-columns:72px minmax(0,1fr) 128px;gap:12px;align-items:center;font-size:15px}
+.nut-val{text-align:right;font-variant-numeric:tabular-nums}
+.nut-val span{color:var(--muted)}
+.bar{position:relative;height:10px;border-radius:99px;background:var(--sunk)}
+.bar i{position:absolute;inset:0 auto 0 0;border-radius:99px;background:var(--leaf)}
+.bar.warn i{background:var(--saffron)}
+.bar.over i{background:var(--danger)}
+.bar::before,.bar::after{content:"";position:absolute;top:-3px;bottom:-3px;width:2px;border-radius:1px;background:var(--ink);opacity:.35}
+.bar::before{left:25%}
+.bar::after{left:75%}
+.nut-foot{font-size:13px;color:var(--muted);margin:2px 0 0}
+.recipe-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 18px;border-top:1px solid var(--line);background:var(--paper)}
+.src{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+.src a{color:inherit}
+.btn.saved{background:var(--leaf-soft);border-color:var(--leaf-soft)}
+
+/* Composer */
+.composer{position:sticky;bottom:0;z-index:5;padding:8px 16px 14px;background:linear-gradient(to top,var(--paper) 78%,transparent)}
+.refine-row{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.refine-row::-webkit-scrollbar{display:none}
+.refine-row.inline{flex-wrap:wrap;overflow:visible;padding:0}
+.rchip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-pill);padding:6px 13px;font-size:14px;font-weight:700}
+.rchip:hover{border-color:var(--leaf)}
+.inputbar{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 16px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface)}
+.inputbar:focus-within{border-color:var(--focus)}
+.inputbar input{flex:1;min-width:0;border:0;background:transparent;outline:none;padding:6px 0}
+.inputbar input:disabled{cursor:not-allowed}
+.send{width:40px;height:40px;flex:none;border-radius:50%;border:0;background:var(--saffron);color:var(--saffron-ink);display:grid;place-items:center}
+.send:disabled{background:var(--sunk);color:var(--muted);cursor:default}
+
+/* Saved */
+.view-title{font:700 30px/1.1 var(--display);letter-spacing:-.02em;margin:4px 0 6px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.saved-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.saved-item{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:2px;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface)}
+.saved-item:hover{border-color:color-mix(in srgb,var(--ink) 35%,transparent)}
+.saved-title{font:700 18px/1.2 var(--display)}
+.saved-meta{grid-row:2;font-size:14px;color:var(--muted)}
+.saved-item .ic{grid-row:1/3;grid-column:2;align-self:center;color:var(--muted)}
+.empty{margin-top:24px;padding:28px 20px;border:1px dashed var(--line);border-radius:var(--r-lg);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted)}
+.empty p{margin:0}
+.back{border:0;background:none;display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:700;padding:4px 0;margin-bottom:12px}
+.vpills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.vtab{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);padding:6px 12px;display:flex;flex-direction:column;align-items:flex-start;line-height:1.25;font-weight:700}
+.vtab span{font-weight:400;font-size:12.5px;color:var(--muted)}
+.vtab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.vtab[aria-selected="true"] span{color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.saved-refine{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+
+/* Toast + dialog */
+.toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,12px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:var(--r-pill);font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{border:0;padding:0;border-radius:var(--r-lg);background:var(--surface);color:var(--ink);width:min(560px,calc(100% - 24px));max-height:calc(100dvh - 24px)}
+dialog::backdrop{background:rgba(10,20,14,.45)}
+.dlg{display:flex;flex-direction:column;max-height:calc(100dvh - 24px)}
+.dlg-head{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.dlg-head h2{margin:0;flex:1;font:700 22px/1.1 var(--display)}
+.dlg-body{padding:16px 18px;overflow:auto;display:flex;flex-direction:column;gap:18px}
+.dlg-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--line)}
+
+@media (max-width:520px){
+  .brand{font-size:22px}
+  .tab{padding:6px 11px}
+  .recipe-head,.recipe-body,.recipe-foot{padding-left:14px;padding-right:14px}
+  .nut-row{grid-template-columns:60px minmax(0,1fr) 100px;gap:8px;font-size:14px}
+  .trace-list li{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="bite" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
+      <rect width="32" height="32" fill="#fff"/>
+      <circle cx="28.5" cy="6" r="5.6" fill="#000"/>
+      <circle cx="30.8" cy="13.4" r="3.6" fill="#000"/>
+    </mask>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="top">
+    <h1 class="brand"><span id="brand-logo"></span>Nibble</h1>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" role="tab" id="tab-chat" type="button" aria-selected="true">Chat</button>
+      <button class="tab" role="tab" id="tab-saved" type="button" aria-selected="false">Saved<span class="count" id="saved-count" hidden>0</span></button>
+    </nav>
+    <button class="iconbtn" id="new-chat" type="button" aria-label="New chat" title="New chat"></button>
+  </header>
+
+  <div class="banner" id="banner">
+    <p>Clickable prototype for the team. Recipes, profiles and agent steps are simulated in your browser; nothing is sent anywhere.</p>
+    <button class="chip-x" id="banner-x" type="button" aria-label="Dismiss"></button>
+  </div>
+
+  <main>
+    <section id="view-chat" aria-label="Chat"><div id="chat-log"></div></section>
+    <section id="view-saved" aria-label="Saved recipes" hidden></section>
+  </main>
+
+  <div class="composer" id="composer">
+    <div class="refine-row" id="refine-row" hidden></div>
+    <div class="inputbar" id="composer-form">
+      <input id="composer-input" type="text" autocomplete="off" aria-label="Message" enterkeyhint="send">
+      <button class="send" id="composer-send" type="button" aria-label="Send"></button>
+    </div>
+  </div>
+</div>
+
+<dialog id="editor" aria-label="Profile editor"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------- helpers ---------- */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const wait = ms => new Promise(r => setTimeout(r, reduced ? Math.min(ms, 60) : ms));
+const $ = (s, root = document) => root.querySelector(s);
+
+const ICONS = {
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.3c1.8.8 3 2.9 3 5.7"/>',
+  flame:'<path d="M12 3c.8 3 5 5.2 5 10a5 5 0 0 1-10 0c0-2.2 1-3.7 2.2-4.8.1 1.9.9 3 2 3.3C10.8 8.6 10.5 6 12 3z"/>',
+  shield:'<path d="M12 3l7 3v6c0 4.4-2.9 7.6-7 9-4.1-1.4-7-4.6-7-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  alert:'<path d="M12 4 2.8 20h18.4z"/><path d="M12 10v4"/><path d="M12 17.2h.01"/>',
+  swap:'<path d="M7 4 3 8l4 4"/><path d="M3 8h13"/><path d="m17 20 4-4-4-4"/><path d="M21 16H8"/>',
+  refresh:'<path d="M20 11a8 8 0 0 0-14.6-4.6L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.6 4.6L21 15"/><path d="M21 20v-5h-5"/>',
+  bookmark:'<path d="M6.5 3h11v18L12 17l-5.5 4z"/>',
+  send:'<path d="M5 12h13"/><path d="m12 5 7 7-7 7"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  minus:'<path d="M5 12h14"/>',
+  thermo:'<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 11v6"/>',
+  carrot:'<path d="M3 21s5.5-1.6 10.4-6.5c3.2-3.2 3.6-6.4 2.1-7.9S10.8 5.4 7.6 8.6C2.7 13.5 3 21 3 21z"/><path d="M15.5 8.5 21 3"/><path d="M16.5 3.5c0 2 1.6 3.9 4 4"/><path d="M8 13l2 2M10.5 10.5l1.5 1.5"/>',
+  pot:'<path d="M4 10h16v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M2 10h20"/><path d="M9 6c0-1 1-1.5 1-2.5M14 6c0-1 1-1.5 1-2.5"/>',
+  chart:'<path d="M4 20V11M10 20V5M16 20v-7M2 20h20"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  pencil:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  chev:'<path d="m9 6 6 6-6 6"/>',
+  back:'<path d="m15 6-6 6 6 6"/>',
+  basket:'<path d="M4 9h16l-1.6 9.2a2 2 0 0 1-2 1.8H7.6a2 2 0 0 1-2-1.8z"/><path d="m8 9 3-5M16 9l-3-5"/><path d="M9 13v3M15 13v3"/>',
+  steps:'<path d="M5 6h14M5 12h14M5 18h8"/>',
+  newchat:'<path d="M12 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/><path d="M18 15v6M15 18h6"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>'
+};
+function icon(name, size = 18) {
+  const s = document.createElement('span');
+  s.className = 'ic';
+  s.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  return s;
+}
+function logoMark(size = 28) {
+  const s = document.createElement('span');
+  s.className = 'ic';
+  s.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 32 32" aria-hidden="true"><g mask="url(#bite)"><circle cx="16" cy="16.5" r="14" style="fill:var(--saffron)"/><circle cx="10.5" cy="13" r="1.7" style="fill:var(--saffron-ink)" opacity=".5"/><circle cx="17.5" cy="21.5" r="1.7" style="fill:var(--saffron-ink)" opacity=".5"/><circle cx="10" cy="21" r="1.2" style="fill:var(--saffron-ink)" opacity=".5"/><circle cx="16" cy="12" r="1.1" style="fill:var(--saffron-ink)" opacity=".5"/></g></svg>`;
+  return s;
+}
+function el(tag, props = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (v == null || v === false) continue;
+    if (k === 'class') n.className = v;
+    else if (k === 'text') n.textContent = v;
+    else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (typeof v !== 'string' && k in n) n[k] = v;
+    else n.setAttribute(k, v === true ? '' : v);
+  }
+  for (const c of kids.flat(Infinity)) {
+    if (c == null || c === false) continue;
+    n.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+  return n;
+}
+const joinList = a => { a = a.filter(Boolean); return a.length < 2 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function lev(a, b) {
+  const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 1; j <= n; j++) d[0][j] = j;
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[m][n];
+}
+
+/* ---------- data (simulated) ---------- */
+// Daily reference values for an adult (WHO / EU reference intakes)
+const DV = { kcal: 2000, fat: 70, sugar: 50, salt: 5 };
+const DV_LABEL = { kcal: 'Calories', fat: 'Fat', sugar: 'Sugar', salt: 'Salt' };
+const DV_UNIT = { kcal: 'kcal', fat: 'g', sugar: 'g', salt: 'g' };
+const NKEYS = ['kcal', 'protein', 'fat', 'sugar', 'salt'];
+
+// per unit: [kcal, protein g, fat g, sugar g, salt g]; al = EU allergen families
+const ING = {
+  'chicken thighs':   { unit:'g', short:'chicken', n:[1.77,.24,.085,0,.0023] },
+  'chicken breast':   { unit:'g', short:'chicken', n:[1.20,.225,.026,0,.0016] },
+  'turkey breast':    { unit:'g', short:'turkey', n:[1.14,.24,.015,0,.0015] },
+  'firm tofu':        { unit:'g', short:'tofu', n:[1.44,.155,.087,.006,.0003], al:['soy'] },
+  'chickpeas':        { unit:'g', short:'chickpeas', n:[1.64,.089,.026,.048,.0006] },
+  'basmati rice':     { unit:'g', short:'rice', n:[3.6,.07,.006,.001,0] },
+  'brown rice':       { unit:'g', short:'brown rice', n:[3.62,.075,.027,.008,0] },
+  'quinoa':           { unit:'g', short:'quinoa', n:[3.68,.14,.061,0,0] },
+  'cauliflower rice': { unit:'g', short:'cauliflower rice', n:[.25,.019,.003,.019,.0007] },
+  'arborio rice':     { unit:'g', short:'arborio rice', n:[3.5,.065,.006,0,0] },
+  'spinach':          { unit:'g', short:'spinach', n:[.23,.029,.004,.004,.002] },
+  'kale':             { unit:'g', short:'kale', n:[.49,.043,.009,.023,.001] },
+  'mushrooms':        { unit:'g', short:'mushrooms', n:[.22,.031,.003,.02,0] },
+  'garlic':           { unit:'clove', name:'garlic clove', plural:'garlic cloves', short:'garlic', n:[4.5,.2,0,.04,0] },
+  'onion':            { unit:'pcs', name:'onion', plural:'onions', short:'onion', n:[44,1.2,.1,4.7,.01] },
+  'shallot':          { unit:'pcs', name:'shallot', plural:'shallots', short:'shallot', n:[29,1,0,3,.01] },
+  'carrot':           { unit:'pcs', name:'carrot', plural:'carrots', short:'carrot', n:[25,.6,.1,2.9,.04] },
+  'lemon':            { unit:'pcs', name:'lemon', plural:'lemons', short:'lemon', n:[17,.6,.2,1.5,0] },
+  'lime':             { unit:'pcs', name:'lime', plural:'limes', short:'lime', n:[20,.5,.1,1.1,0] },
+  'fresh chili':      { unit:'pcs', name:'fresh chili', plural:'fresh chilies', short:'fresh chili', n:[4,.2,0,.5,0] },
+  'spring onion':     { unit:'pcs', name:'spring onion', plural:'spring onions', short:'spring onion', n:[5,.3,0,.4,0] },
+  'olive oil':        { unit:'tbsp', short:'olive oil', n:[119,0,13.5,0,0] },
+  'avocado oil':      { unit:'tbsp', short:'avocado oil', n:[124,0,14,0,0] },
+  'butter':           { unit:'tbsp', short:'butter', n:[102,.1,11.5,0,.09], al:['milk'] },
+  'coconut milk':     { unit:'ml', short:'coconut milk', n:[1.97,.02,.21,.03,.0003] },
+  'coconut cream':    { unit:'ml', short:'coconut cream', n:[3.3,.036,.35,.033,.0001] },
+  'oat cream':        { unit:'ml', short:'oat cream', n:[1.5,.01,.12,.04,.001], al:['gluten'] },
+  'heavy cream':      { unit:'ml', short:'cream', n:[3.4,.02,.36,.03,.0008], al:['milk'] },
+  'chicken stock':    { unit:'ml', short:'stock', n:[.04,.005,.001,.001,.008] },
+  'vegetable stock':  { unit:'ml', short:'stock', n:[.05,.001,.001,.004,.007], al:['celery'] },
+  'low-sodium stock': { unit:'ml', short:'low-sodium stock', n:[.04,.005,.001,.001,.002] },
+  'red curry paste':  { unit:'tbsp', short:'curry paste', n:[15,.3,.6,1,.6] },
+  'soy sauce':        { unit:'tbsp', short:'soy sauce', n:[9,1.3,0,.1,2.3], al:['soy','gluten'] },
+  'coconut aminos':   { unit:'tbsp', short:'coconut aminos', n:[15,0,0,3,.7] },
+  'fresh ginger':     { unit:'tsp', short:'ginger', n:[2,0,0,0,0] },
+  'chili flakes':     { unit:'tsp', short:'chili flakes', n:[6,.2,.3,.2,0] },
+  'smoked paprika':   { unit:'tsp', short:'smoked paprika', n:[6,.3,.3,.2,0] },
+  'ground cumin':     { unit:'tsp', short:'cumin', n:[8,.4,.5,0,0] },
+  'tomato passata':   { unit:'ml', short:'passata', n:[.3,.014,.002,.04,.002] },
+  'white wine':       { unit:'ml', short:'white wine', n:[.82,0,0,.01,0], al:['sulphites'] },
+  'parsley':          { unit:'tbsp', short:'parsley', n:[1,.1,0,0,0] },
+  'cilantro':         { unit:'tbsp', short:'cilantro', n:[.5,0,0,0,0] },
+  'basil':            { unit:'tbsp', short:'basil', n:[.5,0,0,0,0] },
+  'parmesan':         { unit:'tbsp', short:'parmesan', n:[22,2,1.4,0,.08], al:['milk'] },
+  'nutritional yeast':{ unit:'tbsp', short:'nutritional yeast', n:[20,2.5,.3,0,.01] },
+  'toasted pumpkin seeds': { unit:'tsp', short:'pumpkin seeds', n:[16,.8,1.4,0,0] },
+  'salt':             { unit:'tsp', short:'salt', n:[0,0,0,0,6] }
+};
+const nm = k => ING[k].name || k;
+const POULTRY = ['chicken thighs', 'chicken breast', 'turkey breast'];
+const PROTEINS = [...POULTRY, 'firm tofu', 'chickpeas'];
+
+const SUBS = {
+  'chicken thighs':['chicken breast','turkey breast','firm tofu','chickpeas'],
+  'chicken breast':['chicken thighs','turkey breast','firm tofu','chickpeas'],
+  'turkey breast':['chicken breast','firm tofu','chickpeas'],
+  'firm tofu':['chickpeas','chicken breast'],
+  'chickpeas':['firm tofu','chicken breast'],
+  'basmati rice':['brown rice','quinoa','cauliflower rice'],
+  'brown rice':['basmati rice','quinoa','cauliflower rice'],
+  'quinoa':['basmati rice','brown rice'],
+  'cauliflower rice':['basmati rice','quinoa'],
+  'arborio rice':['basmati rice','quinoa'],
+  'spinach':['kale'], 'kale':['spinach'], 'mushrooms':['spinach','kale'],
+  'onion':['shallot','spring onion'], 'shallot':['onion'],
+  'lemon':['lime'], 'lime':['lemon'],
+  'olive oil':['avocado oil','butter'], 'avocado oil':['olive oil'],
+  'butter':['olive oil','coconut cream'],
+  'coconut milk':['coconut cream','oat cream','heavy cream'],
+  'coconut cream':['coconut milk','oat cream'],
+  'heavy cream':['coconut cream','oat cream'],
+  'chicken stock':['low-sodium stock','vegetable stock'],
+  'vegetable stock':['low-sodium stock','chicken stock'],
+  'low-sodium stock':['chicken stock'],
+  'soy sauce':['coconut aminos'],
+  'red curry paste':['smoked paprika'],
+  'parsley':['cilantro','basil'], 'cilantro':['parsley','basil'], 'basil':['parsley'],
+  'parmesan':['nutritional yeast'],
+  'fresh chili':['chili flakes'], 'chili flakes':['smoked paprika'],
+  'carrot':['spring onion'], 'white wine':['low-sodium stock'], 'garlic':['shallot'],
+  'fresh ginger':['ground cumin'], 'tomato passata':['chicken stock']
+};
+const DEFAULT_QTY = { g:80, ml:100, tbsp:1, tsp:.5, clove:1, pcs:.5 };
+
+// roles: main, aromatic, base, season, finish, enrich, garnish. {aromatics} {enrich} {garnish} list every live line of that role.
+const RECIPES = [
+  { id:'r1', title:'One-pot lemon garlic chicken with spinach rice', time:35, tags:['comforting','one pot','high protein'],
+    src:'Adapted from RecipeNLG #104822 and a saved web recipe',
+    pairing:'Strong match: garlic with lemon. Novel but plausible: lemon with spinach.',
+    lines:[['chicken thighs',150,'main'],['basmati rice',75,'main'],['spinach',60,'main'],['garlic',2,'aromatic'],['onion',.5,'aromatic'],['lemon',.5,'finish'],['olive oil',1,'base'],['chicken stock',200,'base'],['salt',.25,'season'],['parsley',1,'garnish']],
+    steps:['Season the {0} with the {8} and brown it in the {6} in a wide pot, about 5 minutes per side. Set it aside.',
+           'In the same pot, soften the {aromatics} for 3 minutes.',
+           'Stir in the {1}, pour in the {7}, then nestle the {0} back on top. Cover and simmer for 18 minutes, until the {1} is tender and the {0} is cooked through (75 °C inside for poultry).',
+           'Fold in the {2} with the zest and juice of the {5}. Rest, covered, for 5 minutes.',
+           'Finish with {garnish}.'] },
+  { id:'r3', title:'Ginger chicken, spinach and rice soup', time:40, tags:['comforting','one pot','light'],
+    src:'Adapted from RecipeNLG #512907',
+    pairing:'Strong match: ginger with garlic. Novel but plausible: ginger with spinach.',
+    lines:[['chicken thighs',120,'main'],['basmati rice',40,'main'],['spinach',50,'main'],['chicken stock',350,'base'],['fresh ginger',2,'aromatic'],['garlic',2,'aromatic'],['carrot',1,'main'],['spring onion',1,'garnish'],['chili flakes',.25,'garnish']],
+    steps:['Bring the {3} to a simmer with the {aromatics}.',
+           'Add the whole {0} and the diced {6}. Poach for 15 minutes, until cooked through (75 °C inside for poultry), then lift it out and shred it.',
+           'Stir the {1} into the pot and simmer for 12 minutes.',
+           'Return the shredded {0}, add the {2} and cook for 1 more minute.',
+           'Finish with {garnish}.'] },
+  { id:'r2', title:'Coconut chicken and spinach curry with rice', time:30, tags:['comforting','quick','creamy'],
+    src:'Adapted from RecipeNLG #388410',
+    pairing:'Strong match: ginger with lime. Novel but plausible: coconut with spinach.',
+    lines:[['chicken breast',140,'main'],['basmati rice',70,'main'],['spinach',60,'main'],['coconut milk',100,'base'],['red curry paste',1,'season'],['garlic',1,'aromatic'],['fresh ginger',1,'aromatic'],['onion',.5,'aromatic'],['olive oil',.5,'base'],['lime',.5,'finish'],['cilantro',1,'garnish']],
+    steps:['Cook the {1} in a small pot with twice its volume of water, about 12 minutes.',
+           'Meanwhile, soften the {aromatics} in the {8} for 3 minutes, then stir in the {4} for 1 minute.',
+           'Add the {0}, cut into bite-size pieces, and pour in the {3}. Simmer for 10 minutes, until cooked through (75 °C inside for poultry).',
+           'Wilt in the {2} and squeeze in the {9}. Serve over the {1}.',
+           'Finish with {garnish}.'] },
+  { id:'r4', title:'Smoky chickpea, spinach and rice skillet', time:30, tags:['one pot','vegetarian','quick'],
+    src:'Adapted from a saved web recipe',
+    pairing:'Strong match: smoked paprika with tomato. Novel but plausible: cumin with spinach.',
+    lines:[['chickpeas',150,'main'],['basmati rice',60,'main'],['spinach',60,'main'],['tomato passata',150,'base'],['smoked paprika',1,'season'],['ground cumin',.5,'season'],['garlic',2,'aromatic'],['onion',.5,'aromatic'],['olive oil',1,'base'],['parmesan',1,'garnish']],
+    steps:['Soften the {aromatics} in the {8} in a deep skillet, 4 minutes.',
+           'Stir in the {4} and {5} for 30 seconds, then add the {1}, the {3} and a mug of water per serving.',
+           'Cover and simmer for 15 minutes, until the {1} is tender.',
+           'Fold in the {0} and {2} and cook for 3 more minutes.',
+           'Finish with {garnish}.'] },
+  { id:'r5', title:'Creamy mushroom and spinach risotto', time:35, tags:['comforting','vegetarian','creamy'],
+    src:'Adapted from RecipeNLG #77215',
+    pairing:'Strong match: mushrooms with parmesan. Novel but plausible: basil with mushrooms.',
+    lines:[['arborio rice',80,'main'],['mushrooms',150,'main'],['spinach',40,'main'],['vegetable stock',300,'base'],['shallot',.5,'aromatic'],['garlic',1,'aromatic'],['white wine',40,'base'],['butter',1,'enrich'],['parmesan',2,'enrich'],['basil',1,'garnish']],
+    steps:['Soften the {aromatics} in a wide pan with a splash of water, 3 minutes. Add the {1} and cook until golden.',
+           'Toast the {0} for 1 minute, then pour in the {6} and let it bubble away.',
+           'Add the {3} a ladle at a time, stirring, for about 18 minutes.',
+           'Stir in the {2} and the {enrich}.',
+           'Finish with {garnish}.'] }
+];
+
+// vocabulary for chip suggestions (grows as people type new ingredients)
+const ALLERGEN_TERMS = ['gluten','wheat','crustaceans','shellfish','eggs','fish','peanuts','soy','milk','lactose','dairy','tree nuts','celery','mustard','sesame','sulphites','lupin','molluscs'];
+const EXTRA = ['chicken','rice','olives','spaghetti','pasta','tomatoes','salmon','shrimp','beef','pork','lamb','eggplant','zucchini','bell pepper','broccoli','potatoes','sweet potatoes','avocado','cheese','yogurt','bread','lentils','black beans','corn','cucumber','feta','tuna','cod','honey','chocolate','coffee','cinnamon','rosemary','thyme','oregano','coriander','spicy food','soups','pickles','anchovies','peas','green beans','cabbage','beetroot','apples','bananas','strawberries','mango','pineapple','coconut','almonds','walnuts','hazelnuts','cashews','tahini','mayonnaise','tofu','tempeh','oats','couscous','bulgur','noodles','garlic','onion','ginger','lemon','lime','basil','parsley','cilantro','cumin','paprika','chili'];
+const SYN = {
+  'lactose':['milk','dairy','cheese','cream','butter','yogurt'], 'milk':['dairy','lactose'], 'dairy':['milk','lactose','cheese'],
+  'gluten':['wheat','bread','pasta','flour','barley','rye','celiac','coeliac'], 'wheat':['gluten','flour'],
+  'crustaceans':['shellfish','shrimp','prawns','crab','lobster'], 'shellfish':['shrimp','prawns','crab','crustaceans'],
+  'tree nuts':['nuts','almonds','walnuts','cashews','hazelnuts','pistachios'], 'peanuts':['groundnuts','peanut butter'],
+  'fish':['salmon','tuna','cod','anchovies'], 'eggs':['egg','mayonnaise'], 'soy':['tofu','soya','edamame','soy sauce'],
+  'sesame':['tahini'], 'sulphites':['wine','sulfites'], 'molluscs':['mussels','squid','octopus','clams','oysters'],
+  'cilantro':['coriander'], 'coriander':['cilantro'], 'spicy food':['chili','chilli','hot','spicy'],
+  'spring onion':['scallion','green onion'], 'chickpeas':['garbanzo'], 'zucchini':['courgette'], 'eggplant':['aubergine']
+};
+const FAMILY = { lactose:'milk', milk:'milk', dairy:'milk', cheese:'milk', butter:'milk', cream:'milk', yogurt:'milk',
+  gluten:'gluten', wheat:'gluten', bread:'gluten', pasta:'gluten', spaghetti:'gluten', peanuts:'peanuts',
+  'tree nuts':'nuts', nuts:'nuts', almonds:'nuts', walnuts:'nuts', cashews:'nuts', hazelnuts:'nuts',
+  shellfish:'crustaceans', crustaceans:'crustaceans', shrimp:'crustaceans', fish:'fish', salmon:'fish', tuna:'fish',
+  eggs:'eggs', egg:'eggs', soy:'soy', tofu:'soy', sesame:'sesame', tahini:'sesame', mustard:'mustard', celery:'celery',
+  sulphites:'sulphites', lupin:'lupin', molluscs:'molluscs' };
+const ALIAS = { 'lactose intolerant':'lactose', 'lactose intolerance':'lactose', 'celiac':'gluten', 'coeliac':'gluten',
+  'nuts':'tree nuts', 'nut':'tree nuts', 'peanut':'peanuts', 'egg':'eggs', 'prawns':'crustaceans', 'mushroom':'mushrooms',
+  'olive':'olives', 'spicy':'spicy food', 'chilli':'spicy food', 'tomato':'tomatoes', 'shrimps':'shrimp' };
+
+let vocab = [];
+(() => {
+  const seen = new Set();
+  const add = (term, kind) => { if (!seen.has(term)) { seen.add(term); vocab.push({ term, kind, isNew:false }); } };
+  ALLERGEN_TERMS.forEach(t => add(t, 'allergen'));
+  Object.keys(ING).forEach(k => { add(k, 'food'); add(ING[k].short, 'food'); });
+  EXTRA.forEach(t => add(t, 'food'));
+})();
+
+let profiles = [
+  { id:'p1', name:'Ana', likes:['garlic','lemon','spicy food'], dislikes:['mushrooms'], allergens:['lactose'] },
+  { id:'p2', name:'Dad', likes:['soups','ginger'], dislikes:['cilantro'], allergens:['gluten'] },
+  { id:'p3', name:'Radu', likes:['pasta','chickpeas'], dislikes:['olives'], allergens:['peanuts','tree nuts'] }
+];
+
+/* ---------- state ---------- */
+let activeProfile = null, request = null, shown = [], currentThread = null, composerMode = 'intro';
+const threads = [];
+
+/* ---------- matching logic ---------- */
+function learn(term, section) {
+  if (vocab.some(v => v.term === term)) return;
+  vocab.push({ term, kind: section === 'allergens' ? 'allergen' : 'food', isNew: true });
+  toast(`“${term}” will now show up as a suggestion`);
+}
+function suggest(q, section, exclude) {
+  q = q.trim().toLowerCase();
+  if (!q) return [];
+  const out = [];
+  for (const v of vocab) {
+    const t = v.term;
+    if (exclude.includes(t)) continue;
+    let s = 0, why = '';
+    if (t.startsWith(q)) s = 3;
+    else if (t.split(/[\s-]/).some(w => w.startsWith(q))) s = 2.5;
+    else if (q.length >= 3 && t.includes(q)) s = 1.5;
+    else if (q.length >= 4 && lev(q, t.slice(0, q.length)) <= 1) { s = 1.2; why = 'typo'; }
+    if (!s && q.length >= 3 && (SYN[t] || []).some(x => x.startsWith(q) || q.startsWith(x))) { s = 1.4; why = 'similar'; }
+    if (!s) continue;
+    if (section === 'allergens') s += v.kind === 'allergen' ? 1 : 0;
+    else if (v.kind === 'allergen') s -= .8;
+    if (!why && v.isNew) why = 'new';
+    out.push({ term: t, s, why });
+  }
+  return out.sort((a, b) => b.s - a.s || a.term.length - b.term.length).slice(0, 6);
+}
+const WHY = { similar:'similar', typo:'did you mean', new:'added by you' };
+
+function sameTerm(a, b) {
+  return a === b || (FAMILY[a] && FAMILY[a] === FAMILY[b]) || (SYN[a] || []).includes(b) || (SYN[b] || []).includes(a);
+}
+function parseFreeText(text) {
+  const out = { allergens:[], dislikes:[], likes:[] };
+  const push = (arr, t) => { if (!arr.includes(t)) arr.push(t); };
+  const clean = ' ' + text.toLowerCase().replace(/[’‘]/g, "'") + ' ';
+  const clauses = clean.split(/[.;,!?]| and | but | also | plus /);
+  const terms = [...vocab.map(v => v.term), ...Object.keys(ALIAS)].sort((a, b) => b.length - a.length);
+  let cue = null;
+  for (const c of clauses) {
+    if (/allerg|intoleran|can't eat|cannot eat|can't have|celiac|coeliac/.test(c)) cue = 'al';
+    else if (/hate|dislike|don't like|do not like|can't stand|not a fan|avoid|no more/.test(c)) cue = 'dis';
+    else if (/love|like|enjoy|fan of|adore/.test(c)) cue = 'like';
+    let rest = c;
+    for (const t of terms) {
+      const re = new RegExp(`\\b${escapeRe(t)}\\b`);
+      if (!re.test(rest)) continue;
+      rest = rest.replace(re, ' ');
+      const canon = ALIAS[t] || t;
+      const v = vocab.find(x => x.term === canon);
+      if ((v && v.kind === 'allergen') || cue === 'al') push(out.allergens, canon);
+      else if (cue === 'dis') push(out.dislikes, canon);
+      else if (cue === 'like') push(out.likes, canon);
+    }
+  }
+  return out;
+}
+function profileScore(p, parsed) {
+  const hit = (list, mine) => list.filter(a => mine.some(b => sameTerm(a, b))).length;
+  return hit(parsed.allergens, p.allergens) * 2 + hit(parsed.dislikes, p.dislikes) + hit(parsed.likes, p.likes);
+}
+
+const CRAVE = [
+  [/comfort|cozy|cosy|warm|hearty/, 'comforting', 'Comforting'],
+  [/one[- ]?pot|one pan|few dishes|fewer dishes|less dishes|not a lot of dishes|one pot to wash/, 'one pot', 'One pot'],
+  [/quick|fast|30 ?min|half an hour|hurry/, 'quick', 'Under 30 minutes'],
+  [/protein/, 'high protein', 'High protein'],
+  [/low[- ]?cal|light|lean|healthy/, 'light', 'Light'],
+  [/keto|low[- ]?carb/, 'keto', 'Low carb'],
+  [/spic|hot|chil/, 'spicy', 'Spicy'],
+  [/vegetarian|veggie|meatless|vegan/, 'vegetarian', 'Vegetarian'],
+  [/cream|rich/, 'creamy', 'Creamy']
+];
+function parseCraving(text) {
+  const t = (text || '').toLowerCase();
+  return CRAVE.filter(([re]) => re.test(t)).map(([, tag, label]) => ({ tag, label }));
+}
+
+const families = p => [...new Set(p.allergens.map(a => FAMILY[a] || a))];
+function dislikeHit(key, p) {
+  const names = [key, ING[key].short];
+  return p.dislikes.find(x => names.some(n => n === x || n.includes(x) || (x.length > 3 && x.includes(n)) || (SYN[x] || []).includes(n)));
+}
+function conflict(key, p) {
+  const fam = families(p);
+  const al = (ING[key].al || []).find(a => fam.includes(a));
+  if (al) return { type:'allergen', what:al };
+  const dl = dislikeHit(key, p);
+  return dl ? { type:'dislike', what:dl } : null;
+}
+const reason = (c, p) => c.type === 'allergen' ? `contains ${c.what}, which is on ${p.name}'s allergy list` : `${p.name} doesn't like ${c.what}`;
+const convertQty = (L, alt) => ING[L.key].unit === ING[alt].unit ? L.qty : DEFAULT_QTY[ING[alt].unit];
+
+function makeVersion(r) {
+  return { recipeId:r.id, title:r.title, time:r.time, tags:[...r.tags], src:r.src, pairing:r.pairing,
+    lines:r.lines.map(([key, qty, role]) => ({ key, qty, role })), steps:[...r.steps], notes:[], label:'Original' };
+}
+function adaptFor(r, p) {
+  const v = makeVersion(r), notes = [];
+  let blocked = null;
+  v.lines.forEach(L => {
+    const c = conflict(L.key, p);
+    if (!c || blocked) return;
+    if (L.role === 'main') { blocked = { key:L.key, ...c }; return; }
+    const alt = (SUBS[L.key] || []).find(k => !conflict(k, p) && !v.lines.some(x => x.key === k));
+    if (alt) { notes.push(`Swapped ${L.key} for ${alt} (${reason(c, p)}).`); L.qty = convertQty(L, alt); L.key = alt; }
+    else if (['garnish', 'season', 'enrich'].includes(L.role)) { L.removed = true; notes.push(`Left out ${L.key} (${reason(c, p)}).`); }
+    else blocked = { key:L.key, ...c };
+  });
+  return { v, notes, blocked };
+}
+function nutrition(v) {
+  const t = { kcal:0, protein:0, fat:0, sugar:0, salt:0 };
+  for (const L of v.lines) { if (L.removed) continue; NKEYS.forEach((k, i) => t[k] += ING[L.key].n[i] * L.qty); }
+  return t;
+}
+const warnList = n => ['kcal', 'fat', 'sugar', 'salt'].map(m => ({ m, label:DV_LABEL[m], pct:Math.round(n[m] / DV[m] * 100) })).filter(x => x.pct >= 50);
+function safetyText(v) {
+  const live = v.lines.filter(L => !L.removed).map(L => L.key);
+  if (live.some(k => POULTRY.includes(k))) return 'Poultry cooked to 75 °C inside';
+  if (live.some(k => /rice|quinoa/.test(k))) return 'Cool leftover grains within 1 hour';
+  return 'No raw-meat steps';
+}
+function safetySummary(v, n) {
+  const w = warnList(n);
+  return `${safetyText(v)}. ` + (w.length ? w.map(x => `${x.label.toLowerCase()} at ${x.pct}% of the daily limit`).join(', ').replace(/^./, c => c.toUpperCase()) + '.' : 'Everything is under 50% of daily limits.');
+}
+function pantryHits(pantry, v) {
+  return pantry.filter(p => v.lines.some(L => !L.removed && (L.key.includes(p) || p.includes(ING[L.key].short) || ING[L.key].short.includes(p))));
+}
+function pickRecipe(p, req, exclude) {
+  const filters = parseCraving(req.craving);
+  let removedAl = 0, removedDl = 0;
+  const cands = [];
+  for (const r of RECIPES) {
+    if (exclude.includes(r.id)) continue;
+    const { v, notes, blocked } = adaptFor(r, p);
+    if (blocked) { blocked.type === 'allergen' ? removedAl++ : removedDl++; continue; }
+    let score = pantryHits(req.pantry, v).length * 3 + filters.filter(f => r.tags.includes(f.tag)).length * 2;
+    if (filters.some(f => f.tag === 'quick') && r.time <= 30) score += 2;
+    v.notes = notes;
+    cands.push({ r, v, score });
+  }
+  cands.sort((a, b) => b.score - a.score);
+  return { best:cands[0], filters, removedAl, removedDl };
+}
+function buildTrace(res, p, req) {
+  const { best, filters, removedAl, removedDl } = res;
+  const v = best.v, n = nutrition(v), fam = families(p), seed = best.r.id.charCodeAt(1);
+  const steps = [
+    { tool:'parse_request', text:`Filters: ${filters.map(f => f.label.toLowerCase()).join(', ') || 'none'}. Pantry: ${req.pantry.join(', ') || 'empty'}. ${req.servings} ${req.servings === 1 ? 'serving' : 'servings'}.` },
+    { tool:'search_recipes', text:`${160 + seed * 7} candidates from RecipeNLG and saved web recipes.` },
+    { tool:'check_allergens', text: fam.length ? `Removed ${removedAl * 9 + 23} that contain ${joinList(fam)}.` : 'No allergies on this profile.' },
+    { tool:'check_preferences', text: p.dislikes.length ? `Removed ${removedDl * 5 + 11} with ${joinList(p.dislikes)}.` : 'No dislikes on this profile.' }
+  ];
+  if (v.notes.length) steps.push({ tool:'adapt_recipe', text:v.notes.join(' ') });
+  steps.push({ tool:'estimate_nutrition', text:`${Math.round(n.kcal)} kcal and ${n.salt.toFixed(1)} g salt per serving (USDA FoodData Central).` });
+  steps.push({ tool:'check_safety', text:safetySummary(v, n) });
+  steps.push({ tool:'score_pairing', text:v.pairing });
+  return steps;
+}
+
+/* ---------- changes: refine + swap ---------- */
+const REFINES = [
+  { op:'spicier', label:'Make it spicier' },
+  { op:'richer', label:'Make it richer' },
+  { op:'simpler', label:'Make it simpler' },
+  { op:'lesssalt', label:'Less salt' },
+  { op:'protein', label:'More protein' }
+];
+function detectOp(text) {
+  const t = text.toLowerCase();
+  if (/spic|hot|chil|heat/.test(t)) return 'spicier';
+  if (/rich|cream|indulg|decadent/.test(t)) return 'richer';
+  if (/simpl|easier|easy|less work|fewer steps/.test(t)) return 'simpler';
+  if (/salt|sodium|light|health/.test(t)) return 'lesssalt';
+  if (/protein|filling|more chicken|more meat/.test(t)) return 'protein';
+  return null;
+}
+function ensureStepFor(v, token, text) {
+  if (v.steps.some(s => s.includes(token))) return;
+  const gi = v.steps.findIndex(s => s.includes('{garnish}'));
+  if (gi >= 0) v.steps.splice(gi, 0, text); else v.steps.push(text);
+}
+function applyOp(op, src, p) {
+  const v = structuredClone(src);
+  v.notes = [];
+  const live = k => v.lines.find(L => !L.removed && L.key === k);
+  switch (op) {
+    case 'spicier': {
+      const chili = live('fresh chili');
+      if (chili) chili.qty += .5; else v.lines.push({ key:'fresh chili', qty:.5, role:'aromatic' });
+      const flakes = live('chili flakes');
+      if (flakes) flakes.qty += .25; else { v.lines.push({ key:'chili flakes', qty:.25, role:'garnish' }); ensureStepFor(v, '{garnish}', 'Finish with {garnish}.'); }
+      ensureStepFor(v, '{aromatics}', 'Fry the {aromatics} in a little oil for 1 minute and stir it through.');
+      v.notes.push(chili ? 'Added more fresh chili and chili flakes.' : 'Added fresh chili with the aromatics and chili flakes to finish.');
+      v.label = 'Spicier';
+      break;
+    }
+    case 'richer': {
+      const skipped = [];
+      let pick = null;
+      for (const k of ['butter', 'coconut cream']) {
+        const c = conflict(k, p);
+        if (c) skipped.push(`${k} (${reason(c, p)})`); else { pick = k; break; }
+      }
+      if (!pick) return { noop:"I couldn't find a richer ingredient that fits this profile." };
+      const amount = pick === 'butter' ? 1 : 40;
+      const ex = live(pick);
+      if (ex) ex.qty += amount; else v.lines.push({ key:pick, qty:amount, role:'enrich' });
+      ensureStepFor(v, '{enrich}', 'Stir in the {enrich} just before serving.');
+      if (skipped.length) v.notes.push(`Skipped ${joinList(skipped)}.`);
+      v.notes.push(`Added ${pick} for a richer finish.`);
+      v.label = 'Richer';
+      break;
+    }
+    case 'simpler': {
+      const g = v.lines.filter(L => !L.removed && L.role === 'garnish');
+      if (!g.length) return { noop:'This one is already about as simple as it gets. Try another change.' };
+      g.forEach(L => L.removed = true);
+      v.time = Math.max(15, v.time - 5);
+      v.notes.push(`Dropped the garnish (${joinList(g.map(L => L.key))}) and saved about 5 minutes.`);
+      v.label = 'Simpler';
+      break;
+    }
+    case 'lesssalt': {
+      const done = [];
+      v.lines.forEach(L => {
+        if (L.removed) return;
+        if (L.key === 'chicken stock' || L.key === 'vegetable stock') { done.push(`swapped ${L.key} for low-sodium stock`); L.key = 'low-sodium stock'; }
+        else if (L.key === 'soy sauce') { done.push('swapped soy sauce for coconut aminos'); L.key = 'coconut aminos'; }
+        else if (L.key === 'salt') { L.qty = L.qty / 2; done.push('halved the added salt'); }
+      });
+      if (!done.length) return { noop:'This recipe is already low in salt.' };
+      v.notes.push(cap(joinList(done)) + '.');
+      v.label = 'Less salt';
+      break;
+    }
+    case 'protein': {
+      const L = v.lines.find(x => !x.removed && PROTEINS.includes(x.key));
+      if (!L) return { noop:'There is no main protein to increase in this recipe.' };
+      L.qty = Math.round(L.qty * 1.3);
+      v.notes.push(`Increased the ${L.key} by 30%.`);
+      v.label = 'More protein';
+      break;
+    }
+  }
+  return { v };
+}
+function applySwap(src, idx, newKey) {
+  const v = structuredClone(src);
+  v.notes = [];
+  const L = v.lines[idx], old = L.key;
+  L.qty = convertQty(L, newKey);
+  L.key = newKey;
+  v.notes.push(`Swapped ${old} for ${newKey}.`);
+  v.label = `${ING[old].short} → ${ING[newKey].short}`;
+  return { v };
+}
+function safetyPass(v, p) {
+  v.lines.forEach(L => {
+    if (L.removed) return;
+    const c = conflict(L.key, p);
+    if (!c) return;
+    const alt = (SUBS[L.key] || []).find(k => !conflict(k, p));
+    if (alt) { v.notes.push(`Safety check: swapped ${L.key} for ${alt} (${reason(c, p)}).`); L.qty = convertQty(L, alt); L.key = alt; }
+    else { L.removed = true; v.notes.push(`Safety check: removed ${L.key} (${reason(c, p)}).`); }
+  });
+  const n = nutrition(v);
+  for (const m of ['salt', 'sugar', 'fat', 'kcal']) {
+    const pct = n[m] / DV[m] * 100;
+    if (pct <= 150) continue;
+    const i = NKEYS.indexOf(m);
+    const top = v.lines.map((L, idx) => ({ idx, val: L.removed ? 0 : ING[L.key].n[i] * L.qty })).sort((a, b) => b.val - a.val)[0];
+    const L = v.lines[top.idx];
+    const excess = n[m] - DV[m] * .95;
+    L.qty = L.qty * Math.max(.3, 1 - excess / top.val);
+    v.notes.push(`Safety check: ${DV_LABEL[m].toLowerCase()} reached ${Math.round(pct)}% of an adult's daily limit, so I reduced the ${L.key}.`);
+  }
+}
+
+/* ---------- formatting ---------- */
+function frac(x) {
+  const r = Math.round(x * 4) / 4, w = Math.floor(r), f = { 0:'', .25:'¼', .5:'½', .75:'¾' }[r - w];
+  return w === 0 ? (f || '0') : w + f;
+}
+function lineText(L, servings) {
+  const d = ING[L.key], q = L.qty * servings;
+  switch (d.unit) {
+    case 'g': case 'ml': {
+      if (q >= 1000) return `${(q / 1000).toFixed(1).replace(/\.0$/, '')} ${d.unit === 'g' ? 'kg' : 'l'} ${L.key}`;
+      const r = q >= 100 ? Math.round(q / 10) * 10 : Math.max(5, Math.round(q / 5) * 5);
+      return `${r} ${d.unit} ${L.key}`;
+    }
+    case 'tbsp': case 'tsp': { const f = frac(q); return f === '0' ? `a pinch of ${L.key}` : `${f} ${d.unit} ${L.key}`; }
+    case 'clove': { const c = Math.max(1, Math.round(q)); return `${c} ${c === 1 ? d.name : d.plural}`; }
+    case 'pcs': { const r = Math.max(.5, Math.round(q * 2) / 2); return `${frac(r)} ${r > 1 ? d.plural : d.name}`; }
+  }
+  return L.key;
+}
+function renderStep(t, v) {
+  let any = false, alive = false;
+  const s = t.replace(/\{(\w+)\}/g, (m, k) => {
+    any = true;
+    if (/^\d+$/.test(k)) { const L = v.lines[+k]; if (!L || L.removed) return ''; alive = true; return ING[L.key].short; }
+    const role = k === 'aromatics' ? 'aromatic' : k;
+    const names = v.lines.filter(L => L.role === role && !L.removed).map(L => ING[L.key].short);
+    if (names.length) alive = true;
+    return joinList([...new Set(names)]);
+  });
+  return any && !alive ? null : s;
+}
+
+/* ---------- UI: chat ---------- */
+const log = $('#chat-log');
+const cForm = $('#composer-form'), cInput = $('#composer-input'), cSend = $('#composer-send'), refineRow = $('#refine-row');
+
+function scrollDown() { window.scrollTo({ top: document.body.scrollHeight, behavior: reduced ? 'auto' : 'smooth' }); }
+function addMsg(kind, ...content) { const m = el('div', { class:`msg ${kind}` }, ...content); log.append(m); scrollDown(); return m; }
+function botSay(text, ...extra) {
+  return addMsg('bot', el('div', { class:'bot-row' }, logoMark(28), el('div', { class:'bot-body' }, el('p', { class:'bot-text', text }), ...extra)));
+}
+function userSay(text) { return addMsg('user', text); }
+async function botThinking(ms = 700) {
+  const m = addMsg('bot', el('div', { class:'bot-row' }, logoMark(28), el('div', { class:'dots', 'aria-label':'Nibble is thinking' }, el('i'), el('i'), el('i'))));
+  await wait(ms);
+  m.remove();
+}
+function setComposer(mode) {
+  composerMode = mode;
+  cInput.disabled = cSend.disabled = mode === 'locked';
+  cInput.placeholder = { intro:'Type your answer', locked:'Use the form above to continue', refine:'Ask for a change, like “make it spicier”' }[mode];
+  refineRow.hidden = mode !== 'refine';
+}
+function lockPanel(panel) { panel.classList.add('is-done'); panel.querySelectorAll('button,input,select,textarea').forEach(x => x.disabled = true); }
+const getProfile = t => profiles.find(p => p.id === t.profileId) || activeProfile;
+
+function startChat() {
+  log.replaceChildren();
+  activeProfile = null; request = null; shown = []; currentThread = null;
+  const example = "I'm lactose intolerant and I really don't like mushrooms";
+  botSay('Do you have any allergies or hard preferences in food?',
+    el('p', { class:'bot-help', text:'Answer in your own words. Nibble uses it to find your profile or start a new one.' }),
+    el('div', { class:'row' },
+      el('button', { type:'button', class:'btn', onclick:() => { cInput.value = example; cInput.focus(); } }, 'Use the example answer'),
+      el('button', { type:'button', class:'btn ghost', onclick:() => handleIntro('', true) }, 'Skip')));
+  setComposer('intro');
+  window.scrollTo(0, 0);
+}
+
+async function handleIntro(text, skipped) {
+  setComposer('locked');
+  userSay(skipped ? 'Skip for now' : text);
+  await botThinking(650);
+  showProfilePicker(skipped ? { allergens:[], dislikes:[], likes:[] } : parseFreeText(text));
+}
+
+function chipGroup(label, items, kind) {
+  return el('div', { class:'pgroup' }, el('span', { class:'pgroup-label', text:label }),
+    items.length ? items.map(t => el('span', { class:`chip static chip-${kind}`, text:t })) : el('span', { class:'muted small', text:'None' }));
+}
+function showProfilePicker(parsed) {
+  const scored = profiles.map(p => ({ p, s:profileScore(p, parsed) })).sort((a, b) => b.s - a.s);
+  const sug = scored[0] && scored[0].s > 0 ? scored[0].p : null;
+  const select = el('select', { class:'select', id:'profile-select', 'aria-label':'Saved profiles' });
+  const preview = el('div', { class:'preview' });
+  const fillSelect = selId => select.replaceChildren(...profiles.map(p => el('option', { value:p.id, selected:p.id === selId }, p.name + (sug && p.id === sug.id ? ' (suggested)' : ''))));
+  const current = () => profiles.find(p => p.id === select.value);
+  const renderPreview = () => { const p = current(); preview.replaceChildren(chipGroup('Allergies', p.allergens, 'allergen'), chipGroup('Dislikes', p.dislikes, 'dislike'), chipGroup('Likes', p.likes, 'like')); };
+  fillSelect(sug ? sug.id : profiles[0].id);
+  renderPreview();
+  select.addEventListener('change', renderPreview);
+
+  const detected = [...parsed.allergens.map(t => [t, 'allergen']), ...parsed.dislikes.map(t => [t, 'dislike']), ...parsed.likes.map(t => [t, 'like'])];
+  const panel = el('div', { class:'panel' });
+  const use = el('button', { type:'button', class:`btn${sug ? ' primary' : ''}`, onclick:() => { const p = current(); lockPanel(panel); chooseProfile(p); } }, icon('user', 16), 'Use this profile');
+  const edit = el('button', { type:'button', class:'btn', onclick:() => openEditor(current(), null, () => { fillSelect(select.value); renderPreview(); }) }, icon('pencil', 16), 'Edit');
+  const create = el('button', { type:'button', class:`btn${sug ? '' : ' primary'}`, onclick:() => openEditor(null, parsed, p => { fillSelect(p.id); renderPreview(); lockPanel(panel); chooseProfile(p); }) }, icon('plus', 16), 'New profile');
+  panel.append(
+    detected.length ? el('div', { class:'detected' }, el('span', { class:'muted', text:'From your answer:' }), detected.map(([t, k]) => el('span', { class:`chip static chip-${k}`, text:t }))) : null,
+    el('div', { class:'field' }, el('label', { class:'field-label', for:'profile-select', text:'Saved profiles' }), select),
+    preview,
+    el('div', { class:'row' }, sug ? [use, edit, create] : [create, use, edit])
+  );
+  botSay(sug ? `That sounds like ${sug.name}'s profile. Use it, or create a new one.` : 'None of the saved profiles match that. Create a new one, or pick an existing profile.', panel);
+}
+
+async function chooseProfile(p) {
+  activeProfile = p;
+  userSay(`Use ${p.name}'s profile`);
+  await botThinking(450);
+  showRequestForm();
+}
+
+function showRequestForm(prefill) {
+  setComposer('locked');
+  const req = { pantry:[...(prefill?.pantry || [])], craving:prefill?.craving || '', servings:prefill?.servings || 2 };
+  const pantryField = chipField({ label:'What do you have?', hint:'Type an ingredient, then press Enter', arr:req.pantry, section:'pantry', kind:'pantry' });
+  const ta = el('textarea', { id:'craving', rows:3, class:'textarea', placeholder:'Something comforting, quick, one pot, high protein, keto…' });
+  ta.value = req.craving;
+  const out = el('output', { 'aria-live':'polite', text:String(req.servings) });
+  const minus = el('button', { type:'button', 'aria-label':'Fewer servings', onclick:() => step(-1) }, icon('minus', 16));
+  const plus = el('button', { type:'button', 'aria-label':'More servings', onclick:() => step(1) }, icon('plus', 16));
+  const step = d => { req.servings = Math.min(12, Math.max(1, req.servings + d)); out.textContent = req.servings; minus.disabled = req.servings === 1; };
+  minus.disabled = req.servings === 1;
+  const err = el('p', { class:'error', role:'alert' });
+  const panel = el('div', { class:'panel' });
+  const submit = el('button', { type:'button', class:'btn primary', onclick:() => {
+    req.craving = ta.value.trim();
+    if (!req.pantry.length && !req.craving) { err.textContent = 'Add at least one ingredient, or describe the meal you want.'; return; }
+    lockPanel(panel);
+    request = req; shown = [];
+    const parts = [];
+    if (req.pantry.length) parts.push(`I have ${joinList(req.pantry)}.`);
+    if (req.craving) parts.push(/[.!?]$/.test(req.craving) ? req.craving : req.craving + '.');
+    parts.push(`${req.servings} ${req.servings === 1 ? 'serving' : 'servings'}.`);
+    userSay(parts.join(' '));
+    generate(false);
+  } }, icon('pot', 16), 'Find a recipe');
+  panel.append(
+    pantryField,
+    el('div', { class:'field' }, el('label', { class:'field-label', for:'craving', text:'What are you in the mood for?' }), ta),
+    el('div', { class:'field' }, el('span', { class:'field-label', text:'Servings' }), el('div', { class:'counter', role:'group', 'aria-label':'Servings' }, minus, out, plus)),
+    err,
+    el('div', { class:'row' }, submit, el('button', { type:'button', class:'btn ghost', onclick:() => {
+      req.pantry.splice(0, req.pantry.length, 'chicken', 'rice', 'spinach'); pantryField.refresh();
+      ta.value = 'Something comforting, with only one pot to wash';
+    } }, 'Fill in the example'))
+  );
+  botSay(`What would ${activeProfile.name} like to eat?`, el('p', { class:'bot-help', text:'Add what you have, describe the meal, and set the servings.' }), panel);
+}
+
+function chipField({ label, hint, arr, section, kind }) {
+  const id = 'f' + Math.random().toString(36).slice(2, 8);
+  const chips = el('span', { class:'chips' });
+  const input = el('input', { id, type:'text', class:'chip-input', placeholder:hint, autocomplete:'off' });
+  const box = el('div', { class:'chip-box' }, chips, input);
+  const sugg = el('div', { class:'suggestions' });
+  const renderChips = () => chips.replaceChildren(...arr.map((t, i) => el('span', { class:`chip chip-${kind}` }, t,
+    el('button', { type:'button', class:'chip-x', 'aria-label':`Remove ${t}`, onclick:e => { e.stopPropagation(); arr.splice(i, 1); renderChips(); renderSugg(); input.focus(); } }, icon('x', 14)))));
+  const renderSugg = () => sugg.replaceChildren(...suggest(input.value, section, arr).map(s =>
+    el('button', { type:'button', class:'sugg', onclick:() => { add(s.term); input.focus(); } }, icon('plus', 14), s.term, s.why ? el('span', { class:'why', text:WHY[s.why] }) : null)));
+  const add = raw => {
+    const t = raw.trim().toLowerCase().replace(/\s+/g, ' ');
+    input.value = '';
+    if (t && !arr.includes(t)) { arr.push(t); learn(t, section); renderChips(); }
+    renderSugg();
+  };
+  input.addEventListener('input', renderSugg);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); add(input.value); }
+    else if (e.key === 'Backspace' && !input.value && arr.length) { arr.pop(); renderChips(); }
+  });
+  box.addEventListener('click', e => { if (e.target === box) input.focus(); });
+  renderChips();
+  const wrap = el('div', { class:'field' }, el('label', { class:'field-label', for:id, text:label }), box, sugg);
+  wrap.refresh = () => { renderChips(); renderSugg(); };
+  return wrap;
+}
+
+/* ---------- profile editor ---------- */
+function openEditor(profile, prefill, onSave) {
+  const draft = profile
+    ? { ...profile, likes:[...profile.likes], dislikes:[...profile.dislikes], allergens:[...profile.allergens] }
+    : { id:'p' + Date.now(), name:'', likes:[...(prefill?.likes || [])], dislikes:[...(prefill?.dislikes || [])], allergens:[...(prefill?.allergens || [])] };
+  const dlg = $('#editor');
+  const name = el('input', { class:'input', id:'pname', type:'text', placeholder:'Who is this profile for?', autocomplete:'off' });
+  name.value = draft.name;
+  const err = el('p', { class:'error', role:'alert' });
+  const save = el('button', { type:'button', class:'btn primary', onclick:() => {
+    draft.name = name.value.trim();
+    if (!draft.name) { err.textContent = 'Add a name so you can find this profile later.'; name.focus(); return; }
+    if (profile) Object.assign(profile, draft); else profiles.push(draft);
+    dlg.close();
+    toast(profile ? `${draft.name}'s profile saved` : `Profile created for ${draft.name}`);
+    onSave && onSave(profile || draft);
+  } }, profile ? 'Save profile' : 'Create profile');
+  dlg.replaceChildren(el('div', { class:'dlg' },
+    el('div', { class:'dlg-head' }, el('h2', { text: profile ? `Edit ${profile.name}'s profile` : 'New profile' }),
+      el('button', { type:'button', class:'iconbtn', 'aria-label':'Close', onclick:() => dlg.close() }, icon('x', 16))),
+    el('div', { class:'dlg-body' },
+      el('div', { class:'field' }, el('label', { class:'field-label', for:'pname', text:'Name' }), name),
+      chipField({ label:'Allergies and intolerances', hint:'e.g. gluten, lactose, peanuts', arr:draft.allergens, section:'allergens', kind:'allergen' }),
+      chipField({ label:'Dislikes', hint:'Ingredients to keep out', arr:draft.dislikes, section:'dislikes', kind:'dislike' }),
+      chipField({ label:'Likes', hint:'Ingredients or flavours you enjoy', arr:draft.likes, section:'likes', kind:'like' }),
+      err),
+    el('div', { class:'dlg-foot' }, el('button', { type:'button', class:'btn', onclick:() => dlg.close() }, 'Cancel'), save)));
+  dlg.showModal();
+  name.focus();
+}
+
+/* ---------- recipes in chat ---------- */
+async function generate(isReroll) {
+  setComposer('locked');
+  const res = pickRecipe(activeProfile, request, shown);
+  if (!res.best) {
+    await botThinking(500);
+    botSay(`That's every recipe in this prototype that fits ${activeProfile.name}'s profile and this request.`,
+      el('div', { class:'row' }, el('button', { type:'button', class:'btn primary', onclick:() => showRequestForm(request) }, 'Change the request')));
+    if (currentThread) setComposer('refine');
+    return;
+  }
+  shown.push(res.best.r.id);
+  const t = { id:'t' + (threads.length + 1), servings:request.servings, pantry:[...request.pantry], profileId:activeProfile.id, versions:[res.best.v], saved:false, savedAt:0 };
+  threads.push(t);
+  currentThread = t;
+  await postRecipe(t, 0, isReroll ? `Here's another option for ${activeProfile.name}.` : `Here's a recipe for ${activeProfile.name}.`, buildTrace(res, activeProfile, request));
+  setComposer('refine');
+}
+
+function collapseCard(card) { card.classList.add('collapsible', 'is-collapsed'); }
+
+async function postRecipe(t, idx, intro, trace) {
+  const list = el('ol', { class:'trace-list' });
+  const det = el('details', { class:'trace', open:true },
+    el('summary', {}, el('span', { class:'chev' }, icon('chev', 14)), 'How Nibble made this', el('span', { class:'sim', text:'simulated' })), list);
+  const body = el('div', { class:'bot-body' }, el('p', { class:'bot-text', text:intro }), det);
+  addMsg('bot', el('div', { class:'bot-row' }, logoMark(28), body));
+  for (const s of trace) {
+    await wait(300);
+    list.append(el('li', {}, el('code', { text:s.tool }), el('span', { text:s.text })));
+    scrollDown();
+  }
+  await wait(250);
+  det.open = false;
+  log.querySelectorAll('.recipe:not(.is-collapsed)').forEach(collapseCard);
+  const card = renderRecipeCard(t, idx, 'chat');
+  body.append(card);
+  card.scrollIntoView({ block:'start', behavior: reduced ? 'auto' : 'smooth' });
+}
+
+function renderRecipeCard(t, idx, ctx) {
+  const v = t.versions[idx], p = getProfile(t), n = nutrition(v), S = t.servings;
+  const isLatest = idx === t.versions.length - 1;
+  const card = el('article', { class:'recipe', 'data-thread':t.id, 'data-v':String(idx) });
+  const rerender = () => { const c = renderRecipeCard(t, idx, ctx); if (card.classList.contains('collapsible')) c.classList.add('collapsible'); card.replaceWith(c); };
+
+  // header
+  const toggle = el('button', { type:'button', class:'collapse-toggle', onclick:() => card.classList.toggle('is-collapsed') },
+    el('span', { class:'show-l', text:'Show' }), el('span', { class:'hide-l', text:'Hide' }));
+  const vpill = t.versions.length > 1 || idx > 0 ? el('span', { class:'vpill', text: idx === 0 ? 'Version 1' : `Version ${idx + 1}: ${v.label.toLowerCase()}` }) : null;
+  const out = el('output', { text:String(S) });
+  const sMinus = el('button', { type:'button', 'aria-label':'Fewer servings', disabled:S <= 1, onclick:() => { t.servings = Math.max(1, S - 1); rerender(); } }, icon('minus', 14));
+  const sPlus = el('button', { type:'button', 'aria-label':'More servings', disabled:S >= 12, onclick:() => { t.servings = Math.min(12, S + 1); rerender(); } }, icon('plus', 14));
+  const meta = el('div', { class:'meta' },
+    el('span', { class:'meta-i' }, icon('clock'), `${v.time} min`),
+    el('span', { class:'meta-i' }, icon('users'), el('span', { class:'counter sm', role:'group', 'aria-label':'Servings' }, sMinus, out, sPlus), S === 1 ? 'serving' : 'servings'),
+    el('span', { class:'meta-i' }, icon('flame'), `${Math.round(n.kcal)} kcal per serving`));
+
+  const badges = el('div', { class:'badges' });
+  const avoid = [...p.allergens, ...p.dislikes];
+  if (avoid.length) badges.append(el('span', { class:'badge safe' }, icon('shield', 16), `Checked for ${p.name}: no ${joinList(avoid).replace(/ and ([^,]*)$/, ' or $1')}`));
+  const hits = pantryHits(t.pantry, v);
+  if (hits.length) badges.append(el('span', { class:'badge pantry' }, icon('basket', 16), `Uses your ${joinList(hits)}`));
+  warnList(n).forEach(w => badges.append(el('span', { class:'badge warn' }, icon('alert', 16), `One serving has ${w.pct}% of an adult's daily ${w.m === 'kcal' ? 'calories' : w.label.toLowerCase()}`)));
+  badges.append(el('span', { class:'badge' }, icon('thermo', 16), safetyText(v)));
+
+  const notes = v.notes.length ? el('div', { class:'notes' },
+    el('strong', { text: idx === 0 ? `Adapted for ${p.name}` : 'What changed' }), el('ul', {}, v.notes.map(x => el('li', { text:x })))) : null;
+
+  const head = el('div', { class:'recipe-head' },
+    el('div', { class:'head-top' }, el('h2', { class:'recipe-title', text:v.title }), vpill, ctx === 'chat' ? toggle : null),
+    meta, badges, notes);
+  head.querySelector('.head-top').addEventListener('click', e => { if (card.classList.contains('is-collapsed') && !e.target.closest('button')) card.classList.remove('is-collapsed'); });
+
+  // ingredients
+  const ingList = el('ul', { class:'ing-list' });
+  v.lines.forEach((L, li) => {
+    if (L.removed) return;
+    const cid = `${t.id}-${idx}-${li}-${Math.random().toString(36).slice(2, 6)}`;
+    const row = el('li', { class:'ing' });
+    const swapBtn = el('button', { type:'button', class:'swap', 'aria-expanded':'false', onclick:() => {
+      const openPanel = row.querySelector('.swap-panel');
+      if (openPanel) { openPanel.remove(); swapBtn.setAttribute('aria-expanded', 'false'); return; }
+      swapBtn.setAttribute('aria-expanded', 'true');
+      const opts = (SUBS[L.key] || []).filter(k => !v.lines.some(x => !x.removed && x.key === k));
+      row.append(el('div', { class:'swap-panel' },
+        opts.length ? [el('span', { class:'muted', text:`Swap ${ING[L.key].short} for:` }),
+          opts.map(k => { const c = conflict(k, p); return el('button', { type:'button', class:'opt', disabled:!!c, title: c ? cap(reason(c, p)) : null,
+            onclick:() => doChange(t, idx, () => applySwap(v, li, k), ctx) }, nm(k), c ? el('small', { text: c.type === 'allergen' ? `contains ${c.what}` : 'disliked' }) : null); })]
+          : el('span', { class:'muted', text:'No swaps for this ingredient in the prototype yet.' })));
+    } }, icon('swap', 14), 'Swap');
+    row.append(el('input', { type:'checkbox', id:cid }), el('label', { for:cid, text:cap(lineText(L, S)) }), swapBtn);
+    ingList.append(row);
+  });
+
+  const steps = el('ol', { class:'steps' }, v.steps.map(s => renderStep(s, v)).filter(Boolean).map(s => el('li', { text:s })));
+
+  const nut = el('div', { class:'nut' }, ['kcal', 'fat', 'sugar', 'salt'].map(m => {
+    const pct = Math.round(n[m] / DV[m] * 100);
+    const cls = pct > 150 ? 'bar over' : pct >= 50 ? 'bar warn' : 'bar';
+    const val = m === 'kcal' ? `${Math.round(n.kcal)} kcal` : `${n[m] < 10 ? n[m].toFixed(1) : Math.round(n[m])} g`;
+    return el('div', { class:'nut-row' }, el('span', { text:DV_LABEL[m] }),
+      el('div', { class:cls, role:'img', 'aria-label':`${pct}% of daily limit` }, el('i', { style:`width:${Math.min(100, pct / 2)}%` })),
+      el('span', { class:'nut-val' }, val, el('span', { text:` (${pct}%)` })));
+  }), el('p', { class:'nut-foot', text:`Protein: ${Math.round(n.protein)} g. Ticks mark 50% and 150% of an adult's daily limit (WHO and EU reference intakes). Under 50% shows no warning; over 150% makes Nibble change the recipe.` }));
+
+  const body = el('div', { class:'recipe-body' },
+    el('section', { class:'rsec' }, el('h3', {}, icon('carrot'), 'Ingredients', el('span', { class:'sub', text:`for ${S} ${S === 1 ? 'serving' : 'servings'}` })), ingList),
+    el('section', { class:'rsec' }, el('h3', {}, icon('pot'), 'Steps'), steps),
+    el('section', { class:'rsec' }, el('h3', {}, icon('chart'), 'Nutrition per serving'), nut));
+
+  const saveBtn = el('button', { type:'button', class:`btn${t.saved ? ' saved' : ''}`, onclick:() => {
+    t.saved = !t.saved; t.savedAt = Date.now();
+    saveBtn.className = `btn${t.saved ? ' saved' : ''}`;
+    saveBtn.lastChild.textContent = t.saved ? 'Saved' : 'Save recipe';
+    updateSavedCount();
+    toast(t.saved ? 'Saved. Find it under Saved, with every version.' : 'Removed from Saved');
+  } }, icon('bookmark', 16), el('span', { text: t.saved ? 'Saved' : 'Save recipe' }));
+  const foot = el('div', { class:'recipe-foot' },
+    el('span', { class:'src' }, icon('link', 16), el('a', { href:'#', onclick:e => { e.preventDefault(); toast('In the real app this opens the original recipe.'); }, text:v.src })),
+    el('div', { class:'row' }, saveBtn,
+      ctx === 'chat' && isLatest && t === currentThread ? el('button', { type:'button', class:'btn', onclick:async () => { userSay('Show me another recipe'); await generate(true); } }, icon('refresh', 16), 'Another recipe') : null));
+
+  card.append(head, body, foot);
+  return card;
+}
+
+async function doChange(t, baseIdx, fn, ctx) {
+  const p = getProfile(t);
+  const res = fn(t.versions[baseIdx], p);
+  if (res.noop) { ctx === 'chat' ? botSay(res.noop) : toast(res.noop); return; }
+  const v = res.v;
+  safetyPass(v, p);
+  t.versions.push(v);
+  const ni = t.versions.length - 1;
+  if (ctx === 'chat') {
+    setComposer('locked');
+    const n = nutrition(v), fam = families(p);
+    const safetyNotes = v.notes.filter(x => x.startsWith('Safety check'));
+    const trace = [
+      { tool:'apply_change', text:v.notes.filter(x => !x.startsWith('Safety check')).join(' ') || 'Applied the change.' },
+      { tool:'check_allergens', text: safetyNotes.length ? safetyNotes.join(' ') : fam.length || p.dislikes.length ? `Still free of ${joinList([...p.allergens, ...p.dislikes])}.` : 'No allergies on this profile.' },
+      { tool:'estimate_nutrition', text:`${Math.round(n.kcal)} kcal and ${n.salt.toFixed(1)} g salt per serving.` },
+      { tool:'check_safety', text:safetySummary(v, n) }
+    ];
+    currentThread = t;
+    await postRecipe(t, ni, `Here's version ${ni + 1}.`, trace);
+    setComposer('refine');
+  } else {
+    renderSavedDetail(t, ni);
+    toast(`Saved as version ${ni + 1}`);
+  }
+}
+
+/* ---------- saved ---------- */
+function updateSavedCount() {
+  const c = threads.filter(t => t.saved).length, b = $('#saved-count');
+  b.textContent = c; b.hidden = c === 0;
+}
+function showView(name) {
+  $('#view-chat').hidden = name !== 'chat';
+  $('#view-saved').hidden = name !== 'saved';
+  $('#composer').hidden = name !== 'chat';
+  $('#tab-chat').setAttribute('aria-selected', String(name === 'chat'));
+  $('#tab-saved').setAttribute('aria-selected', String(name === 'saved'));
+  if (name === 'saved') renderSavedList();
+  window.scrollTo(0, name === 'chat' ? document.body.scrollHeight : 0);
+}
+function renderSavedList() {
+  const box = $('#view-saved');
+  const items = threads.filter(t => t.saved).sort((a, b) => b.savedAt - a.savedAt);
+  box.replaceChildren(
+    el('h2', { class:'view-title', text:'Saved recipes' }),
+    el('p', { class:'muted', text:'Saved recipes live here, separate from your chats. Each one keeps every version you made.' }),
+    items.length
+      ? el('ul', { class:'saved-list' }, items.map(t => {
+          const v = t.versions[t.versions.length - 1], p = getProfile(t);
+          return el('li', {}, el('button', { type:'button', class:'saved-item', onclick:() => renderSavedDetail(t, t.versions.length - 1) },
+            el('span', { class:'saved-title', text:v.title }),
+            el('span', { class:'saved-meta', text:`${t.versions.length} ${t.versions.length === 1 ? 'version' : 'versions'}, for ${p.name}` }),
+            icon('chev', 18)));
+        }))
+      : el('div', { class:'empty' }, icon('bookmark', 28), el('p', { text:'Nothing saved yet. Tap Save recipe on a recipe card to keep it here.' }),
+          el('button', { type:'button', class:'btn', onclick:() => showView('chat') }, 'Back to chat')));
+}
+function renderSavedDetail(t, idx) {
+  const box = $('#view-saved');
+  box.replaceChildren(
+    el('button', { type:'button', class:'back', onclick:renderSavedList }, icon('back', 18), 'All saved recipes'),
+    el('div', { class:'vpills', role:'tablist', 'aria-label':'Versions' }, t.versions.map((v, i) =>
+      el('button', { type:'button', role:'tab', class:'vtab', 'aria-selected':String(i === idx), onclick:() => renderSavedDetail(t, i) },
+        `Version ${i + 1}`, el('span', { text: i === 0 ? 'Original' : v.label })))),
+    renderRecipeCard(t, idx, 'saved'),
+    el('div', { class:'saved-refine' },
+      el('p', { class:'muted small', text:'Refine this version. Each change is saved as a new version.' }),
+      el('div', { class:'refine-row inline' }, REFINES.map(r => el('button', { type:'button', class:'rchip', onclick:() => doChange(t, idx, (src, p) => applyOp(r.op, src, p), 'saved') }, r.label)))));
+  window.scrollTo(0, 0);
+}
+
+/* ---------- toast ---------- */
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ---------- wiring ---------- */
+$('#brand-logo').append(logoMark(30));
+$('#new-chat').append(icon('newchat', 18));
+$('#composer-send').append(icon('send', 18));
+$('#banner-x').append(icon('x', 14));
+$('#banner-x').addEventListener('click', () => $('#banner').remove());
+$('#new-chat').addEventListener('click', () => { showView('chat'); startChat(); });
+$('#tab-chat').addEventListener('click', () => showView('chat'));
+$('#tab-saved').addEventListener('click', () => showView('saved'));
+refineRow.append(...REFINES.map(r => el('button', { type:'button', class:'rchip', onclick:() => { cInput.value = r.label; cInput.focus(); } }, r.label)));
+
+// No <form>: sandboxed previews can block form submission, so Enter and the send button are handled directly.
+cInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); sendComposer(); }
+});
+cSend.addEventListener('click', sendComposer);
+
+async function sendComposer() {
+  const text = cInput.value.trim();
+  if (!text || composerMode === 'locked') return;
+  cInput.value = '';
+  if (composerMode === 'intro') return handleIntro(text, false);
+  if (composerMode === 'refine' && currentThread) {
+    userSay(text);
+    const op = detectOp(text);
+    if (!op) { await botThinking(400); botSay('In this prototype I can make a recipe spicier, richer, simpler, lower in salt or higher in protein. Try one of the suggestions above the input.'); return; }
+    const t = currentThread;
+    await doChange(t, t.versions.length - 1, (src, p) => applyOp(op, src, p), 'chat');
+  }
+}
+
+startChat();
+})();
+</script>
+</body>
+</html>

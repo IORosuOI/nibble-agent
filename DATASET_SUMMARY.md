@@ -118,7 +118,7 @@ Run order: `pull_xiaoxl.py`, `verify_xiaoxl.py`, the cleaning and merge cells of
 - `data/ingredient_map.json`: the 1,487 ingredient-to-USDA matches made by Haiku subagents; slow to recreate and the calculator needs it.
 
 ### Not committed, on purpose
-- Big generated files: `data/train_examples.jsonl` and `data/val_examples.jsonl` (74 and 4 MB); the scripts regenerate them. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
+- `data/train_examples.jsonl` (74 MB) is left out; the scripts regenerate it. `data/val_examples.jsonl` can be committed but is not yet included. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
 - Raw downloads: Kaggle, xiaoxl and the USDA folders.
 - `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; a download step is not automated yet.
 

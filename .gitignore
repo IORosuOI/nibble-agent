@@ -13,7 +13,6 @@ __pycache__/
 qdrant_storage/
 
 # Large generated data (see DATASET_SUMMARY.md, "Not committed, on purpose")
-data/recipes_merged.jsonl
 data/train_examples.jsonl
 data/val_examples.jsonl
 data/xiaoxl_nutrition_checked.csv

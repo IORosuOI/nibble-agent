@@ -96,7 +96,7 @@ def _aliases():
     out = {}
     for code, info in fam.items():
         out[code] = code
-        for a in info["aliases"]:
+        for a in [info["eu_name"]] + info["aliases"]:
             out.setdefault(a.lower(), code)
     out.setdefault("shellfish", "shellfish")
     out.setdefault("wheat", "wheat")

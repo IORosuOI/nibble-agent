@@ -10,7 +10,7 @@
     "soy": "soybeans and soy products",
     "sesame": "sesame seeds, tahini and sesame oil",
     "wheat": "wheat and wheat flour products",
-    "gluten": "wheat, barley, rye and their products (wheat always implies gluten)",
+    "gluten": "cereals containing gluten as in EU Annex II: wheat (incl. spelt, khorasan), rye, barley, oats and their products (wheat always implies gluten)",
     "crustaceans": "shrimp, prawn, crab, lobster, crayfish, langoustine, krill",
     "molluscs": "clams, mussels, oysters, scallops, squid, octopus, snails, abalone",
     "celery": "celery, celeriac, celery seed and celery salt",
@@ -94,6 +94,12 @@
     ],
     "amaretto": [
       "tree_nut"
+    ],
+    "gianduja": [
+      "tree_nut"
+    ],
+    "imitation crab": [
+      "fish"
     ],
     "praline": [
       "tree_nut"
@@ -266,6 +272,17 @@
     ],
     "wheat": [
       "wheat",
+      "spelt",
+      "kamut",
+      "khorasan",
+      "durum",
+      "farro",
+      "emmer",
+      "einkorn",
+      "triticale",
+      "freekeh",
+      "wheatberry",
+      "wheatberries",
       "flour",
       "bread",
       "breadcrumb",
@@ -327,6 +344,10 @@
     ],
     "gluten": [
       "gluten",
+      "oat",
+      "oatmeal",
+      "granola",
+      "muesli",
       "barley",
       "rye",
       "malt",
@@ -431,6 +452,15 @@
       "milk"
     ],
     "apple butter": [
+      "milk"
+    ],
+    "romano cranberry bean": [
+      "milk"
+    ],
+    "romano bean": [
+      "milk"
+    ],
+    "romano or green bean": [
       "milk"
     ],
     "swiss chard": [

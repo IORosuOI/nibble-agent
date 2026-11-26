@@ -97,7 +97,7 @@ def _finish(recipes, holdout, allergens_path=None):
         raise AllergenMismatch(
             f"{len(mismatches)} of {checked} recipes have different allergens in {path.name} than their own text "
             f"gives (first: {', '.join(mismatches[:5])}). The pool and the allergen file are out of sync, or "
-            f"allergen_map.json changed since the file was made. Rerun scripts/add_allergens.py, then index again.")
+            f"allergen_map.json changed since the file was made. Rerun scripts/add_pool_fields.py, then index again.")
     print(f"allergens computed from recipe text for {len(recipes)} recipes; "
           f"{checked} cross-checked against {path.name}, all agree" if known else
           f"allergens computed from recipe text for {len(recipes)} recipes ({path.name} not found, no cross-check)")

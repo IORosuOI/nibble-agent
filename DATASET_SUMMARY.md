@@ -4,6 +4,9 @@
 Evaluate a model that takes (ingredients the user has + a mood such as "spicy" or "high-protein") and returns a full recipe.
 The evaluation checks that the recipe is built around the user's ingredients, nutritional fit, and culinary feasibility.
 
+## How to get the data
+The full recipe pool, `data/recipes_merged.jsonl` (23,395 recipes), is committed directly in the repository under `data/`. It is ready to use after cloning; no separate download or rebuild is needed for the pool.
+
 ## 2. Source datasets
 | Dataset | Used for | Notes |
 |---|---|---|
@@ -110,11 +113,12 @@ Run order: `pull_xiaoxl.py`, `verify_xiaoxl.py`, the cleaning and merge cells of
 - `docs/MILESTONE2.md`: the team file; only sections 1 and 2 are filled in.
 
 ### Committed data
+- `data/recipes_merged.jsonl`: the full recipe pool (23,395 recipes).
 - `data/eval_examples.jsonl`: the golden test set (1.7 MB); it is the deliverable and small enough to commit.
 - `data/ingredient_map.json`: the 1,487 ingredient-to-USDA matches made by Haiku subagents; slow to recreate and the calculator needs it.
 
 ### Not committed, on purpose
-- Big generated files: `data/recipes_merged.jsonl`, `data/train_examples.jsonl`, `data/val_examples.jsonl` (47, 74 and 4 MB); the scripts regenerate them. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
+- `data/train_examples.jsonl` (74 MB) is left out; the scripts regenerate it. `data/val_examples.jsonl` can be committed but is not yet included. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
 - Raw downloads: Kaggle, xiaoxl and the USDA folders.
 - `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; a download step is not automated yet.
 

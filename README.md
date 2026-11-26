@@ -8,3 +8,5 @@ An agentic recipe assistant on a fine-tuned SLM, with RAG over real recipes, MCP
 
 ## Repository layout
 Each folder has a README with its purpose and owner.
+
+The recipe pool is in `data/recipes_merged.jsonl`, created by the cleaning and merge steps in `recipes.ipynb` and processed by `scripts/add_computed_nutrition.py`.

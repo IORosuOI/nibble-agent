@@ -614,5 +614,44 @@
     "gluten_free"
    ]
   }
- ]
+ ],
+ "eu_alignment": {
+  "kept": 1196,
+  "second_tag_dropped": [
+   {
+    "example_id": "e0262",
+    "dropped": "vegetarian"
+   }
+  ],
+  "replaced": [
+   {
+    "example_id": "e0665",
+    "old_recipe_id": "r23541",
+    "new_recipe_id": "r09886",
+    "primary_tag": "vegetarian",
+    "old_tags": [
+     "vegetarian",
+     "spicy"
+    ]
+   },
+   {
+    "example_id": "e0708",
+    "old_recipe_id": "r16949",
+    "new_recipe_id": "r04752",
+    "primary_tag": "vegetarian",
+    "old_tags": [
+     "vegetarian"
+    ]
+   },
+   {
+    "example_id": "e0979",
+    "old_recipe_id": "r09102",
+    "new_recipe_id": "r19794",
+    "primary_tag": "gluten_free",
+    "old_tags": [
+     "gluten_free"
+    ]
+   }
+  ]
+ }
 }

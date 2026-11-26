@@ -68,7 +68,7 @@ def _has(rx, text):
 
 
 # "vegetarian sausage", "veggie burger", "meatless crumbles" are not meat
-_PLANT_MOD = re.compile(r"\b(vegan|vegetarian|veggie|meatless|plant[- ]based|meat[- ]free|imitation|faux|mock)\s+(?:\w+\s+){0,2}")
+_PLANT_MOD = re.compile(r"\b(vegan|vegetarian|veggie|meatless|plant[- ]based|meat[- ]free|imitation|faux|mock)\s+(?!(?:\w+\s+)?crab)(?:\w+\s+){0,2}")
 
 
 def keyword_tags(ingredients, steps=None):
@@ -87,6 +87,13 @@ def keyword_tags(ingredients, steps=None):
     other_animal = _has(r"(" + _OTHER_ANIMAL + r")", t)
     gluten_text = _GLUTEN_OK.sub(" ", t)
     gluten = _has(_GLUTEN, gluten_text)
+    # the EU matcher has the last word, so a diet tag never contradicts the recipe's allergens (scallops, Nutella...)
+    listed = _A.allergens_in_lines(ingredients)
+    gluten = gluten or "gluten" in listed
+    dairy = dairy or "milk" in listed
+    egg = egg or "egg" in listed
+    animal_lines = [_PLANT_MOD.sub(" ", str(i).lower()) for i in ingredients]
+    fish = fish or bool(_A.allergens_in_lines(animal_lines) & {"fish", "crustaceans", "molluscs"})
     if step_text:
         meat = meat or _has(r"\b(" + _MEAT + r")\b", step_text)
         fish = fish or _has(r"\b(" + _FISH + r")\b", step_text)
@@ -98,6 +105,8 @@ def keyword_tags(ingredients, steps=None):
         dairy = dairy or "milk" in in_steps
         egg = egg or "egg" in in_steps
         gluten = gluten or "gluten" in in_steps
+        animal_steps = [_PLANT_MOD.sub(" ", x.lower()) for s in steps for x in re.split(r"(?<=[.!?])\s+", str(s))]
+        fish = fish or bool(_A.allergens_in_lines(animal_steps) & {"fish", "crustaceans", "molluscs"})
     return {
         "vegetarian": not (meat or fish or _has(r"gelatin|gelatine|lard|fish sauce|anchov|worcestershire|oyster sauce", t)),
         "vegan": not (meat or fish or dairy or egg or other_animal),

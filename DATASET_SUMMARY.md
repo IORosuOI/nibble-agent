@@ -42,12 +42,12 @@ Measured accuracy against the labels on 1,500 sampled recipes: 81% reached 80% o
 ## 5. Labels (`recipe_eval/labels.py`, thresholds in `THRESHOLDS`)
 - Macro tags are defined on **shares of calories**, so they need no servings and work for labelled and computed rows alike: high_protein (protein 25% or more of calories), high_carb (carbs 55% or more), low_carb (carbs 20% or less), keto (carbs 10% or less and fat 60% or more). Computed (Kaggle) shares must clear a threshold by 3 points (`COMPUTED_MARGIN`), because computed shares are about 1-3 points off.
 - `low_calorie` (400 kcal or less per serving) needs real servings, so it exists only for the xiaoxl rows.
-- Keyword tags (from the ingredient list AND the steps, approximate): vegetarian, vegan, dairy_free, gluten_free, spicy. Steps are read because some source ingredient lists are cut short: a recipe whose steps brown beef used to be tagged vegetarian. Reading the steps removed the tag from 470 vegetarian, 546 vegan, 780 dairy_free and 2,021 gluten_free recipes. Kitchen tools (cookie sheet, muffin tin, pastry blender) and verbs (roll out) are not counted as ingredients, and "vegetarian sausage" is not meat. `spicy` still reads only the ingredient list.
-- Tag counts in the merged set (after the calorie cap and the steps fix): vegetarian 13,600; gluten_free 9,862; dairy_free 9,385; high_carb 5,870; spicy 4,142; vegan 3,552; low_carb 3,543; low_calorie 2,662; high_protein 2,574; keto 1,002.
+- Keyword tags (from the ingredient list AND the steps, approximate): vegetarian, vegan, dairy_free, gluten_free, spicy. Steps are read because some source ingredient lists are cut short: a recipe whose steps brown beef used to be tagged vegetarian. Reading the steps removed the tag from 470 vegetarian, 546 vegan, 780 dairy_free and 2,021 gluten_free recipes. Kitchen tools (cookie sheet, muffin tin, pastry blender) and verbs (roll out) are not counted as ingredients, and "vegetarian sausage" is not meat. `spicy` still reads only the ingredient list. The diet tags also apply the allergen matcher of section 12, so a `gluten_free`, `dairy_free`, `vegan` or `vegetarian` recipe does not contradict its allergens (the one exception is a line reading "vegan fish sauce substitute", which stays flagged to be safe).
+- Tag counts in the merged set (after the calorie cap and the steps fix): vegetarian 13,531; gluten_free 9,811; dairy_free 9,378; high_carb 5,870; spicy 4,142; vegan 3,536; low_carb 3,543; low_calorie 2,662; high_protein 2,574; keto 1,002.
 - Thresholds are my choices, picked so no tag is tiny and so the share medians of both sources match (protein/carb/fat about 10/45/44%); change them in `labels.THRESHOLDS`.
 
 ## 6. Evaluation examples (`data/eval_examples.jsonl`, built by `scripts/build_examples.py`)
-1,200 examples, 120 per tag. Each has the available ingredients (the recipe's non-staple ingredients plus 0-2 distractors the model need not use), 1-2 mood tags, the golden recipe (title, servings, ingredients, steps), its `nutrition_basis`, and either per-serving label nutrition (xiaoxl) or computed totals (Kaggle). For macro tags, up to half of the examples come from labelled xiaoxl rows and the rest from computed Kaggle rows; `low_calorie` is xiaoxl only. After the steps fix, 76 of the 1,200 cases had a requested tag that no longer held (gluten_free 36, vegan 20, dairy_free 16, vegetarian 13). `scripts/patch_eval_tags.py` kept 1,124 cases, dropped a wrong second tag in 20, and replaced 56 recipes whose main tag was wrong (same `example_id`, new `recipe_id`; the list is in `data/eval_patch_report.json`). The 120-per-tag balance is unchanged.
+1,200 examples, 120 per tag. Each has the available ingredients (the recipe's non-staple ingredients plus 0-2 distractors the model need not use), 1-2 mood tags, the golden recipe (title, servings, ingredients, steps), its `nutrition_basis`, and either per-serving label nutrition (xiaoxl) or computed totals (Kaggle). For macro tags, up to half of the examples come from labelled xiaoxl rows and the rest from computed Kaggle rows; `low_calorie` is xiaoxl only. After the steps fix, 76 of the 1,200 cases had a requested tag that no longer held (gluten_free 36, vegan 20, dairy_free 16, vegetarian 13). `scripts/patch_eval_tags.py` kept 1,124 cases, dropped a wrong second tag in 20, and replaced 56 recipes whose main tag was wrong (same `example_id`, new `recipe_id`; the list is in `data/eval_patch_report.json`). A second pass after the EU alignment (section 12) changed 4 more cases: 3 recipes replaced and 1 second tag dropped (key `eu_alignment` in the same report). The 120-per-tag balance is unchanged.
 
 ## 7. How a model is scored on one ground-truth entry
 Input: `request = {ingredients, tags}` from the example. The model returns `{servings, ingredients (with amounts), steps}`. `score_response(request, response, calc)` computes:
@@ -73,8 +73,8 @@ All keys are `recipe_id` (`r00000`...), from `data/recipes_merged.jsonl`.
 |---|---|---|---|
 | `data/recipes_merged.jsonl` | The recipe pool: every cleaned recipe with source, tags inputs, nutrition | 23,395 | Source of truth; do not train on it directly |
 | `data/eval_examples.jsonl` | Test set: request (ingredients + mood + distractors) + golden recipe + nutrition | 1,200 | Evaluation only |
-| `data/train_examples.jsonl` | Training set: same request format, `messages` (user prompt -> assistant JSON recipe) + `target` | 19,319 | Send to training |
-| `data/val_examples.jsonl` | Validation split of the same | 1,016 | Training-time validation |
+| `data/train_examples.jsonl` | Training set: same request format, `messages` (user prompt -> assistant JSON recipe) + `target` | 19,300 | Send to training |
+| `data/val_examples.jsonl` | Validation split of the same | 1,015 | Training-time validation |
 | `data/ingredient_map.json` | Ingredient name -> USDA food id (used by the nutrition calculator) | 1,487 | Scoring |
 | `data/xiaoxl_nutrition_checked.csv` | xiaoxl rows with label vs USDA-recompute comparison (intermediate) | 11,346 | Audit trail |
 
@@ -116,7 +116,7 @@ Run order: `pull_xiaoxl.py`, `verify_xiaoxl.py`, the cleaning and merge cells of
 ### Not committed, on purpose
 - Big generated files: `data/recipes_merged.jsonl`, `data/train_examples.jsonl`, `data/val_examples.jsonl` (47, 74 and 4 MB); the scripts regenerate them. `data/xiaoxl_nutrition_checked.csv` (22 MB audit trail) is also left out.
 - Raw downloads: Kaggle, xiaoxl and the USDA folders.
-- `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; a download step is not automated yet.
+- `usda_sr/` (38 MB, public domain) is needed by the calculator. Anyone who clones the repo must download USDA SR Legacy into `usda_sr/` before running the scripts or the scorer; `scripts/download_data.py` (section 15) installs it together with the pool.
 
 ## 11. How to get the ~20k training entries (rebuild from scratch)
 Short answer: the five scripts alone do not give you the data. Two steps live outside them: the cleaning/dedup/merge cells of `recipes.ipynb`, and a dedup of xiaoxl against Kaggle that was done by hand and has no script (see the note at the end).
@@ -127,10 +127,10 @@ Short answer: the five scripts alone do not give you the data. Two steps live ou
 | Notebook: clean, dedup, merge | Kaggle (62,126 raw) + `data/xiaoxl_nutrition_checked.csv` -> `data/recipes_merged.jsonl` | 28,254 |
 | `add_computed_nutrition.py` | drops recipes over 4,000 kcal in total (4,859), adds computed totals, estimates Kaggle servings | **23,395** (the pool) |
 | `build_examples.py 120 7` | picks 120 recipes per tag -> `data/eval_examples.jsonl` | 1,200 test recipes |
-| `build_train.py` | removes the 1,200 test recipes, then keeps recipes with at least 3 non-staple ingredients and at least 1 mood tag | 22,195 -> **20,335 usable** |
-| split inside `build_train.py` | 5% validation (`val_fraction` 0.05, seed 11) | **19,319 train + 1,016 val** |
+| `build_train.py` | removes the 1,200 test recipes, then keeps recipes with at least 3 non-staple ingredients and at least 1 mood tag | 22,195 -> **20,315 usable** |
+| split inside `build_train.py` | 5% validation (`val_fraction` 0.05, seed 11) | **19,300 train + 1,015 val** |
 
-So "20k entries" means train plus validation, 20,335. About 1,860 recipes are lost in the last filter: their ingredient list has fewer than 3 non-staple ingredients after cleaning, or none of the mood tags applies. The total of train, validation and test is 21,535.
+So "20k entries" means train plus validation, 20,315. About 1,880 recipes are lost in the last filter: their ingredient list has fewer than 3 non-staple ingredients after cleaning, or none of the mood tags applies. The total of train, validation and test is 21,515.
 
 ### Commands (run from the project root)
 Needs Python with `pandas` and `pyarrow`, the USDA tables in `usda_sr/` (not in git), and `data/ingredient_map.json` (in git).
@@ -150,7 +150,7 @@ python scripts/add_pool_fields.py
 
 # 4. test set, then training files (order matters: training excludes the test recipes)
 python scripts/build_examples.py 120 7       # -> data/eval_examples.jsonl (1,200)
-python scripts/build_train.py                # -> data/train_examples.jsonl (19,319), data/val_examples.jsonl (1,016)
+python scripts/build_train.py                # -> data/train_examples.jsonl (19,300), data/val_examples.jsonl (1,015)
 ```
 Seeds are fixed (7 for the test set, 11 for the training split), so the same pool gives the same files. If you change the pool, the cap (`MAX_TOTAL_KCAL`), the tag thresholds or the prompt wording, re-run steps 3 and 4 in order, because the test set decides which recipes the training set may use.
 
@@ -166,6 +166,8 @@ wc -l data/eval_examples.jsonl data/train_examples.jsonl data/val_examples.jsonl
 - Fastest way to reproduce exactly: obtain `data/xiaoxl_nutrition_checked.csv` from the person who built it (it is on their disk), put it in `data/`, and start at step 2. Rebuilding it from the raw shards needs the missing dedup step to be written first.
 
 ## 12. Allergens: how they are found and how to get them
+The families follow Annex II of Regulation (EU) No 1169/2011, the list used in section 6 of `docs/MILESTONE2.md`. Following that list does not make the tags a legal or medical guarantee: they come from keyword matching on recipe text.
+
 Every recipe in the pool is mapped to the allergens it contains, using the 14 EU allergen families. This is separate from the keyword mood tags (`dairy_free`, `gluten_free`, `vegan`, `vegetarian`), although those now read the steps with the same matcher.
 
 ### Files
@@ -176,12 +178,12 @@ Every recipe in the pool is mapped to the allergens it contains, using the 14 EU
 | `recipe_eval/allergens.py` | The matcher. `allergens_in_line("2 tbsp soy sauce")` gives `{soy, wheat, gluten}`; `recipe_allergens(ingredient_lines, step_lines)` gives the recipe result; `normalize_allergens(["Peanuts", "dairy"])` gives `["milk", "peanut"]`; `leaks(profile_allergens, ingredient_lines, step_lines)` lists profile allergens found in a recipe. |
 | `scripts/add_pool_fields.py` | Runs the matcher over the pool, adds the fields below to `data/recipes_merged.jsonl` and rewrites `data/recipe_allergens.json`. |
 | `data/recipe_allergens.json` | `{recipe_id: {"allergens": [...], "steps_only": [...], "allergen_status": "verified" | "unverified"}}` for all 23,395 recipes (2.2 MB). |
-| `tests/test_allergens.py` | 43 cases for the matcher (`python tests/test_allergens.py`). |
+| `tests/test_allergens.py` | 57 cases for the matcher, plus a check of the 14 official family names (`python tests/test_allergens.py`). |
 
 ### The allergens (codes used in the data)
 | Code | EU family | Notes |
 |---|---|---|
-| `gluten` | Cereals containing gluten | wheat, barley, rye, malt, beer, spelt, farro; oats are not flagged on purpose |
+| `gluten` | Cereals containing gluten | wheat (incl. spelt, khorasan, durum, farro, emmer, einkorn, freekeh), rye, barley, oats (also granola, muesli, oat milk), malt, beer; lines that say gluten free are not flagged |
 | `crustaceans` | Crustaceans | shrimp, prawn, crab, lobster, crayfish |
 | `egg` | Eggs | also mayonnaise, meringue, aioli |
 | `fish` | Fish | also fish sauce, worcestershire, anchovy |
@@ -211,9 +213,9 @@ Two convenience tags are added: `wheat` (always together with `gluten`) and `she
 - `allergen_status` = `verified` or `unverified`. A recipe is **unverified** when an allergen shows up only in the steps, or when fewer than 80% of its ingredient lines are recognised in the nutrition database (we cannot vouch for a list we do not understand). An allergic user should only be shown `verified` recipes. `allergen_notes` says why (`steps_only:milk`, `low_ingredient_coverage`).
 
 ### Result on the pool (23,395 recipes)
-- 16,763 recipes are verified, 6,632 are unverified (4,256 only because of low ingredient coverage; 2,376 have an allergen found only in the steps, some also have low coverage). Verified by source: xiaoxl 3,211 of 3,346; Kaggle 13,552 of 20,049.
-- 20,517 recipes have at least one allergen and 2,878 have none. Counts: milk 13,983; gluten 13,232; wheat 13,026; egg 7,948; tree_nut 2,513; celery 1,925; fish 1,888; soy 1,753; sulphites 1,747; mustard 1,599; shellfish 991; sesame 886; crustaceans 781; peanut 566; molluscs 296. Lupin appears in none of the recipes.
-- Against the older keyword tags (ingredients only), dairy agreed 99.1% and gluten 94.2%. Where they differed by hand check, the matcher was right (pizza dough and pie dough were tagged gluten free before).
+- 16,760 recipes are verified, 6,635 are unverified (4,252 only because of low ingredient coverage; 2,383 have an allergen found only in the steps, some also have low coverage). Verified by source: xiaoxl 3,211 of 3,346; Kaggle 13,549 of 20,049.
+- 20,531 recipes have at least one allergen and 2,864 have none. Counts: milk 13,980; gluten 13,478; wheat 13,036; egg 7,948; tree_nut 2,513; celery 1,925; fish 1,902; soy 1,753; sulphites 1,747; mustard 1,599; shellfish 991; sesame 886; crustaceans 781; peanut 566; molluscs 296. Lupin appears in none of the recipes.
+- Audit of the whole pool: no recipe that mentions oats, wheat, rye, barley, spelt, kamut, durum, granola or muesli is left without a `gluten` tag unless the matcher's gluten-free or exclusion phrases apply, and no `gluten_free` or `dairy_free` recipe contains that allergen.
 
 ### How to rebuild
 `python scripts/add_pool_fields.py` from the project root (about 2 minutes). Run it again whenever the pool changes. Test the matcher with `python tests/test_allergens.py`.
@@ -221,7 +223,7 @@ Two convenience tags are added: `wheat` (always together with `gluten`) and `she
 ### Limits
 - The list is hand-written and approximate. It errs toward flagging, because a missed allergen is worse than a false one.
 - It cannot see hidden ingredients (lecithin, a store-bought sauce or stock) or cross-contact. Sulphites and celery are assumed from a few typical foods, so they are the least reliable families.
-- Oats are not flagged as gluten on purpose; bread-like words (`roll`, `crust`, `bun`) count as wheat unless the line says gluten free.
+- Chocolate is not flagged unless it is milk or white chocolate (or a spread such as Nutella): plain and semisweet chocolate may contain milk, soy or nuts, which only the product label can tell. Bread-like words (`roll`, `crust`, `bun`) count as wheat unless the line says gluten free.
 - Not human-reviewed. The leak check of golden set v2 uses this same matcher, so an allergen it cannot see is missed in the data and in the check alike.
 
 ## 13. Pool fields for retrieval (what the RAG index reads)
@@ -276,3 +278,11 @@ The reference recipes pass their own `allergen_clean` cases (120 of 120). `pytho
 - Not human-reviewed. Cases are generated from the pool, so odd pantries (a leftover distractor) can occur.
 - A leak is detected with the same matcher that built the data; hidden allergens are invisible to both.
 - Prompts with a profile are not part of the training data (training examples have no profile), so a fine-tuned model has not seen refusals or allergen rules.
+
+## 15. Get the data (without rebuilding)
+The large files are not in git: `data/recipes_merged.jsonl` (the recipe pool), `data/train_examples.jsonl`, `data/val_examples.jsonl` and `usda_sr/`. They are packed in `nibble_data.zip`.
+```
+python scripts/download_data.py                        # downloads from the GitHub release data-v1
+python scripts/download_data.py --zip nibble_data.zip  # or installs a zip a teammate sent you
+```
+The script checks the SHA-256 of the pool, train and validation files, and does not overwrite existing files unless you add `--force` (needed if you have an older pool; it also replaces local `data/` files that share a name with files in the zip). The download works only once a release tagged `data-v1` with `nibble_data.zip` attached has been published; until then use `--zip`. When the data changes, rebuild the zip, update the checksums in the script and publish a new release.
